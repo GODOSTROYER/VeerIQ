@@ -30,6 +30,30 @@ At most its first ~16 s ("A backup remembers. Everything.") open the demo video.
 3. **Platform onboarding.** The agent and the MCP server are registered on platform.armoriq.ai with
    `python tasks.py armoriq-register`; the policy lives in Policy Studio.
 4. Tests: 532 backend passed, 1 skipped (was 525). 204 frontend unchanged.
+5. **CI is green** on `GODOSTROYER/VeerIQ` (lint, tests, verifier, build, production image, gitleaks secret
+   scan), runners pinned to `ubuntu-24.04` through the judging window. Changes now land by pull request.
+6. Project handoff for agents: [`../HANDOFF.md`](../HANDOFF.md).
+
+## Everything the videos must now show
+
+Checklist for both videos, as of 15 Oct 2026. The demo video must show all of it live; the showreel shows
+what it can in motion graphics (scene changes below).
+
+| Must show | Demo video (screen) | Showreel (scene) |
+|---|---|---|
+| Problem and who it is for: a backup restores old decisions too | Workspace incident card, "A backup remembers" table | 1–2 (already there) |
+| The agent, a real model, live ArmorIQ | Run header **System · Live**, model name | 6 (already there) |
+| **The MCP server**: `rewindsafe-recovery`, six tools, actions as `tools/call` | `python tasks.py demo-mcp-agent` in a terminal | 5 and 6 (**add**) |
+| One action allowed, one blocked, by real ArmorIQ | Run page: repair allowed, `restore_access_grant` blocked | 6 (already there) |
+| Agent and MCP onboarded on platform.armoriq.ai | tools.armoriq.ai: agent and `rewindsafe-recovery` listed | 5 station 02 (**optional label**) |
+| Policy Studio rules and what they allowed or blocked | Policy Studio: allow 5 recovery tools, deny `restore_access_grant` | not needed |
+| The run's trace in the ArmorIQ console | tools.armoriq.ai trace for the recorded run | not needed |
+| Six gates and one locked transaction | Run page decision list | 5 (already there) |
+| Results: 23 of 23 blocked, 0 forbidden effects in 84, 18 of 24 repairs | Proof page | 7–8 (already there) |
+| Tests and CI: 532 + 204 tests, CI green | optional, GitHub Actions page | 8 cell 04 (**update to 532**) |
+| Signed evidence, verified offline | `./scripts/veeriq-verify` valid then tampered | 10 (already there) |
+| Live demo anyone can use | The showcase URL in a browser | 9 (**optional**: show the hosted URL) |
+| Takeaways and next steps | Closing slide, from `docs/submission.md` | 11 (optional line) |
 
 ## What to change in the showreel
 
