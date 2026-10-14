@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   test-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     services:
       postgres:
@@ -75,7 +75,7 @@ jobs:
 
   live-checks:
     if: github.event_name == 'workflow_dispatch' && inputs.live_checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
       postgres:
@@ -108,7 +108,7 @@ jobs:
         run: python tasks.py test-live
 
   secret-scan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read
