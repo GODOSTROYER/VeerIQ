@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="product-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #pd-glow { position: absolute; left: 1230px; top: 540px; width: 1600px; height: 1200px; margin: -600px 0 0 -800px; border-radius: 50%; background: radial-gradient(ellipse, rgba(232,96,44,0.18) 0%, rgba(232,96,44,0) 60%); }
+        #pd-stage { position: absolute; inset: 0; perspective: 1500px; perspective-origin: 1230px 540px; }
+        #pd-world { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 1230px 540px; }
+        .pd-card { position: absolute; left: 680px; top: 196px; width: 1100px; height: 688px; background: #151517; border: 2px solid rgba(242,241,237,0.16); box-shadow: 0 50px 140px rgba(0,0,0,0.6); overflow: hidden; --dof: 0px; filter: blur(var(--dof)); transform-origin: 50% 50%; }
+        .pd-bar { position: absolute; left: 0; top: 0; right: 0; height: 38px; background: #1a1a1d; border-bottom: 2px solid rgba(242,241,237,0.08); display: flex; align-items: center; gap: 9px; padding-left: 16px; }
+        .pd-bar i { width: 11px; height: 11px; border-radius: 50%; background: rgba(242,241,237,0.22); }
+        .pd-bar span { margin-left: 18px; font-family: "Geist Mono", monospace; font-size: 15px; color: #aaa9a7; white-space: nowrap; }
+        .pd-view { position: absolute; left: 0; top: 40px; width: 1100px; height: 648px; overflow: hidden; }
+        .pd-view img { display: block; width: 1100px; height: auto; }
+        #pd-left { position: absolute; left: 140px; top: 200px; width: 520px; }
+        #pd-kick { font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; color: #e8602c; white-space: nowrap; }
+        .pd-hm { overflow: hidden; height: 100px; }
+        .pd-h { font-family: "Instrument Serif", serif; font-size: 96px; line-height: 100px; letter-spacing: -0.03em; white-space: nowrap; }
+        #pd-h3, #pd-h4 { font-style: italic; color: #e8602c; }
+        #pd-cap { margin-top: 34px; height: 120px; position: relative; }
+        .pd-c { position: absolute; left: 0; top: 0; width: 500px; font-family: "Geist Mono", monospace; opacity: 0; }
+        .pd-c b { display: block; font-size: 22px; font-weight: 600; letter-spacing: 0.14em; color: #f2f1ed; margin-bottom: 10px; }
+        .pd-c span { display: block; font-size: 21px; line-height: 30px; color: #aaa9a7; }
+        #pd-idx { position: absolute; left: 140px; top: 862px; font-family: "Geist Mono", monospace; font-size: 22px; letter-spacing: 0.1em; color: #aaa9a7; font-variant-numeric: tabular-nums; }
+        #pd-idx b { color: #e8602c; }
+        #pd-cmd { position: absolute; left: 140px; top: 904px; padding: 12px 18px; border: 2px solid rgba(242,241,237,0.25); font-family: "Geist Mono", monospace; font-size: 21px; color: #f2f1ed; white-space: nowrap; }
+        #pd-cmd em { font-style: normal; color: #e8602c; }
+      </style>
+      <div data-hf-id="hf-ktfy" id="root" data-composition-id="product" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-4crm" id="pd-glow" data-layout-ignore></div>
+        <div data-hf-id="hf-6eq4" id="pd-stage">
+          <div data-hf-id="hf-ubcb" id="pd-world" data-layout-allow-overflow>
+            <div data-hf-id="hf-rmno" class="pd-card" id="pd-k3"><div data-hf-id="hf-aix8" class="pd-bar"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><span data-hf-id="hf-zrpx">127.0.0.1:5173/proof</span></div><div data-hf-id="hf-at4q" class="pd-view"><img data-hf-id="hf-kl2r" id="pd-i3" src="../../assets/ui/proof.png" alt="VeerIQ proof board" /></div></div>
+            <div data-hf-id="hf-sebh" class="pd-card" id="pd-k2"><div data-hf-id="hf-1qhw" class="pd-bar"><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i><span data-hf-id="hf-8eox">127.0.0.1:5173/how</span></div><div data-hf-id="hf-aaou" class="pd-view"><img data-hf-id="hf-vfg8" id="pd-i2" src="../../assets/ui/how.png" alt="How VeerIQ works" /></div></div>
+            <div data-hf-id="hf-wcfi" class="pd-card" id="pd-k1"><div data-hf-id="hf-0jkt" class="pd-bar"><i data-hf-id="hf-zsm9"></i><i data-hf-id="hf-06xa"></i><i data-hf-id="hf-26gf"></i><span data-hf-id="hf-n71p">127.0.0.1:5173/walkthrough</span></div><div data-hf-id="hf-aozv" class="pd-view"><img data-hf-id="hf-sy89" id="pd-i1" src="../../assets/ui/walkthrough.png" alt="VeerIQ walkthrough" /></div></div>
+            <div data-hf-id="hf-0ajj" class="pd-card" id="pd-k0"><div data-hf-id="hf-0xvu" class="pd-bar"><i data-hf-id="hf-2krg"></i><i data-hf-id="hf-oz7w"></i><i data-hf-id="hf-okwv"></i><span data-hf-id="hf-k5k1">127.0.0.1:5173/</span></div><div data-hf-id="hf-b3aw" class="pd-view"><img data-hf-id="hf-1e7o" id="pd-i0" src="../../assets/ui/landing.png" alt="VeerIQ workspace" /></div></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-gtk5" id="pd-left">
+          <div data-hf-id="hf-b8bw" id="pd-kick">06&nbsp;&nbsp;—&nbsp;&nbsp;THE WORKSPACE</div>
+          <div data-hf-id="hf-mvf2" class="pd-hm" style="margin-top:22px"><div data-hf-id="hf-ke6u" class="pd-h" id="pd-h1">A real</div></div>
+          <div data-hf-id="hf-furo" class="pd-hm"><div data-hf-id="hf-reyd" class="pd-h" id="pd-h2">workspace.</div></div>
+          <div data-hf-id="hf-h22k" class="pd-hm"><div data-hf-id="hf-g4kz" class="pd-h" id="pd-h3">Run it</div></div>
+          <div data-hf-id="hf-fv5h" class="pd-hm"><div data-hf-id="hf-2qeb" class="pd-h" id="pd-h4">yourself.</div></div>
+          <div data-hf-id="hf-znb2" id="pd-cap">
+            <div data-hf-id="hf-vgla" class="pd-c" id="pd-c0"><b data-hf-id="hf-jbli">WORKSPACE</b><span data-hf-id="hf-e8tt">Run the poisoned scenario. Hold to authorize; watch each decision arrive.</span></div>
+            <div data-hf-id="hf-1mb3" class="pd-c" id="pd-c1"><b data-hf-id="hf-b9a1">WALKTHROUGH</b><span data-hf-id="hf-i63i">Replay the recorded live run, step by step, from incident to proof.</span></div>
+            <div data-hf-id="hf-qqtg" class="pd-c" id="pd-c2"><b data-hf-id="hf-apu8">HOW IT WORKS</b><span data-hf-id="hf-buef">Every gate, and the layer that decided.</span></div>
+            <div data-hf-id="hf-rih9" class="pd-c" id="pd-c3"><b data-hf-id="hf-jfk9">PROOF</b><span data-hf-id="hf-qeuy">Pooled live results and every recorded batch, downloadable.</span></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-mu84" id="pd-idx"><b data-hf-id="hf-knd5" id="pd-idxn">01</b>&nbsp;/&nbsp;04</div>
+        <div data-hf-id="hf-v7cm" id="pd-cmd"><em data-hf-id="hf-exop">$</em>&nbsp;npm run setup &amp;&amp; npm run dev</div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var world = document.getElementById("pd-world");
+          var cam = { z: 0, ry: 0, x: 0 };
+          function applyCamera() { world.style.transform = "translate3d(" + cam.x.toFixed(2) + "px,0px," + cam.z.toFixed(2) + "px) rotateY(" + cam.ry.toFixed(3) + "deg)"; }
+          applyCamera();
+
+          // Cards stand in depth, 520px apart; deeper cards start racked out of focus.
+          var GAP = 520;
+          for (var k = 0; k < 4; k++) {
+            gsap.set("#pd-k" + k, { z: -GAP * k, x: (k % 2 ? 38 : -38) * (k ? 1 : 0), rotationY: k ? (k % 2 ? -5 : 5) : 0, "--dof": (k * 4) + "px", opacity: k ? 1 - k * 0.18 : 1 });
+          }
+
+          // Entry: the zoom-out continues from the results board.
+          tl.fromTo("#pd-stage", { scale: 1.14, filter: "blur(12px)" }, { scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0);
+          tl.fromTo("#pd-kick", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power3.out" }, 0.15);
+          tl.fromTo("#pd-h1", { yPercent: 102 }, { yPercent: 0, duration: 0.55, ease: "power4.out" }, 0.25);
+          tl.fromTo("#pd-h2", { yPercent: 102 }, { yPercent: 0, duration: 0.6, ease: "expo.out" }, 0.36);
+          tl.fromTo("#pd-h3", { yPercent: 102 }, { yPercent: 0, duration: 0.6, ease: "expo.out" }, 0.62);
+          tl.fromTo("#pd-h4", { yPercent: 102 }, { yPercent: 0, duration: 0.6, ease: "expo.out" }, 0.72);
+          tl.fromTo("#pd-cmd", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.9);
+          tl.fromTo("#pd-idx", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "none" }, 0.8);
+          tl.fromTo("#pd-glow", { opacity: 0.4 }, { opacity: 1, duration: 3, ease: "sine.inOut" }, 0);
+
+          // Flight: dwell on a card (its page scrolls), then it peels away right as the camera pushes to the next.
+          var DWELL = [0.0, 2.05, 3.95, 5.85], PUSH = [1.45, 3.35, 5.25];
+          var SCROLL = [-260, -150, -300, -90];
+          var idx = document.getElementById("pd-idxn");
+          for (var c = 0; c < 4; c++) {
+            var d0 = c === 0 ? 0.35 : DWELL[c];
+            var d1 = c < 3 ? PUSH[c] + 0.6 : 8;
+            tl.fromTo("#pd-i" + c, { y: 0 }, { y: SCROLL[c], duration: d1 - d0, ease: "sine.inOut" }, d0);
+            tl.fromTo("#pd-c" + c, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: false }, (c === 0 ? 0.75 : DWELL[c] - 0.1));
+            if (c < 3) tl.to("#pd-c" + c, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, PUSH[c] + 0.1);
+          }
+          [0, 1, 2].forEach(function (k) {
+            var t = PUSH[k];
+            tl.to(cam, { z: GAP * (k + 1), duration: 0.85, ease: "power3.inOut", onUpdate: applyCamera }, t);
+            tl.to("#pd-k" + k, { x: 1300, rotationY: -42, opacity: 0, duration: 0.7, ease: "power3.in" }, t);
+            for (var j = k + 1; j < 4; j++) {
+              var depth = j - (k + 1);
+              tl.to("#pd-k" + j, { "--dof": (depth * 4) + "px", opacity: 1 - depth * 0.18, x: depth ? (j % 2 ? 38 : -38) : 0, rotationY: depth ? (j % 2 ? -5 : 5) : 0, duration: 0.85, ease: "power3.inOut" }, t);
+            }
+          });
+          var ix = { t: 0 };
+          tl.to(ix, { t: 8, duration: 8, ease: "none", onUpdate: function () {
+            var n = 1; for (var q = 0; q < PUSH.length; q++) if (ix.t >= PUSH[q] + 0.45) n = q + 2;
+            idx.textContent = "0" + n;
+          } }, 0);
+          // Land: a slow decelerating lean into the proof board's headline.
+          tl.to(cam, { z: GAP * 3 + 60, x: 50, duration: 1.9, ease: "power2.out", onUpdate: applyCamera }, 6.1);
+
+          window.__timelines["product"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

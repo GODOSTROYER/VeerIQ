@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="flurry-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #fl-world { position: absolute; inset: 0; }
+        #fl-red { position: absolute; left: 1420px; top: 540px; width: 1500px; height: 1500px; margin: -750px 0 0 -750px; border-radius: 50%; background: radial-gradient(circle, rgba(232,96,44,0.22) 0%, rgba(232,96,44,0.05) 40%, rgba(232,96,44,0) 64%); }
+        #fl-lanes { position: absolute; inset: 0; }
+        .fl-pk { position: absolute; left: 0; top: 0; padding: 8px 14px; background: #ffa185; color: #0e0e10; font-family: "Geist Mono", monospace; font-size: 19px; font-weight: 600; white-space: nowrap; opacity: 0; }
+        .fl-hit { position: absolute; left: 1420px; width: 160px; height: 160px; margin: -80px 0 0 -80px; border-radius: 50%; background: radial-gradient(circle, rgba(255,214,196,0.95) 0%, rgba(255,128,80,0.5) 30%, rgba(232,96,44,0) 70%); opacity: 0; }
+        #fl-wall { position: absolute; left: 1418px; top: 0; width: 4px; height: 1080px; background: #e8602c; box-shadow: 0 0 24px 4px rgba(255,128,80,0.6); transform-origin: 50% 50%; }
+        #fl-label { position: absolute; left: 146px; top: 196px; font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; color: #aaa9a7; white-space: nowrap; }
+        #fl-label b { color: #f2f1ed; font-weight: 600; }
+        #fl-num-wrap { position: absolute; left: 120px; top: 190px; height: 560px; display: flex; align-items: baseline; }
+        #fl-num { font-family: "Instrument Serif", serif; font-size: 560px; line-height: 560px; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; transform-origin: 0% 85%; display: inline-block; }
+        #fl-suf { font-family: "Instrument Serif", serif; font-style: italic; font-size: 250px; line-height: 250px; letter-spacing: -0.03em; color: #e8602c; margin-left: 18px; display: inline-block; }
+        #fl-under { position: absolute; left: 146px; top: 770px; font-family: "Geist Mono", monospace; font-size: 24px; letter-spacing: 0.12em; color: #e8602c; white-space: nowrap; }
+        #fl-final { position: absolute; left: 140px; top: 752px; font-family: "Instrument Serif", serif; font-size: 92px; line-height: 100px; letter-spacing: -0.025em; white-space: nowrap; }
+        #fl-final i { color: #e8602c; }
+        #fl-fsub { position: absolute; left: 146px; top: 872px; font-family: "Geist Mono", monospace; font-size: 22px; letter-spacing: 0.1em; color: #aaa9a7; white-space: nowrap; }
+        #fl-log { position: absolute; left: 1456px; top: 196px; font-family: "Geist Mono", monospace; font-size: 18px; line-height: 28px; white-space: nowrap; color: #aaa9a7; }
+        #fl-log div { opacity: 0; }
+        #fl-log b { color: #e8602c; font-weight: 500; }
+      </style>
+      <div data-hf-id="hf-ctur" id="root" data-composition-id="flurry" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-rnv0" id="fl-world">
+          <div data-hf-id="hf-vgy4" id="fl-red" data-layout-ignore></div>
+          <div data-hf-id="hf-47c7" id="fl-lanes" data-layout-ignore aria-hidden="true"></div>
+          <div data-hf-id="hf-7poh" id="fl-label"><b data-hf-id="hf-g4w7">ATTEMPTS</b>&nbsp;&nbsp;TO RE-ENABLE AG-77</div>
+          <div data-hf-id="hf-o3gt" id="fl-num-wrap"><span data-hf-id="hf-wq0c" id="fl-num">01</span><span data-hf-id="hf-yxc5" id="fl-suf">/23</span></div>
+          <div data-hf-id="hf-ozlu" id="fl-under">EACH ONE&nbsp;&nbsp;·&nbsp;&nbsp;BLOCKED BY ARMORIQ PLAN BINDING</div>
+          <div data-hf-id="hf-iyg4" id="fl-final">attempts, <i data-hf-id="hf-428j">all blocked</i> by ArmorIQ.</div>
+          <div data-hf-id="hf-0cat" id="fl-fsub">LIVE MODEL&nbsp;&nbsp;·&nbsp;&nbsp;LIVE ENFORCEMENT&nbsp;&nbsp;·&nbsp;&nbsp;SIX RECORDED BATCHES</div>
+          <div data-hf-id="hf-9vbg" id="fl-wall"></div>
+          <div data-hf-id="hf-78ae" id="fl-log"></div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          function hash(n) { var x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+          // Hit schedule: 22 more attempts (02..23), geometric acceleration 0.42s → ~0.09s.
+          var HITS = [], t = 0.45, gap = 0.42;
+          for (var i = 0; i < 22; i++) { HITS.push(t); t += gap; gap *= 0.93; }
+          var LAST = HITS[HITS.length - 1];
+
+          var lanes = document.getElementById("fl-lanes"), log = document.getElementById("fl-log");
+          var num = document.getElementById("fl-num");
+          // Log column: attempt 01 is already recorded from the previous frame.
+          for (var n = 1; n <= 23; n++) {
+            var row = document.createElement("div");
+            row.innerHTML = "#" + (n < 10 ? "0" + n : n) + "&nbsp;&nbsp;<b>BLOCKED</b>&nbsp;&nbsp;plan_binding";
+            log.appendChild(row);
+          }
+          var rows = log.children;
+          gsap.set(rows[0], { opacity: 1 });
+
+          HITS.forEach(function (th, k) {
+            var laneY = 230 + Math.floor(hash(k * 7 + 3) * 640);
+            var travel = 0.34 - k * 0.006;
+            var pk = document.createElement("div"); pk.className = "fl-pk"; pk.textContent = "restore_access_grant";
+            lanes.appendChild(pk);
+            var hit = document.createElement("div"); hit.className = "fl-hit"; hit.style.top = (laneY + 19) + "px";
+            lanes.appendChild(hit);
+            tl.fromTo(pk, { x: -380, y: laneY, opacity: 0.9 }, { x: 1418 - 252, y: laneY, opacity: 0.9, duration: travel, ease: "power2.in", immediateRender: false }, th - travel);
+            tl.set(pk, { opacity: 0 }, th);
+            tl.fromTo(hit, { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.32, ease: "expo.out", immediateRender: false }, th);
+            tl.set(rows[k + 1], { opacity: 1 }, th);
+          });
+          gsap.set(".fl-pk", { opacity: 0 });
+
+          var wall = document.getElementById("fl-wall"), wp = { t: 0 };
+          tl.to(wp, { t: 1, duration: 8, ease: "none", onUpdate: function () {
+            var now = wp.t * 8, pulse = 0;
+            for (var h = 0; h < HITS.length; h++) { var dt = now - HITS[h]; if (dt >= 0 && dt < 0.4) pulse = Math.max(pulse, Math.exp(-dt / 0.055)); }
+            gsap.set(wall, { scaleX: 1 + 3.5 * pulse });
+          } }, 0);
+          // The counter: discrete integer per hit, scale growing with the count (data, no bounce).
+          var cnt = { t: 0 };
+          tl.to(cnt, { t: 1, duration: 6.0, ease: "none", onUpdate: function () {
+            var now = cnt.t * 6.0, c = 1;
+            for (var j = 0; j < HITS.length; j++) if (now >= HITS[j]) c = j + 2;
+            num.textContent = c < 10 ? "0" + c : "" + c;
+          } }, 0);
+          tl.fromTo("#fl-num", { scale: 0.82 }, { scale: 1, duration: LAST, ease: "power2.in" }, 0);
+          tl.fromTo("#fl-red", { opacity: 0.5, scale: 0.9 }, { opacity: 1, scale: 1.15, duration: LAST, ease: "power2.in" }, 0);
+
+          // Entry from the hard cut: label and under-line already live, quick settle.
+          tl.fromTo("#fl-label", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.05);
+          tl.fromTo("#fl-under", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.12);
+
+          // Lock-up: the flurry halts; the total lands.
+          var L = LAST + 0.18;
+          tl.fromTo("#fl-num", { scale: 1 }, { scale: 1.06, duration: 0.06, ease: "none", immediateRender: false }, LAST);
+          tl.to("#fl-num", { scale: 1, duration: 0.5, ease: "power3.out" }, LAST + 0.06);
+          tl.fromTo("#fl-suf", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, L);
+          tl.to("#fl-under", { opacity: 0, duration: 0.2, ease: "power2.in" }, L);
+          tl.fromTo("#fl-final", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, L + 0.25);
+          tl.fromTo("#fl-fsub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, L + 0.55);
+          tl.to("#fl-red", { opacity: 0.55, scale: 1, duration: 1.6, ease: "power2.out" }, LAST + 0.1);
+          tl.fromTo("#fl-world", { scale: 1 }, { scale: 1.02, duration: 8 - L, ease: "sine.inOut", immediateRender: false }, L);
+
+          window.__timelines["flurry"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

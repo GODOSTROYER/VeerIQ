@@ -1,0 +1,22 @@
+{
+  "source": "real authenticated Keycloak session against full local Compose API/UI; actual ZIP downloads",
+  "packs": [
+    {
+      "sample_id": "medical_assets",
+      "zip_sha256": "e5ea29bb03fbc3fd0fe319f4c41ca3703a28a6f6407d251e02ca66b574ff8eff",
+      "three_inputs_present": true
+    },
+    {
+      "sample_id": "subscription_seats",
+      "zip_sha256": "b54ee22f419fd15f7d48af299e2262fb90c72a27bbc0427aa4f100b33c8fbc69",
+      "three_inputs_present": true
+    },
+    {
+      "sample_id": "warehouse_bins",
+      "zip_sha256": "53e319a618bf7ddbb858385512b69f8522f17e5bf3d7e4ea7bd62b07fb755293",
+      "three_inputs_present": true
+    }
+  ],
+  "count": 3,
+  "limitation": "Availability check; separate browser evidence covers the upload-and-repair flow"
+}

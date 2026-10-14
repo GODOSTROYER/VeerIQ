@@ -1,0 +1,7 @@
+# Sealed run evidence
+
+`GET /api/runs/{run_id}/sealed-evidence` exports the ordinary RewindSafe evidence payload in a signed envelope. It uses the same session authentication and tenant ownership check as the existing run evidence route. The export reads existing database records and stored run events; it does not invoke workflow tools or effect handlers.
+
+The envelope contains a canonical SHA-256 digest of the complete payload, an order-sensitive digest chain over its exported events, and an Ed25519 signature over the run ID, payload digest, event count, chain head, issuer, and signing time. Canonicalization uses RewindSafe's serializer, including stable date and decimal handling. The private key is generated on first use and stored at `.data/evidence-signing-ed25519.pem` with mode `0600` (the containing directory is `0700`). The issuer is `rewindsafe.local`; this is a local operator signature and is not an ArmorIQ signature or an independent external witness.
+
+Run `python scripts/verify_sealed_evidence.py path/to/export.json` from `backend` to check payload consistency, event ordering, and the embedded-key signature. This proves the export matches its embedded key, but does not establish who controls that key. To verify signer identity, distribute the expected public key through a trusted channel and provide it with `--public-key`. A trusted operator with access to the local private key can replace evidence and sign a new export, so this format does not prove the export was never re-signed.

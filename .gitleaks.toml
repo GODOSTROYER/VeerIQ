@@ -1,0 +1,13 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic credential strings used to test evidence redaction; these test files contain no usable secrets."
+paths = [
+  '''backend/tests/unit/test_w1_db\.py$''',
+  '''backend/tests/unit/test_w4_api\.py$''',
+  '''backend/tests/unit/test_w1_live_gateway\.py$''',
+  '''backend/tests/unit/test_w1_canonical\.py$''',
+  '''backend/tests/unit/test_w3_planners\.py$''',
+  '''backend/tests/acceptance/test_runs_end_to_end\.py$''',
+]

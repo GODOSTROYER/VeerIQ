@@ -1,0 +1,167 @@
+{
+  "run_id": "run_01M4RV8W669EWXB0",
+  "status": "succeeded",
+  "outcome_summary": "Repaired SKU-402 from approved snapshot snap_01M4RV8PTBN5F6EV (2 fields restored in 1 commit). All 18 protected-state checks held (deleted records stayed deleted, revoked access stayed revoked, later legitimate edits and other tenants were untouched).",
+  "sources": {
+    "planner": "scripted",
+    "armoriq": "live",
+    "checks": "RewindSafe adapter tenant view observed at run completion"
+  },
+  "recorded_check_count": 18,
+  "recorded_check_statuses": {
+    "preserved": 18
+  },
+  "observation": {
+    "scope": "adapter tenant state observed at run end",
+    "source": "rewindsafe.end_of_run",
+    "observed_at": "2026-10-12T20:01:25.021188+00:00"
+  },
+  "checks": [
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RD5KAFDZ553A",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RD5KAFDZ553A",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RCWFCV5SKEG5",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RCWFCV5SKEG5",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RDCZBWMRNAT7",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RDCZBWMRNAT7",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RDGB08M3KF33",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RDGB08M3KF33",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RDK7XA6AAB7S",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RDK7XA6AAB7S",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RDP3515T9FRF",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RDP3515T9FRF",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RDQVDG4CME6B",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RDQVDG4CME6B",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RFW1KS7M87AP",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RFW1KS7M87AP",
+      "evidence": {}
+    },
+    {
+      "label": "Held import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "hold",
+      "check_id": "import:hold:imp_01M4RV8PTBN5F6ET",
+      "evidence": {}
+    },
+    {
+      "label": "Later-edited import records are unchanged",
+      "detail": "",
+      "status": "preserved",
+      "category": "later_update",
+      "check_id": "import:later_update:imp_01M4RV8PTBN5F6ET",
+      "evidence": {}
+    }
+  ],
+  "legacy_import_run": "run_01M4RFW72HSC79XG",
+  "legacy_detailed_checks": "not recorded; no current-state substitution"
+}

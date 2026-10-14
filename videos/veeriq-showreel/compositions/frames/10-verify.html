@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="verify-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #vf-world { position: absolute; inset: 0; }
+        #vf-glow { position: absolute; left: 960px; top: 760px; width: 1800px; height: 900px; margin: -450px 0 0 -900px; border-radius: 50%; background: radial-gradient(ellipse, rgba(163,204,179,0.12) 0%, rgba(163,204,179,0) 60%); }
+        #vf-head { position: absolute; left: 140px; top: 168px; width: 1640px; }
+        .vf-hm { overflow: hidden; height: 112px; }
+        .vf-h { font-family: "Instrument Serif", serif; font-size: 104px; line-height: 112px; letter-spacing: -0.03em; word-spacing: 0.04em; white-space: nowrap; }
+        #vf-h2 { font-style: italic; color: #e8602c; }
+        #vf-note { position: absolute; right: 140px; top: 196px; text-align: right; font-family: "Geist Mono", monospace; font-size: 20px; line-height: 32px; letter-spacing: 0.08em; color: #aaa9a7; white-space: nowrap; }
+        #vf-note b { color: #f2f1ed; font-weight: 500; }
+        #vf-term { position: absolute; left: 140px; top: 438px; width: 1640px; height: 520px; background: #111113; border: 2px solid rgba(242,241,237,0.16); box-shadow: 0 40px 120px rgba(0,0,0,0.55); overflow: hidden; }
+        #vf-bar { height: 44px; background: #18181b; border-bottom: 2px solid rgba(242,241,237,0.08); display: flex; align-items: center; gap: 10px; padding-left: 18px; }
+        #vf-bar i { width: 12px; height: 12px; border-radius: 50%; background: rgba(242,241,237,0.22); }
+        #vf-bar span { margin-left: 16px; font-family: "Geist Mono", monospace; font-size: 16px; color: #aaa9a7; letter-spacing: 0.06em; }
+        #vf-body { position: absolute; left: 34px; top: 70px; right: 34px; font-family: "Geist Mono", monospace; font-size: 25px; line-height: 44px; color: #aaa9a7; }
+        .vf-l { height: 44px; position: relative; white-space: pre; }
+        .vf-l .p { color: #e8602c; }
+        .vf-l .c { color: #f2f1ed; }
+        .vf-ok { display: inline-block; color: #0e0e10; background: #a3ccb3; font-weight: 700; padding: 0 8px; line-height: 38px; }
+        .vf-v { color: #f2f1ed; }
+        .vf-bad { color: #ffa185; }
+        .vf-badtag { display: inline-block; color: #0e0e10; background: #ffa185; font-weight: 700; padding: 0 8px; line-height: 38px; }
+        .vf-caret { display: inline-block; width: 14px; height: 30px; background: #f2f1ed; vertical-align: -6px; margin-left: 2px; }
+      </style>
+      <div data-hf-id="hf-ulsm" id="root" data-composition-id="verify" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-c43a" id="vf-world">
+          <div data-hf-id="hf-oaru" id="vf-glow" data-layout-ignore></div>
+          <div data-hf-id="hf-etb4" id="vf-head">
+            <div data-hf-id="hf-smlo" class="vf-hm"><div data-hf-id="hf-nl3x" class="vf-h" id="vf-h1">Don't trust the interface.</div></div>
+            <div data-hf-id="hf-lzpg" class="vf-hm"><div data-hf-id="hf-i5tv" class="vf-h" id="vf-h2">Verify the evidence.</div></div>
+          </div>
+          <div data-hf-id="hf-6emn" id="vf-note"><b data-hf-id="hf-eh3v">ONE PYTHON FILE</b><br data-hf-id="hf-x5px">NEEDS ONLY <b data-hf-id="hf-dg53">cryptography</b><br data-hf-id="hf-rsrt">PINNED PUBLIC KEY</div>
+          <div data-hf-id="hf-63rg" id="vf-term">
+            <div data-hf-id="hf-w3rh" id="vf-bar"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><span data-hf-id="hf-pgx0">veeriq — zsh</span></div>
+            <div data-hf-id="hf-gsla" id="vf-body">
+              <div data-hf-id="hf-14ju" class="vf-l" id="vf-l0"></div>
+              <div data-hf-id="hf-eo1o" class="vf-l" id="vf-l1"><span data-hf-id="hf-0obo" class="vf-ok">VERIFIED</span> run <span data-hf-id="hf-j6sx" class="vf-v">run_01M4R4DB4JAY7ARM</span></div>
+              <div data-hf-id="hf-9kcx" class="vf-l" id="vf-l2">Event chain: <span data-hf-id="hf-vmq2" class="vf-v">35 events, sequence and links valid</span></div>
+              <div data-hf-id="hf-5dbm" class="vf-l" id="vf-l3">Ed25519 signature: <span data-hf-id="hf-xe3e" class="vf-v">valid</span>; trusted key sha256:6013cafaa02d…</div>
+              <div data-hf-id="hf-55oi" class="vf-l" id="vf-l4">Payload SHA-256: sha256:36a62a8e9c3cb81b5264dbadb609274f…</div>
+              <div data-hf-id="hf-q927" class="vf-l" id="vf-l5"></div>
+              <div data-hf-id="hf-hl6c" class="vf-l" id="vf-l6"><span data-hf-id="hf-61g6" class="vf-badtag">✗</span> <span data-hf-id="hf-hkda" class="vf-bad">Verification failed: payload digest does not match the exported payload</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var C1 = "./scripts/veeriq-verify verification/samples/valid-live-recovery.json";
+          var C2 = "./scripts/veeriq-verify verification/samples/tampered-live-recovery.json";
+          var l0 = document.getElementById("vf-l0"), l5 = document.getElementById("vf-l5");
+          function cmd(el, s, caret) { el.innerHTML = '<span class="p">$</span> <span class="c">' + s + "</span>" + (caret ? '<span class="vf-caret"></span>' : ""); }
+          cmd(l0, "", true); l5.innerHTML = "";
+
+          // The terminal flies up into place; the headline rises with it.
+          tl.fromTo("#vf-term", { y: 140, scale: 0.96, filter: "blur(10px)", opacity: 0 }, { y: 0, scale: 1, filter: "blur(0px)", opacity: 1, duration: 0.55, ease: "power4.out" }, 0);
+          tl.fromTo("#vf-h1", { yPercent: 102 }, { yPercent: 0, duration: 0.6, ease: "power4.out" }, 0.1);
+          tl.fromTo("#vf-h2", { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: "expo.out" }, 0.3);
+          tl.fromTo("#vf-note", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.5);
+          tl.fromTo("#vf-glow", { opacity: 0 }, { opacity: 1, duration: 1.5, ease: "power2.out" }, 1.6);
+
+          // Command 1 types; output streams line by line.
+          var a = { v: 0 }, b = { v: 0 }, blink = { p: 0 };
+          var typing1 = [0.5, 1.45], typing2 = [2.55, 3.45];
+          function caretOn() { return Math.sin(blink.p) > -0.2; }
+          tl.to(a, { v: C1.length, duration: typing1[1] - typing1[0], ease: "power1.inOut", onUpdate: function () { cmd(l0, C1.substring(0, Math.floor(a.v)), a.v < C1.length); } }, typing1[0]);
+          gsap.set(".vf-l:not(#vf-l0)", { opacity: 0 });
+          ["#vf-l1", "#vf-l2", "#vf-l3", "#vf-l4"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.18, ease: "power2.out", immediateRender: false }, 1.6 + i * 0.14);
+          });
+          tl.fromTo("#vf-l1 .vf-ok", { boxShadow: "0 0 0px 0px rgba(163,204,179,0)" }, { boxShadow: "0 0 26px 6px rgba(163,204,179,0.55)", duration: 0.12, ease: "none", immediateRender: false }, 1.6);
+          tl.to("#vf-l1 .vf-ok", { boxShadow: "0 0 0px 0px rgba(163,204,179,0)", duration: 0.6, ease: "power2.out" }, 1.72);
+          tl.fromTo("#vf-l5", { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: false }, 2.45);
+          tl.to(b, { v: C2.length, duration: typing2[1] - typing2[0], ease: "power1.inOut", onUpdate: function () { cmd(l5, C2.substring(0, Math.floor(b.v)), b.v < C2.length); } }, typing2[0]);
+          tl.fromTo("#vf-l6", { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: false }, 3.55);
+          // The tamper is caught: a hard shudder on the failing line, then still.
+          var sh = { a: 0 };
+          tl.fromTo(sh, { a: 1 }, { a: 0, duration: 0.35, ease: "power2.out", immediateRender: false, onUpdate: function () {
+            var k = Math.floor(tl.time() * 30), x = Math.sin(k * 12.9898) * 43758.5453; x = (x - Math.floor(x)) * 2 - 1;
+            document.getElementById("vf-l6").style.transform = "translateX(" + (x * 12 * sh.a).toFixed(1) + "px)";
+          } }, 3.55);
+          tl.fromTo("#vf-term", { borderColor: "rgba(242,241,237,0.16)" }, { borderColor: "rgba(255,161,133,0.7)", duration: 0.12, ease: "none", immediateRender: false }, 3.55);
+          tl.to("#vf-term", { borderColor: "rgba(242,241,237,0.16)", duration: 0.8, ease: "power2.out" }, 3.7);
+          // A trailing prompt with a blinking caret keeps the hold alive.
+          var tail = document.createElement("div"); tail.className = "vf-l"; tail.id = "vf-l7";
+          document.getElementById("vf-body").appendChild(tail);
+          gsap.set(tail, { opacity: 0 });
+          tl.to(blink, { p: Math.PI * 2 * 4, duration: 2.0, ease: "none", onUpdate: function () { tail.innerHTML = '<span class="p">$</span> ' + (caretOn() ? '<span class="vf-caret"></span>' : ""); } }, 3.9);
+          tl.fromTo(tail, { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: false }, 3.9);
+          tl.fromTo("#vf-world", { scale: 1 }, { scale: 1.025, duration: 5.4, ease: "sine.inOut", immediateRender: false }, 0.4);
+
+          // Hand-off: a soft blur dissolve into the closing statement.
+          tl.fromTo("#vf-world", { opacity: 1, filter: "blur(0px)" }, { opacity: 0, filter: "blur(14px)", duration: 0.4, ease: "power2.in", immediateRender: false }, 5.6);
+
+          window.__timelines["verify"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

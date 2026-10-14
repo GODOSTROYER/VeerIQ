@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: veeriq-postgres
+    environment:
+      POSTGRES_DB: veeriq
+      POSTGRES_USER: rewindsafe
+      POSTGRES_PASSWORD: rewindsafe
+    ports:
+      - "127.0.0.1:5436:5432"
+    volumes:
+      - veeriq-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  veeriq-postgres-data:

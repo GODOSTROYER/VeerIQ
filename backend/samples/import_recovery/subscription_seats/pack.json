@@ -1,0 +1,30 @@
+{
+  "sample_id": "subscription_seats",
+  "display_name": "Subscription seat inventory",
+  "current_file": "current.csv",
+  "authority_file": "authority.json",
+  "primary_key": "item_id",
+  "tenant_column": "tenant",
+  "repairable_columns": [
+    "quantity",
+    "location"
+  ],
+  "column_mapping": {
+    "record_id": "item_id",
+    "tenant_id": "tenant",
+    "sku": "sku",
+    "quantity": "on_hand",
+    "location": "bin",
+    "description": "description",
+    "owner_account": "owner"
+  },
+  "approved_snapshot_digest": "sha256:3a04aa2acbe1b4bca1616ae5811f7877789e06e482fb054ad1459178ae862b6d",
+  "snapshot_id": "approved-subscription_seats",
+  "authority_columns": [
+    "tombstoned",
+    "revoked",
+    "held",
+    "later_edit"
+  ],
+  "snapshot_file": "snapshot.json"
+}

@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: veeriq
+      POSTGRES_USER: veeriq
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a strong POSTGRES_PASSWORD in the deployment environment}
+    volumes:
+      - veeriq-production-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [internal]
+    security_opt: ["no-new-privileges:true"]
+
+  veeriq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://veeriq:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}@postgres:5432/veeriq
+      REWINDSAFE_ENV: production
+      REWINDSAFE_AUTH_MODE: oidc
+      REWINDSAFE_SESSION_SECRET: ${REWINDSAFE_SESSION_SECRET:?Set a random session secret of at least 32 characters}
+      REWINDSAFE_COOKIE_SECURE: "true"
+      REWINDSAFE_OIDC_ISSUER: ${REWINDSAFE_OIDC_ISSUER:?Set your OIDC issuer URL}
+      REWINDSAFE_OIDC_CLIENT_ID: ${REWINDSAFE_OIDC_CLIENT_ID:?Set your OIDC client ID}
+      REWINDSAFE_OIDC_CLIENT_SECRET: ${REWINDSAFE_OIDC_CLIENT_SECRET:?Set your OIDC client secret}
+      REWINDSAFE_OIDC_REDIRECT_URI: ${REWINDSAFE_OIDC_REDIRECT_URI:?Set your public HTTPS callback URL}
+      REWINDSAFE_APP_ORIGIN: ${REWINDSAFE_APP_ORIGIN:?Set your public HTTPS app origin}
+      REWINDSAFE_OIDC_SUBJECTS_JSON: ${REWINDSAFE_OIDC_SUBJECTS_JSON:?Map issuer subjects to VeerIQ identities and roles}
+      REWINDSAFE_ENFORCEMENT: live
+      ARMORIQ_API_KEY: ${ARMORIQ_API_KEY:?Set your ArmorIQ API key; production never runs on simulated enforcement}
+      REWINDSAFE_ARMORIQ_TIMEOUT_S: ${REWINDSAFE_ARMORIQ_TIMEOUT_S:-15}
+      REWINDSAFE_PLANNER: ${REWINDSAFE_PLANNER:-scripted}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      REWINDSAFE_MUTATION_RATE_PER_MINUTE: ${REWINDSAFE_MUTATION_RATE_PER_MINUTE:-120}
+      REWINDSAFE_LOGIN_RATE_PER_MINUTE: ${REWINDSAFE_LOGIN_RATE_PER_MINUTE:-12}
+    ports:
+      - "${PORT:-8000}:8000"
+    volumes:
+      - veeriq-production-evidence:/app/.data
+    networks: [internal]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  veeriq-production-data:
+  veeriq-production-evidence:

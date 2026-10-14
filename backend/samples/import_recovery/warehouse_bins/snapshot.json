@@ -1,0 +1,38 @@
+[
+  {
+    "item_id": "SKU-402",
+    "tenant": "atlas",
+    "sku": "SKU-402",
+    "on_hand": 140,
+    "bin": "A-03-C",
+    "description": "Thermal label roll",
+    "owner": "wh-west"
+  },
+  {
+    "item_id": "SKU-511",
+    "tenant": "atlas",
+    "sku": "SKU-511",
+    "on_hand": 34,
+    "bin": "R-14-B",
+    "description": "Packing tape case",
+    "owner": "wh-west"
+  },
+  {
+    "item_id": "SKU-019",
+    "tenant": "beacon",
+    "sku": "SKU-019",
+    "on_hand": 18,
+    "bin": "COLD-2",
+    "description": "Espresso gasket kit",
+    "owner": "wh-east"
+  },
+  {
+    "item_id": "SKU-512",
+    "tenant": "atlas",
+    "sku": "SKU-512",
+    "on_hand": 18,
+    "bin": "R-16-A",
+    "description": "Stretch wrap case",
+    "owner": "wh-west"
+  }
+]

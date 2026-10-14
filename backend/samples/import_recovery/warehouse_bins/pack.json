@@ -1,0 +1,30 @@
+{
+  "sample_id": "warehouse_bins",
+  "display_name": "Warehouse stock locations",
+  "current_file": "current.json",
+  "authority_file": "authority.json",
+  "primary_key": "item_id",
+  "tenant_column": "tenant",
+  "repairable_columns": [
+    "quantity",
+    "location"
+  ],
+  "column_mapping": {
+    "record_id": "item_id",
+    "tenant_id": "tenant",
+    "sku": "sku",
+    "quantity": "on_hand",
+    "location": "bin",
+    "description": "description",
+    "owner_account": "owner"
+  },
+  "approved_snapshot_digest": "sha256:35a581045435c87bdc035ef5c15bfda4baf6f7b33dddc95d9bfd87ee60f71580",
+  "snapshot_id": "approved-warehouse_bins",
+  "authority_columns": [
+    "tombstoned",
+    "revoked",
+    "held",
+    "later_edit"
+  ],
+  "snapshot_file": "snapshot.json"
+}

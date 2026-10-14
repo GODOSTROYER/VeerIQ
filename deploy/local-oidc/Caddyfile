@@ -1,0 +1,9 @@
+https://localhost:8443 {
+	tls /certs/localhost.crt /certs/localhost.key
+	reverse_proxy localhost:8000
+}
+
+https://localhost:8444 {
+	tls /certs/localhost.crt /certs/localhost.key
+	reverse_proxy keycloak:8080
+}

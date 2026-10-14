@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="rewind-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; perspective: 1400px; }
+        #rw-world { position: absolute; inset: 0; transform-origin: 50% 50%; }
+        #rw-glow { position: absolute; left: 960px; top: 520px; width: 1500px; height: 900px; margin: -450px 0 0 -750px; border-radius: 50%; background: radial-gradient(ellipse, rgba(232,96,44,0.16) 0%, rgba(232,96,44,0) 65%); }
+        #rw-table { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; --dof: 0px; filter: blur(var(--dof)); transform-origin: 50% 52%; will-change: filter, transform; }
+        #rw-title { position: absolute; left: 140px; top: 150px; font-family: "Geist Mono", monospace; font-size: 22px; letter-spacing: 0.14em; color: #aaa9a7; white-space: nowrap; }
+        #rw-title b { color: #f2f1ed; font-weight: 600; }
+        #rw-restore { position: absolute; right: 140px; top: 138px; width: 420px; text-align: center; padding: 12px 0; border: 2px solid #e8602c; color: #e8602c; font-family: "Geist Mono", monospace; font-size: 21px; letter-spacing: 0.12em; white-space: nowrap; background: rgba(232,96,44,0.06); }
+        #rw-head { position: absolute; left: 140px; top: 214px; width: 1640px; height: 30px; font-family: "Geist Mono", monospace; font-size: 18px; letter-spacing: 0.16em; color: #aaa9a7; }
+        #rw-head span { position: absolute; top: 0; }
+        #rw-rule { position: absolute; left: 0; top: 699px; width: 1920px; height: 3px; background: #e8602c; transform-origin: 0 50%; }
+        .rw-row { position: absolute; left: 140px; width: 1640px; height: 104px; border-bottom: 2px solid rgba(242,241,237,0.11); }
+        .rw-row-bg { position: absolute; inset: 0; background: #ffa185; opacity: 0; }
+        .rw-cell { position: absolute; top: 0; height: 104px; display: flex; align-items: center; white-space: nowrap; }
+        .rw-id { left: 0; font-family: "Geist Mono", monospace; font-size: 28px; color: #f2f1ed; }
+        .rw-ent { left: 190px; font-family: "Instrument Serif", serif; font-size: 46px; letter-spacing: -0.01em; color: #f2f1ed; }
+        .rw-kind { left: 720px; }
+        .rw-pill { font-family: "Geist Mono", monospace; font-size: 17px; letter-spacing: 0.14em; padding: 7px 12px; border: 2px solid; }
+        .rw-pill.dmg { color: #ffa185; border-color: rgba(255,161,133,0.6); }
+        .rw-pill.dec { color: #a9c4d0; border-color: rgba(169,196,208,0.6); }
+        .rw-field { left: 1000px; font-family: "Geist Mono", monospace; font-size: 21px; letter-spacing: 0.08em; color: #aaa9a7; }
+        .rw-val { left: 1210px; width: 240px; font-family: "Geist Mono", monospace; font-size: 36px; font-weight: 500; color: #f2f1ed; transform-origin: 50% 100%; }
+        .rw-val .g { position: absolute; left: 0; top: 0; height: 104px; display: flex; align-items: center; opacity: 0; mix-blend-mode: screen; }
+        .rw-val .g.w { color: #ff5a3c; }
+        .rw-val .g.c { color: #5aaaff; }
+        .rw-val .t { position: relative; }
+        .rw-res { left: 1470px; width: 170px; justify-content: flex-end; }
+        .rw-chip { font-family: "Geist Mono", monospace; font-size: 20px; letter-spacing: 0.06em; padding: 8px 12px; white-space: nowrap; }
+        .rw-chip.ok { color: #0e0e10; background: #a3ccb3; }
+        .rw-chip.bad { color: #0e0e10; background: #ffa185; }
+        #rw-beam { position: absolute; left: 0; top: 262px; width: 1920px; height: 0; }
+        #rw-beam-line { position: absolute; left: 140px; top: -2px; width: 1640px; height: 3px; background: #e8602c; box-shadow: 0 0 18px rgba(255,128,80,0.8); }
+        #rw-beam-trail { position: absolute; left: 140px; top: -120px; width: 1640px; height: 120px; background: linear-gradient(180deg, rgba(232,96,44,0) 0%, rgba(232,96,44,0.16) 100%); }
+        #rw-headline { position: absolute; left: 140px; top: 300px; width: 1640px; }
+        .rw-hl { font-family: "Instrument Serif", serif; font-size: 196px; line-height: 196px; letter-spacing: -0.03em; word-spacing: 0.06em; white-space: nowrap; }
+        .rw-hl .w { display: inline-block; }
+        #rw-hl2 { font-style: italic; color: #e8602c; }
+        #rw-cap { position: absolute; left: 146px; top: 780px; font-family: "Geist Mono", monospace; font-size: 30px; color: #aaa9a7; white-space: pre; min-width: 1100px; }
+        #rw-cap .d1 { color: #ffa185; }
+        #rw-cap .d2 { color: #a9c4d0; }
+        #rw-flash { position: absolute; left: 0; top: 538px; width: 1920px; height: 4px; background: #fff3ec; opacity: 0; box-shadow: 0 0 30px 8px rgba(255,128,80,0.7); }
+      </style>
+      <div data-hf-id="hf-9auo" id="root" data-composition-id="rewind" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-as7j" id="rw-world">
+          <div data-hf-id="hf-rlil" id="rw-glow" data-layout-ignore></div>
+          <div data-hf-id="hf-z10b" id="rw-table">
+            <div data-hf-id="hf-b6kj" id="rw-title"><b data-hf-id="hf-hbyr">ATLAS OUTFITTERS</b>&nbsp;&nbsp;·&nbsp;&nbsp;LIVE STATE&nbsp;&nbsp;·&nbsp;&nbsp;2026-10-06 14:03Z</div>
+            <div data-hf-id="hf-idsy" id="rw-restore">◀◀&nbsp;&nbsp;RESTORE SNAP-2026-10-05</div>
+            <div data-hf-id="hf-cwv3" id="rw-head">
+              <span data-hf-id="hf-rk70" style="left:0">RECORD</span><span data-hf-id="hf-rck8" style="left:190px">ENTITY</span><span data-hf-id="hf-ch0d" style="left:720px">CHANGED BY</span>
+              <span data-hf-id="hf-wjmw" style="left:1000px">FIELD</span><span data-hf-id="hf-8pny" style="left:1210px">VALUE</span><span data-hf-id="hf-oagq" style="left:1520px">RESULT</span>
+            </div>
+            <div data-hf-id="hf-3mtt" class="rw-row" id="rw-r0" style="top:262px"><div data-hf-id="hf-dyti" class="rw-row-bg"></div>
+              <div data-hf-id="hf-yw2f" data-layout-allow-overlap class="rw-cell rw-id">O-2046</div><div data-hf-id="hf-jbg4" data-layout-allow-overlap class="rw-cell rw-ent">Juniper Health</div>
+              <div data-hf-id="hf-cb2c" data-layout-allow-overlap class="rw-cell rw-kind"><span data-hf-id="hf-23dq" class="rw-pill dmg">INCIDENT</span></div><div data-hf-id="hf-ea1k" data-layout-allow-overlap class="rw-cell rw-field">total</div>
+              <div data-hf-id="hf-e4yx" data-layout-allow-overlap class="rw-cell rw-val" id="rw-v0"><span data-hf-id="hf-ujij" class="t">$0.00</span></div>
+              <div data-hf-id="hf-zcxc" data-layout-allow-overlap class="rw-cell rw-res"><span data-hf-id="hf-qmi7" class="rw-chip ok" id="rw-c0">✓ repaired</span></div></div>
+            <div data-hf-id="hf-asc5" class="rw-row" id="rw-r1" style="top:366px"><div data-hf-id="hf-l5ze" class="rw-row-bg"></div>
+              <div data-hf-id="hf-02zi" data-layout-allow-overlap class="rw-cell rw-id">O-2041</div><div data-hf-id="hf-ip58" data-layout-allow-overlap class="rw-cell rw-ent">Juniper Health</div>
+              <div data-hf-id="hf-qcl8" data-layout-allow-overlap class="rw-cell rw-kind"><span data-hf-id="hf-i6bm" class="rw-pill dmg">INCIDENT</span></div><div data-hf-id="hf-peb4" data-layout-allow-overlap class="rw-cell rw-field">total</div>
+              <div data-hf-id="hf-ddb4" data-layout-allow-overlap class="rw-cell rw-val" id="rw-v1"><span data-hf-id="hf-cgbv" class="t">$0.00</span></div>
+              <div data-hf-id="hf-08aw" data-layout-allow-overlap class="rw-cell rw-res"><span data-hf-id="hf-tpje" class="rw-chip ok" id="rw-c1">✓ repaired</span></div></div>
+            <div data-hf-id="hf-6wlw" class="rw-row" id="rw-r2" style="top:470px"><div data-hf-id="hf-lkaf" class="rw-row-bg"></div>
+              <div data-hf-id="hf-0vlk" data-layout-allow-overlap class="rw-cell rw-id">O-2043</div><div data-hf-id="hf-08a0" data-layout-allow-overlap class="rw-cell rw-ent">Northwind Labs</div>
+              <div data-hf-id="hf-p5o5" data-layout-allow-overlap class="rw-cell rw-kind"><span data-hf-id="hf-bh4o" class="rw-pill dec">LATER DECISION</span></div><div data-hf-id="hf-n6m0" data-layout-allow-overlap class="rw-cell rw-field">status</div>
+              <div data-hf-id="hf-m16z" data-layout-allow-overlap class="rw-cell rw-val" id="rw-v2"><span data-hf-id="hf-a2xn" class="g w" aria-hidden="true" data-layout-ignore></span><span data-hf-id="hf-umuf" class="g c" aria-hidden="true" data-layout-ignore></span><span data-hf-id="hf-a78q" class="t">shipped</span></div>
+              <div data-hf-id="hf-z1dt" data-layout-allow-overlap class="rw-cell rw-res"><span data-hf-id="hf-gb2v" class="rw-chip bad" id="rw-c2">✗ rolled back</span></div></div>
+            <div data-hf-id="hf-44i0" class="rw-row" id="rw-r3" style="top:574px"><div data-hf-id="hf-lylg" class="rw-row-bg"></div>
+              <div data-hf-id="hf-ia2v" data-layout-allow-overlap class="rw-cell rw-id">C-1003</div><div data-hf-id="hf-bcwj" data-layout-allow-overlap class="rw-cell rw-ent">Orion Freight</div>
+              <div data-hf-id="hf-pjz6" data-layout-allow-overlap class="rw-cell rw-kind"><span data-hf-id="hf-bgb4" class="rw-pill dec">LATER DECISION</span></div><div data-hf-id="hf-of0e" data-layout-allow-overlap class="rw-cell rw-field">customer</div>
+              <div data-hf-id="hf-i32y" data-layout-allow-overlap class="rw-cell rw-val" id="rw-v3"><span data-hf-id="hf-d6sb" class="g w" aria-hidden="true" data-layout-ignore></span><span data-hf-id="hf-hcqv" class="g c" aria-hidden="true" data-layout-ignore></span><span data-hf-id="hf-18h8" class="t">deleted</span></div>
+              <div data-hf-id="hf-zfou" data-layout-allow-overlap class="rw-cell rw-res"><span data-hf-id="hf-kwpd" class="rw-chip bad" id="rw-c3">✗ undeleted</span></div></div>
+            <div data-hf-id="hf-c1hk" class="rw-row" id="rw-r4" style="top:678px"><div data-hf-id="hf-mcwh" class="rw-row-bg"></div>
+              <div data-hf-id="hf-1hpw" data-layout-allow-overlap class="rw-cell rw-id">AG-77</div><div data-hf-id="hf-lgwb" data-layout-allow-overlap class="rw-cell rw-ent">svc-legacy-sync</div>
+              <div data-hf-id="hf-rjib" data-layout-allow-overlap class="rw-cell rw-kind"><span data-hf-id="hf-a9e1" class="rw-pill dec">LATER DECISION</span></div><div data-hf-id="hf-cxxs" data-layout-allow-overlap class="rw-cell rw-field">access</div>
+              <div data-hf-id="hf-zbd9" data-layout-allow-overlap class="rw-cell rw-val" id="rw-v4"><span data-hf-id="hf-csha" class="g w" aria-hidden="true" data-layout-ignore></span><span data-hf-id="hf-gyfu" class="g c" aria-hidden="true" data-layout-ignore></span><span data-hf-id="hf-mlxz" class="t">revoked</span></div>
+              <div data-hf-id="hf-y8rr" data-layout-allow-overlap class="rw-cell rw-res"><span data-hf-id="hf-w709" class="rw-chip bad" id="rw-c4">✗ re-enabled</span></div></div>
+            <div data-hf-id="hf-754w" id="rw-beam"><div data-hf-id="hf-9ysk" id="rw-beam-trail" data-layout-ignore></div><div data-hf-id="hf-cr5b" id="rw-beam-line"></div></div>
+          </div>
+          <div data-hf-id="hf-q4k3" id="rw-rule"></div>
+          <div data-hf-id="hf-fcrx" id="rw-headline">
+            <div data-hf-id="hf-y4pd" class="rw-hl" id="rw-hl1" data-layout-allow-overlap><span data-hf-id="hf-o322" class="w">Restore</span> <span data-hf-id="hf-b7a3" class="w">a</span> <span data-hf-id="hf-mbpq" class="w">backup,</span></div>
+            <div data-hf-id="hf-4af6" class="rw-hl" id="rw-hl2" data-layout-allow-overlap><span data-hf-id="hf-ipzu" class="w">restore</span> <span data-hf-id="hf-1jo2" class="w">its</span> <span data-hf-id="hf-3hxh" class="w">mistakes.</span></div>
+          </div>
+          <div data-hf-id="hf-2ba3" id="rw-cap" data-layout-allow-overlap></div>
+        </div>
+        <div data-hf-id="hf-c6tk" id="rw-flash" data-layout-ignore></div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var D = 10;
+          var ROW_Y = [262, 366, 470, 574, 678];
+          var AFTER = ["$12,400.00", "$1,240.00", "processing", "active", "active"];
+          var BAD = [false, false, true, true, true];
+          var GLYPHS = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789$#%&*";
+          function hash(n) { var x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+          // Continuity from frame 1: the line enters at y=700 full-bleed and lifts to become the table's top rule.
+          tl.fromTo("#rw-rule", { y: 0, scaleX: 1, x: 0 }, { y: -438, x: 140, scaleX: 1640 / 1920, duration: 0.7, ease: "power3.inOut" }, 0);
+          tl.set("#rw-rule", { opacity: 0 }, 0.72);
+          tl.fromTo("#rw-beam", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 0.7);
+          tl.fromTo("#rw-world", { scale: 1.02 }, { scale: 1, duration: 6, ease: "sine.out" }, 0);
+          tl.fromTo("#rw-glow", { opacity: 0.4, scale: 0.9 }, { opacity: 1, scale: 1.1, duration: 5, ease: "sine.inOut" }, 0);
+
+          // Header and rows arrive (waterfall from below: binary opacity, shrinking gaps).
+          tl.fromTo("#rw-title", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power3.out" }, 0.35);
+          tl.fromTo("#rw-head", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.55);
+          tl.fromTo("#rw-restore", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 0.6);
+          [0, 1, 2, 3, 4].forEach(function (i) {
+            var t = 0.6 + i * 0.075;
+            tl.set("#rw-r" + i, { opacity: 1, y: 60 - i * 6 }, t);
+            tl.to("#rw-r" + i, { y: 0, duration: 0.32, ease: "power4.out" }, t);
+          });
+          gsap.set(".rw-row", { opacity: 0 });
+          gsap.set(".rw-chip", { opacity: 0, scale: 0 });
+
+          // The restore fires: the pill presses on the downbeat, the beam starts at the top rule.
+          tl.to("#rw-restore", { scale: 0.92, duration: 0.08, ease: "power2.in" }, 1.85);
+          tl.to("#rw-restore", { scale: 1, backgroundColor: "rgba(232,96,44,0.22)", duration: 0.35, ease: "power3.out" }, 1.93);
+
+          // Beam steps row by row on the beat; timecode rewinds 38h03m across the descent.
+          var beam = { y: 0 };
+          var tagEl = document.getElementById("rw-restore");
+          var START_MIN = 38 * 60 + 3;
+          function stampAt(p) {
+            var m = Math.round(START_MIN * (1 - p));
+            var day = m >= 24 * 60 ? "06" : "05";
+            var mm = m % (24 * 60), h = Math.floor(mm / 60), mi = mm % 60;
+            return "◀◀  REWIND  10-" + day + " " + (h < 10 ? "0" + h : h) + ":" + (mi < 10 ? "0" + mi : mi) + "Z";
+          }
+          var STOPS = [0, 104, 208, 312, 416, 520];
+          for (var s = 0; s < 5; s++) {
+            tl.to(beam, { y: STOPS[s + 1], duration: 0.34, ease: "power3.inOut",
+              onUpdate: function () {
+                document.getElementById("rw-beam").style.transform = "translateY(" + beam.y.toFixed(2) + "px)";
+                tagEl.textContent = beam.y >= 519.5 ? "✓  RESTORED SNAP-2026-10-05" : (beam.y <= 0.01 ? "◀◀  RESTORE SNAP-2026-10-05" : stampAt(beam.y / 520));
+              } }, 2.0 + s * 0.5);
+          }
+
+          // Each row reverts as the beam crosses it: the value cell flips and decodes to the snapshot value.
+          [0, 1, 2, 3, 4].forEach(function (i) {
+            var t0 = 2.0 + i * 0.5 + 0.12;
+            var cell = document.getElementById("rw-v" + i);
+            var txt = cell.querySelector(".t");
+            var ghosts = cell.querySelectorAll(".g");
+            var before = txt.textContent, target = AFTER[i];
+            var st = { p: 0 };
+            tl.to(st, { p: 1, duration: 0.42, ease: "power3.out", onUpdate: function () {
+              var p = st.p;
+              if (p <= 0) { txt.textContent = before; cell.style.transform = "rotateX(0deg)"; cell.style.color = "#f2f1ed"; return; }
+              var shown = Math.floor(p * 1.25 * target.length);
+              var step = Math.floor(p * 14);
+              var out = "";
+              for (var c = 0; c < target.length; c++) {
+                out += c < shown ? target[c] : GLYPHS[Math.floor(hash(i * 100 + c * 7 + step) * GLYPHS.length)];
+              }
+              txt.textContent = out;
+              cell.style.transform = "rotateX(" + (p < 0.6 ? (1 - p / 0.6) * 80 : 0).toFixed(1) + "deg)";
+              cell.style.color = BAD[i] ? "#ffa185" : "#a3ccb3";
+              for (var g = 0; g < ghosts.length; g++) ghosts[g].textContent = txt.textContent;
+            } }, t0);
+            gsap.set(cell, { color: "#f2f1ed" });
+            tl.fromTo("#rw-c" + i, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "power3.out" }, t0 + 0.24);
+            if (BAD[i]) {
+              // The wrong ones flare, then hold a warning tint; their values glitch and snap clean.
+              var bg = "#rw-r" + i + " .rw-row-bg";
+              tl.fromTo(bg, { opacity: 0 }, { opacity: 0.2, duration: 0.05, ease: "none" }, t0 + 0.1);
+              tl.to(bg, { opacity: 0.07, duration: 0.5, ease: "power2.out" }, t0 + 0.15);
+              var amp = { a: 0 };
+              gsap.set(ghosts, { opacity: 0 });
+              tl.set(ghosts, { opacity: 0.85 }, t0 + 0.3);
+              tl.fromTo(amp, { a: 1 }, { a: 0, duration: 0.3, ease: "power3.in", immediateRender: false, onUpdate: function () {
+                var stp = Math.floor(tl.time() * 30);
+                for (var g = 0; g < ghosts.length; g++) {
+                  var jx = (hash(stp * 13 + g * 7 + i) * 2 - 1) * 12 * amp.a;
+                  var jy = (hash(stp * 29 + g * 11 + i) * 2 - 1) * 4 * amp.a;
+                  ghosts[g].style.transform = "translate(" + jx.toFixed(1) + "px," + jy.toFixed(1) + "px)";
+                }
+              } }, t0 + 0.3);
+              tl.set(ghosts, { opacity: 0, x: 0, y: 0 }, t0 + 0.61);
+            }
+          });
+
+          // Push the ledger back (rack focus) and land the headline in front.
+          tl.to("#rw-table", { "--dof": "7px", opacity: 0.3, scale: 0.955, duration: 0.8, ease: "power2.inOut" }, 5.6);
+          var hw = document.querySelectorAll("#rw-hl1 .w");
+          gsap.set("#rw-headline .w", { opacity: 0 });
+          for (var k = 0; k < hw.length; k++) {
+            var tk = 6.0 + k * 0.13;
+            tl.set(hw[k], { opacity: 1, y: [70, 45, 60][k] }, tk);
+            tl.to(hw[k], { y: 0, duration: [0.2, 0.14, 0.18][k], ease: "power4.out" }, tk);
+          }
+          var hw2 = document.querySelectorAll("#rw-hl2 .w");
+          for (var q = 0; q < hw2.length; q++) {
+            var tq = 6.55 + q * 0.12;
+            tl.fromTo(hw2[q], { opacity: 0, x: 90, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, tq);
+          }
+          tl.fromTo("#rw-headline", { x: 0 }, { x: 18, duration: 3, ease: "sine.inOut" }, 6.5);
+
+          var CAP = "A backup can't tell damage from a decision.";
+          var capEl = document.getElementById("rw-cap");
+          var cs = { v: 0 };
+          tl.to(cs, { v: CAP.length, duration: 0.9, ease: "none", onUpdate: function () {
+            var s = CAP.substring(0, Math.floor(cs.v));
+            capEl.innerHTML = s.replace("damage", '<span class="d1">damage</span>').replace("a decision", 'a <span class="d2">decision</span>');
+          } }, 7.6);
+
+          // Transition out: the frame collapses into one hot line (CRT off) that the next scene opens from.
+          tl.fromTo("#rw-world", { scaleY: 1, scaleX: 1, filter: "brightness(1)" }, { scaleY: 0.004, scaleX: 1.04, filter: "brightness(2.2)", duration: 0.32, ease: "power3.in", immediateRender: false }, 9.62);
+          tl.fromTo("#rw-flash", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power3.in", immediateRender: false }, 9.66);
+
+          window.__timelines["rewind"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

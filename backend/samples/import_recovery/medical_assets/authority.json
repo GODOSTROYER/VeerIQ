@@ -1,0 +1,26 @@
+[
+  {
+    "item_id": "ASSET-88",
+    "tenant": "atlas",
+    "tombstoned": false,
+    "revoked": false,
+    "held": false,
+    "later_edit": false
+  },
+  {
+    "item_id": "ASSET-92",
+    "tenant": "atlas",
+    "tombstoned": true,
+    "revoked": false,
+    "held": false,
+    "later_edit": true
+  },
+  {
+    "item_id": "ASSET-17",
+    "tenant": "beacon",
+    "tombstoned": false,
+    "revoked": false,
+    "held": true,
+    "later_edit": false
+  }
+]

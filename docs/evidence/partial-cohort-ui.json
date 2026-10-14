@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-10-13T17:40:01.851Z",
+  "source": "actual local API and browser observation",
+  "file": "reliability-20261013T172610Z.json",
+  "requested_trials": 40,
+  "recorded_trials": 6,
+  "provisional": true,
+  "unstarted_groups": [],
+  "unstarted_group_effects_label": "Not observed",
+  "layouts": [
+    {
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    }
+  ]
+}

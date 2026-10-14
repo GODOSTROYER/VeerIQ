@@ -1,0 +1,59 @@
+{
+  "probe_id": "veeriq-policy-check-20261012T134157Z",
+  "checked_at": "2026-10-12T13:42:06.343397+00:00",
+  "purpose": "Isolated sponsor policy check; no recovery tool dispatch",
+  "local_handler_dispatches": 0,
+  "decision": {
+    "created_at": "2026-10-12T13:42:05.834455Z",
+    "decision_id": "dec_01M4R5JQRAYCBNJ2",
+    "decisive": true,
+    "evidence": {
+      "extra_tools": [
+        "restore_access_grant"
+      ],
+      "plan_tools": [
+        "inspect_snapshot",
+        "compare_current",
+        "prepare_repair_manifest",
+        "apply_repair_manifest",
+        "get_recovery_receipt",
+        "restore_access_grant"
+      ],
+      "tool": "restore_access_grant",
+      "wider_plan_blocked_at": "enforce",
+      "wider_plan_issued": true
+    },
+    "invariant": "org_policy_allowlist",
+    "latency_ms": 837.4591669999063,
+    "layer": "armoriq",
+    "outcome": "block",
+    "proposal_id": null,
+    "reason": "ArmorIQ signed the wider plan, but its org policy refused restore_access_grant at enforcement: tool_not_in_allowlist",
+    "run_id": "veeriq-policy-check-20261012T134157Z",
+    "shadow": false,
+    "simulated": false,
+    "source": "armoriq.backend.enforce",
+    "sponsor": {
+      "delegation_id": null,
+      "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+      "mode": "live",
+      "obligations": [],
+      "plan_hash": "d5abc444787288a1cee1344254ed9be88c4bab83f00c223c075f60ccd4666a04",
+      "plan_id": "61c35925-a204-4d51-be02-260a8a2db1b6",
+      "raw_action": "block",
+      "sanitized_response": {
+        "check": {
+          "action": "block",
+          "latency_ms": 837.5,
+          "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+          "reason": "tool_not_in_allowlist"
+        },
+        "issuance_latency_ms": 7541.8,
+        "issued": true
+      },
+      "sdk_version": "0.6.10",
+      "session_mode": "sdk",
+      "token_id": "c3d9d9abaa374ab5928f73b9e247791c"
+    }
+  }
+}

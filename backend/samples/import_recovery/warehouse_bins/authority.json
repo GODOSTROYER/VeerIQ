@@ -1,0 +1,34 @@
+[
+  {
+    "item_id": "SKU-402",
+    "tenant": "atlas",
+    "tombstoned": false,
+    "revoked": false,
+    "held": false,
+    "later_edit": false
+  },
+  {
+    "item_id": "SKU-511",
+    "tenant": "atlas",
+    "tombstoned": false,
+    "revoked": false,
+    "held": true,
+    "later_edit": false
+  },
+  {
+    "item_id": "SKU-019",
+    "tenant": "beacon",
+    "tombstoned": false,
+    "revoked": true,
+    "held": false,
+    "later_edit": false
+  },
+  {
+    "item_id": "SKU-512",
+    "tenant": "atlas",
+    "tombstoned": false,
+    "revoked": false,
+    "held": false,
+    "later_edit": true
+  }
+]

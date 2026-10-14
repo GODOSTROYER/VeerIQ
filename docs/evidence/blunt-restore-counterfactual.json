@@ -1,0 +1,41 @@
+{
+  "source": "read-only synthetic fixture counterfactual; no restore executed",
+  "snapshot_id": "SNAP-2026-10-05-0000Z",
+  "snapshot_digest": "sha256:23c336fee8eac994c450b9af26cdbecd556962f77917959ad1d1ab761ba024a5",
+  "modeled_tables": [
+    "customers",
+    "orders",
+    "access_grants"
+  ],
+  "legitimate_decisions_reversed": 4,
+  "comparisons": [
+    {
+      "record": "C-1003",
+      "decision": "customer erased",
+      "current": "absent",
+      "blunt_restore": "present",
+      "selective_requirement": "absent"
+    },
+    {
+      "record": "O-2043",
+      "decision": "shipment completed after snapshot",
+      "current": "shipped",
+      "blunt_restore": "processing",
+      "selective_requirement": "shipped"
+    },
+    {
+      "record": "O-2044",
+      "decision": "order deleted",
+      "current": "absent",
+      "blunt_restore": "present",
+      "selective_requirement": "absent"
+    },
+    {
+      "record": "AG-77",
+      "decision": "access revoked",
+      "current": "revoked",
+      "blunt_restore": "active",
+      "selective_requirement": "revoked"
+    }
+  ]
+}

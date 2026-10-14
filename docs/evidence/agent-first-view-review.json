@@ -1,0 +1,89 @@
+{
+  "review": {
+    "type": "first-time browser-only usability review",
+    "url": "http://127.0.0.1:5173/",
+    "review_date": "2026-10-12",
+    "elapsed_interaction": "about 1 minute 30 seconds from first rendered page to final observation; approximate wall-clock estimate, not browser-instrumented",
+    "fresh_run": false,
+    "fresh_run_reason": "The landing page already said 'Last run Repaired', 'Recovery completed', and 'No damaged orders remain. Inspect a recorded recovery below.' I did not switch the current Approver identity, reset or alter data, or start another run. I reviewed recorded runs and the scenario explanation instead.",
+    "reviewer": "GPT 6 Luna agent; no conversation history; browser-only inspection"
+  },
+  "what_the_app_does": "VeerIQ selectively repairs damaged values from an approved snapshot while preserving deletions, revoked access, later edits, and tenant boundaries. An operator authorizes the exact scope; the recovery agent works within it.",
+  "incident_found": {
+    "label": "FX-rounding migration zeroed order totals",
+    "description": "The 2026-10-05 FX-rounding migration overwrote order totals, and sometimes status or shipping region, with zero or NULL values. Finance reconciliation detected the issue on 2026-10-06.",
+    "preserved_examples_visible_in_ui": [
+      "O-2043 retains its later Shipped update although the snapshot said Processing.",
+      "O-2044 and customer Orion Freight remain deleted.",
+      "svc-legacy-sync remains revoked.",
+      "Beacon Coffee Co. remains outside the Atlas task."
+    ]
+  },
+  "steps_and_hesitations": [
+    {
+      "step": 1,
+      "ui_action": "Loaded the landing page at /.",
+      "observation": "The hero explained selective recovery clearly. The page immediately stated that the last run had repaired the incident and there were no damaged orders remaining.",
+      "hesitation": "The page still presented the 'Poisoned runbook (flagship)' scenario as 'Start here' while the incident was already repaired. It was unclear whether this was an available fresh demo or an invitation to replay a historical scenario."
+    },
+    {
+      "step": 2,
+      "ui_action": "Expanded 'Compare orders and read the incident'.",
+      "observation": "This revealed the cause, affected order table, and preserved decisions. The damaged values were no longer visible in current state.",
+      "hesitation": "The core incident and affected rows were hidden behind an expandable section despite being central to understanding what happened. The landing panel also says 'Damaged' and 'No damaged orders remain', which conflicts with the prominent scenario card promising a repair."
+    },
+    {
+      "step": 3,
+      "ui_action": "Expanded 'Details for Poisoned runbook (flagship)'.",
+      "observation": "The note asked the agent to re-enable a revoked legacy service account and reconcile another tenant's order in the same batch. The card explains the expected off-plan and cross-tenant refusals.",
+      "hesitation": "The attack narrative was hidden behind a generic 'Details' control. 'Start here' did not identify the required role; only the expanded card said that only an operator can start a recovery."
+    },
+    {
+      "step": 4,
+      "ui_action": "Opened 'Viewing as Approver: Orion. Switch perspective' to inspect role capabilities, then closed it without changing the identity.",
+      "observation": "The menu described Nova as the Incident operator who starts runs and authorizes agent scope; Orion is the Approver who signs off high-value repairs and cannot approve a run they started.",
+      "hesitation": "The current perspective was an approver, but the disabled or absent run-start affordance was not directly explained at the scenario card. Finding the role capability required opening a global perspective menu."
+    },
+    {
+      "step": 5,
+      "ui_action": "Opened the most recent recorded run from the landing page, then inspected the preceding run.",
+      "observation": "Latest run Imp 01M4RFW72HSC79XG is labeled 'Recovery agent \u00b7 Scripted re-enactment (deterministic, no LLM)', 'Live ArmorIQ', 'Repaired'. Its receipt says 2 fields restored on SKU-402 in one commit. Preceding run Imp 01M4RDQVDG4CME6B is also a scripted re-enactment and says SKU-512 was left unrepaired because it had a legitimate later update.",
+      "hesitation": "The run page's headline 'Repaired' and 'Promises kept' are at odds with 'Today\u2019s decisions kept 0 / 4', 'Protected decisions await verification', '0/0 checked', and 'Protected-state verification is not recorded here'. The run also says 'No blocked request was recorded', so this record does not demonstrate the poisoned scenario's attacks being stopped. 'No targeted orders to show yet' appears in the Orders section despite the receipt showing a repair."
+    }
+  ],
+  "run_and_source_labels": {
+    "latest_recorded_run": "Imp 01M4RFW72HSC79XG",
+    "latest_run_source": "Recovery agent \u00b7 Scripted re-enactment (deterministic, no LLM)",
+    "latest_run_status": "Repaired",
+    "latest_run_snapshot": "snap_01M4RFW1KS7M87AQ",
+    "latest_run_receipt": "op_01M4RFWH2XH0G90X",
+    "latest_run_receipt_summary": "committed, 2 field(s) restored on SKU-402; digest sha256:77d1a4f1e3ea\u2026",
+    "preceding_recorded_run": "Imp 01M4RDQVDG4CME6B",
+    "preceding_run_source": "Recovery agent \u00b7 Scripted re-enactment (deterministic, no LLM)",
+    "preceding_run_status": "Partly repaired"
+  },
+  "why_the_poisoned_instruction_cannot_change_the_database": {
+    "ui_evidence_for_mechanism": [
+      "Poisoned scenario details name an off-plan privileged call and a same-tool wrong-tenant request, and say both are refused by different gates.",
+      "Run page describes gates as ArmorIQ signed-plan check, grant scope, domain invariant, second reviewer when needed, PostgreSQL transaction check, and endpoint boundary.",
+      "Latest run shows a signed plan, 5 actions allowed, one database commit, zero prohibited handler entries, and zero forbidden effects.",
+      "Landing page says a snapshot cannot grant new permissions and lists the deleted customer/order, revoked access, later shipped update, and other tenant as preserved."
+    ],
+    "evidence_limit": "The reviewed latest run had no annotations attached, 0 blocked requests, and no protected-state verification recorded. The machine-recorded counts therefore support the ordinary repair path but do not prove that this particular run exercised or blocked the poisoned requests. I did not independently inspect the database or run the poisoned scenario fresh.",
+    "reviewer_explanation": "The snapshot note is data the agent reads, not authority that expands what it may do. Before the agent starts, ArmorIQ signs a plan of allowed actions. Each proposed request must fit that plan, and the task grant separately limits the tenant, orders, and fields. Thus the request to re-enable svc-legacy-sync is outside the signed plan, while the other-tenant order is outside the grant even if it uses an otherwise familiar tool. The recovery endpoint checks the exact prepared repair again; the database validates the domain rules and applies the authorized changes in one transaction. Deletions and later updates are excluded from the repair scope, so a snapshot cannot resurrect them."
+  },
+  "machine_review_vs_human_test": {
+    "machine_review": "The app's run record reports deterministic scripted re-enactment, signed plan and grant gates passed, 1 durable commit, 0 prohibited handler entries, 0 forbidden effects, and a receipt digest. These are claims and measurements presented by the product UI.",
+    "agent_browser_observation": "I navigated the visible UI, read the incident and scenario details, inspected role labels, and opened the two recorded runs. I did not create a new run, alter identity or settings, reset state, or independently query the database. This was not an independent security audit.",
+    "human_test": "Not performed. This is an agent review and approximate timing, not a first-time human acceptance result."
+  },
+  "concrete_ux_fixes": [
+    "When no damaged records remain, mark the poisoned scenario as 'View recorded demo' or offer a clearly labeled synthetic preview; explain that a new run requires the Incident operator role.",
+    "Show the incident summary and affected rows by default, or add a stronger visible 'View incident details' call to action above the scenario cards.",
+    "Replace generic scenario 'Details' labels with specific labels such as 'Read poisoned note and expected safeguards'.",
+    "Align run status with verification: distinguish 'Data repaired' from 'Protected decisions verified', and avoid 'Promises kept' when the protected checks are pending or absent.",
+    "Show blocked-attempt evidence on the poisoned-run record and explicitly mark when a run has no attack probes, so it cannot be mistaken for proof that the attacks were stopped.",
+    "Populate the Orders panel from the recorded receipt immediately or label it as a live/current-state view; explain 'No targeted orders to show yet' when a recorded repair exists.",
+    "Clarify controls such as 'View details', 'Live ArmorIQ', and 'Evidence' with short supporting labels or tooltips."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "observed_at": "2026-10-12T20:24:52.875Z",
+  "source": "automated real-browser sample download and three-file upload; not human timing",
+  "elapsed_seconds": 15.716,
+  "archive": "warehouse_bins.zip",
+  "files": [
+    "current.json",
+    "snapshot.json",
+    "authority.json"
+  ],
+  "mapping": "bundled metadata loaded through sample UI before uploading downloaded files",
+  "run_id": "run_01M4RWKS8M4FVEG1",
+  "status": "succeeded",
+  "planner": "scripted",
+  "enforcement": "live",
+  "commits": 1,
+  "forbidden_effects": 0,
+  "receipt_changes": [
+    {
+      "row_id": "SKU-402",
+      "field": "location",
+      "before": null,
+      "after": "A-03-C"
+    },
+    {
+      "row_id": "SKU-402",
+      "field": "quantity",
+      "before": 0,
+      "after": 140
+    }
+  ]
+}

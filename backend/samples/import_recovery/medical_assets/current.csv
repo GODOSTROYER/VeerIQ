@@ -1,0 +1,4 @@
+item_id,tenant,sku,on_hand,bin,description,owner
+ASSET-88,atlas,OX-88,0,Dock 4,Oxygen sensor unit,clinical-ops
+ASSET-92,atlas,OX-92,2,,Portable monitor battery,clinical-ops
+ASSET-17,beacon,OX-17,0,Ward B,Pulse oximeter probes,biomed

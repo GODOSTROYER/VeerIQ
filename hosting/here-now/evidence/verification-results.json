@@ -1,0 +1,17 @@
+{
+  "source": "recorded local standalone verifier execution",
+  "observed_at": "2026-10-12T16:27:34.040229+00:00",
+  "verifier_sha256": "7db062fadb19031c5c81a890bc510f625295814a4398a1c60183e4656b81888e",
+  "results": [
+    {
+      "file": "valid-live-recovery.json",
+      "exit_code": 0,
+      "output": "VERIFIED run run_01M4R4DB4JAY7ARM\nPayload SHA-256: sha256:36a62a8e9c3cb81b5264dbadb609274f4c5b161756ba6df21cdb527426c664fd\nEvent chain: 35 events, sequence and links valid\nExecution receipt digests: 2 checked\nEd25519 signature: valid; trusted key sha256:6013cafaa02d0b46ba659dc82dc267ed0be4f7691d06e5ae0d4ca8177ae14a0d\nPlan hash: 1fff0ac8fd2c26073b8a517243895bc82cad501bb57b3724ba120947f386936b\nAudit report IDs: unavailable in this export\nTrust note: the default key is bundled with this repository; obtain it independently to verify signer identity."
+    },
+    {
+      "file": "tampered-live-recovery.json",
+      "exit_code": 1,
+      "output": "Verification failed: payload digest does not match the exported payload"
+    }
+  ]
+}

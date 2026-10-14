@@ -1,0 +1,126 @@
+/* VeerIQ design tokens: "quiet midnight".
+   Every colour used by components comes from here. Layer and outcome colours
+   are semantic: they mean the same thing on every screen and always carry a text label. */
+
+:root {
+  /* Surfaces */
+  --bg: #0e0e10;
+  --bg-raised: #151517;
+  --bg-sunken: #111113;
+  --bg-overlay: #1a1a1d;
+  --surface: #151517;
+  --surface-2: #232326;
+  --surface-3: #303033;
+  --border: rgb(255 255 255 / 0.08);
+  --border-strong: rgb(255 255 255 / 0.14);
+  --scrim: rgb(3 4 8 / 0.72);
+
+  /* Text */
+  --text: #f2f1ed;
+  --text-2: #aaa9a7;
+  --text-3: #aaa9a7;
+  --text-inverse: #0e0e10;
+
+  /* Interactive */
+  --primary: #e8602c;
+  --primary-hover: #ff8050;
+  --focus: #ff9467;
+
+  /* Defense layers (outermost to innermost) */
+  --layer-armoriq: #ff9467;
+  --layer-grant: #a9c4d0;
+  --layer-domain: #e5c285;
+  --layer-approval: #e5c285;
+  --layer-postgres: #a3ccb3;
+  --layer-runtime: #94a3b8;
+
+  /* Outcomes */
+  --outcome-allow: #a3ccb3;
+  --outcome-block: #ffa185;
+  --outcome-hold: #e5c285;
+  --outcome-unavailable: #ff9467;
+  --outcome-neutral: #94a3b8;
+  --outcome-info: #a9c4d0;
+
+  /* Diff semantics */
+  --diff-bad: #ffa185;
+  --diff-good: #a3ccb3;
+  --diff-keep: #a9c4d0;
+
+  /* Radii */
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+
+  /* Elevation */
+  --shadow-pop: 0 18px 48px -12px rgb(0 0 0 / 0.55);
+  --shadow-glow: none;
+
+  /* Motion */
+  --dur-instant: 100ms;
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+  --dur-slow: 360ms;
+  --dur-focal: 640ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Type */
+  --font-ui: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-code: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+@theme inline {
+  --font-sans: var(--font-ui);
+  --font-mono: var(--font-code);
+
+  --color-bg: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-sunken: var(--bg-sunken);
+  --color-overlay: var(--bg-overlay);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-ink-2: var(--text-2);
+  --color-ink-3: var(--text-3);
+  --color-ink-inverse: var(--text-inverse);
+  --color-primary: var(--primary);
+  --color-focus: var(--focus);
+
+  --color-armoriq: var(--layer-armoriq);
+  --color-grant: var(--layer-grant);
+  --color-domain: var(--layer-domain);
+  --color-approval: var(--layer-approval);
+  --color-postgres: var(--layer-postgres);
+  --color-runtime: var(--layer-runtime);
+
+  --color-allow: var(--outcome-allow);
+  --color-block: var(--outcome-block);
+  --color-hold: var(--outcome-hold);
+  --color-unavailable: var(--outcome-unavailable);
+  --color-neutral: var(--outcome-neutral);
+
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+}
+
+:root[data-theme='light'] {
+ --bg:#f4f4f1;--bg-raised:#fafaf8;--bg-sunken:#e9e9e4;--bg-overlay:#fafaf8;
+ --surface:#fafaf8;--surface-2:#e9e9e4;--surface-3:#d3d3cb;
+ --border:#d3d3cb;--border-strong:#b6b6ac;--scrim:rgb(20 20 20 / .45);
+ --text:#202021;--text-2:#62625e;--text-3:#62625e;--text-inverse:#fff;
+ --primary:#a7390e;--primary-hover:#b84113;--focus:#a7390e;
+ --layer-armoriq:#a7390e;--layer-grant:#2c5465;--layer-domain:#795410;
+ --layer-approval:#795410;--layer-postgres:#275c3c;--layer-runtime:#62625e;
+ --outcome-allow:#275c3c;--outcome-block:#a02f17;--outcome-hold:#795410;
+ --outcome-unavailable:#a7390e;--outcome-neutral:#62625e;--outcome-info:#2c5465;
+ --diff-bad:#a02f17;--diff-good:#275c3c;--diff-keep:#2c5465;
+ color-scheme:light;
+}

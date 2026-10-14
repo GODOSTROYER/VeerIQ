@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="pipeline-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #pp-cam { position: absolute; inset: 0; overflow: hidden; }
+        #pp-ghosts { position: absolute; left: 0; top: 0; width: 8000px; height: 1080px; }
+        .pp-ghost { position: absolute; top: 640px; font-family: "Geist Mono", monospace; font-weight: 700; font-size: 220px; letter-spacing: -0.04em; color: rgba(242,241,237,0.055); white-space: nowrap; }
+        #pp-world { position: absolute; left: 0; top: 0; width: 8920px; height: 1080px; }
+        #pp-wire { position: absolute; left: 0; top: 599px; width: 8920px; height: 3px; background: #e8602c; transform-origin: 0 50%; }
+        .pp-node { position: absolute; top: 600px; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: #0e0e10; border: 3px solid #e8602c; }
+        .pp-st { position: absolute; top: 0; width: 1320px; height: 1080px; }
+        .pp-kick { position: absolute; left: 0; top: 214px; font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; white-space: nowrap; }
+        .pp-hmask { position: absolute; left: 0; top: 262px; width: 1320px; overflow: hidden; }
+        .pp-h { font-family: "Instrument Serif", serif; font-size: 112px; line-height: 118px; letter-spacing: -0.03em; word-spacing: 0.04em; white-space: nowrap; }
+        .pp-h i { color: #e8602c; }
+        .pp-det { position: absolute; left: 0; top: 660px; width: 1320px; }
+        .pp-chip { display: inline-flex; align-items: baseline; gap: 12px; padding: 14px 18px; margin: 0 10px 14px 0; border: 2px solid rgba(169,196,208,0.55); font-family: "Geist Mono", monospace; font-size: 22px; color: #f2f1ed; white-space: nowrap; }
+        .pp-chip span { font-size: 17px; letter-spacing: 0.14em; color: #aaa9a7; }
+        .pp-chip.aq { border-color: rgba(255,148,103,0.6); }
+        .pp-chip.no { border-color: rgba(255,161,133,0.5); color: #ffa185; text-decoration: line-through; text-decoration-thickness: 3px; }
+        .pp-note { font-family: "Geist Mono", monospace; font-size: 24px; color: #aaa9a7; white-space: nowrap; }
+        .pp-note b { color: #f2f1ed; font-weight: 500; }
+        .pp-flow { display: flex; align-items: center; gap: 16px; }
+        .pp-tool { padding: 14px 18px; border: 2px solid rgba(242,241,237,0.25); font-family: "Geist Mono", monospace; font-size: 22px; color: #aaa9a7; white-space: nowrap; }
+        .pp-arrow { font-family: "Geist Mono", monospace; font-size: 24px; color: rgba(242,241,237,0.4); }
+        .pp-gate { position: absolute; top: 520px; width: 150px; height: 160px; margin-left: -75px; }
+        .pp-gate .bl, .pp-gate .br { position: absolute; top: 0; width: 26px; height: 160px; border: 4px solid; }
+        .pp-gate .bl { left: 0; border-right: 0; }
+        .pp-gate .br { right: 0; border-left: 0; }
+        .pp-gate .lab { position: absolute; left: -40px; width: 230px; top: 186px; text-align: center; font-family: "Geist Mono", monospace; font-size: 19px; letter-spacing: 0.12em; white-space: nowrap; }
+        .pp-gate .pass { position: absolute; left: -40px; width: 230px; top: 220px; text-align: center; font-family: "Geist Mono", monospace; font-size: 19px; letter-spacing: 0.12em; color: #a3ccb3; white-space: nowrap; }
+        #pp-packet { position: absolute; left: 0; top: 0; padding: 10px 16px; background: #e8602c; color: #0e0e10; font-family: "Geist Mono", monospace; font-size: 20px; font-weight: 600; white-space: nowrap; box-shadow: 0 0 26px 6px rgba(255,128,80,0.55); transform-origin: 50% 50%; }
+        .pp-check { font-family: "Geist Mono", monospace; font-size: 24px; color: #f2f1ed; white-space: nowrap; margin-bottom: 14px; }
+        .pp-check span { color: #a3ccb3; }
+        .pp-check.rb { color: #aaa9a7; }
+        .pp-check.rb span { color: #ffa185; }
+        #pp-commit { display: inline-block; margin-top: 8px; padding: 12px 20px; background: #a3ccb3; color: #0e0e10; font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 600; letter-spacing: 0.08em; }
+        .pp-blk { position: absolute; top: 560px; width: 150px; height: 84px; margin-top: -2px; border: 3px solid #e8602c; background: #151517; font-family: "Geist Mono", monospace; display: flex; flex-direction: column; justify-content: center; padding-left: 14px; }
+        .pp-blk b { font-size: 20px; font-weight: 600; color: #f2f1ed; }
+        .pp-blk span { font-size: 15px; color: #aaa9a7; letter-spacing: 0.04em; }
+        .pp-link { position: absolute; top: 600px; height: 3px; width: 56px; background: #e8602c; transform-origin: 0 50%; }
+        #pp-seal { display: inline-block; padding: 14px 22px; border: 2px solid #e8602c; color: #e8602c; font-family: "Geist Mono", monospace; font-size: 24px; letter-spacing: 0.08em; white-space: nowrap; }
+      </style>
+      <div data-hf-id="hf-dk3p" id="root" data-composition-id="pipeline" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-m47b" id="pp-cam">
+          <div data-hf-id="hf-ngf0" id="pp-ghosts" data-layout-ignore aria-hidden="true">
+            <div data-hf-id="hf-uw3y" class="pp-ghost" style="left:300px">GRANT</div><div data-hf-id="hf-nuvc" class="pp-ghost" style="left:1575px">PLAN</div>
+            <div data-hf-id="hf-wy11" class="pp-ghost" style="left:2850px">AGENT</div><div data-hf-id="hf-cxmh" class="pp-ghost" style="left:4125px">GATES</div>
+            <div data-hf-id="hf-ou03" class="pp-ghost" style="left:5400px">COMMIT</div><div data-hf-id="hf-rk4g" class="pp-ghost" style="left:6675px">EVIDENCE</div>
+          </div>
+          <div data-hf-id="hf-61tr" id="pp-world" data-layout-allow-overflow>
+            <div data-hf-id="hf-ad3t" id="pp-wire"></div>
+            <div data-hf-id="hf-bnph" class="pp-node" style="left:300px"></div><div data-hf-id="hf-yzwl" class="pp-node" style="left:1800px"></div><div data-hf-id="hf-lkj0" class="pp-node" style="left:3300px"></div>
+            <div data-hf-id="hf-jqge" class="pp-node" style="left:4800px"></div><div data-hf-id="hf-f723" class="pp-node" style="left:6300px"></div><div data-hf-id="hf-rm0z" class="pp-node" style="left:7800px"></div>
+
+            <!-- 01 GRANT -->
+            <div data-hf-id="hf-ga5g" class="pp-st" id="pp-s0" style="left:300px">
+              <div data-hf-id="hf-y4bh" class="pp-kick" style="color:#a9c4d0">01&nbsp;&nbsp;—&nbsp;&nbsp;GRANT</div>
+              <div data-hf-id="hf-iskb" class="pp-hmask" style="height:236px"><div data-hf-id="hf-1qfk" class="pp-h">A person authorizes<br data-hf-id="hf-x5px">one <i data-hf-id="hf-v0uz">narrow</i> task.</div></div>
+              <div data-hf-id="hf-o2xc" class="pp-det">
+                <div data-hf-id="hf-81mz" class="pp-chip"><span data-hf-id="hf-qgg9">RECORDS</span>O-2046 · O-2041</div><div data-hf-id="hf-hba7" class="pp-chip"><span data-hf-id="hf-riaw">FIELDS</span>total · region · status</div>
+                <div data-hf-id="hf-vlwe" class="pp-chip"><span data-hf-id="hf-9ac0">TOOLS</span>5</div><div data-hf-id="hf-u0oa" class="pp-chip"><span data-hf-id="hf-njy9">COMMITS</span>1</div><div data-hf-id="hf-6d9b" class="pp-chip"><span data-hf-id="hf-7urr">EXPIRES</span><b data-hf-id="hf-49lz" id="pp-exp" style="font-weight:500;font-variant-numeric:tabular-nums">30:00</b></div>
+              </div>
+            </div>
+            <!-- 02 SIGNED PLAN -->
+            <div data-hf-id="hf-3u5j" class="pp-st" id="pp-s1" style="left:1800px">
+              <div data-hf-id="hf-np5s" class="pp-kick" style="color:#ff9467">02&nbsp;&nbsp;—&nbsp;&nbsp;SIGNED PLAN</div>
+              <div data-hf-id="hf-akij" class="pp-hmask" style="height:236px"><div data-hf-id="hf-is1m" class="pp-h">ArmorIQ signs the plan<br data-hf-id="hf-rsrt"><i data-hf-id="hf-2287">before</i> the model runs.</div></div>
+              <div data-hf-id="hf-rl48" class="pp-det">
+                <div data-hf-id="hf-3ep6" class="pp-chip aq">inspect_snapshot</div><div data-hf-id="hf-8djs" class="pp-chip aq">compare_current</div><div data-hf-id="hf-2cai" class="pp-chip aq">prepare_repair_manifest</div>
+                <div data-hf-id="hf-4jep" class="pp-chip aq">apply_repair_manifest</div><div data-hf-id="hf-7uwi" class="pp-chip aq">get_recovery_receipt</div><div data-hf-id="hf-4nrk" class="pp-chip no">restore_access_grant</div>
+              </div>
+            </div>
+            <!-- 03 AGENT -->
+            <div data-hf-id="hf-cqwx" class="pp-st" id="pp-s2" style="left:3300px">
+              <div data-hf-id="hf-pbj7" class="pp-kick" style="color:#f2f1ed">03&nbsp;&nbsp;—&nbsp;&nbsp;AGENT</div>
+              <div data-hf-id="hf-a67i" class="pp-hmask" style="height:236px"><div data-hf-id="hf-t7tp" class="pp-h">The model proposes.<br data-hf-id="hf-szow">It <i data-hf-id="hf-x7j2">never</i> executes.</div></div>
+              <div data-hf-id="hf-qe75" class="pp-det">
+                <div data-hf-id="hf-c0yx" class="pp-flow">
+                  <div data-hf-id="hf-0x3r" class="pp-tool" id="pp-t0">inspect_snapshot</div><div data-hf-id="hf-e0yy" class="pp-arrow">→</div>
+                  <div data-hf-id="hf-yiyc" class="pp-tool" id="pp-t1">compare_current</div><div data-hf-id="hf-qib2" class="pp-arrow">→</div>
+                  <div data-hf-id="hf-atu7" class="pp-tool" id="pp-t2">prepare_repair_manifest</div><div data-hf-id="hf-qwm3" class="pp-arrow">→</div>
+                  <div data-hf-id="hf-wu1v" class="pp-tool" id="pp-t3">apply_repair_manifest</div>
+                </div>
+              </div>
+            </div>
+            <!-- 04 GATES -->
+            <div data-hf-id="hf-rcte" class="pp-st" id="pp-s3" style="left:4800px">
+              <div data-hf-id="hf-5wxn" class="pp-kick" style="color:#e5c285">04&nbsp;&nbsp;—&nbsp;&nbsp;GATES</div>
+              <div data-hf-id="hf-hk5w" class="pp-hmask" style="height:118px"><div data-hf-id="hf-ygpz" class="pp-h">Six gates. <i data-hf-id="hf-ikuy">Any one</i> can refuse.</div></div>
+            </div>
+            <div data-hf-id="hf-fm7u" class="pp-gate" id="pp-g0" style="left:5035px"><div data-hf-id="hf-iu06" class="bl" style="border-color:#94a3b8"></div><div data-hf-id="hf-d9dk" class="br" style="border-color:#94a3b8"></div><div data-hf-id="hf-et6f" class="lab" style="color:#94a3b8">SCHEMA</div><div data-hf-id="hf-01su" class="pass">PASS</div></div>
+            <div data-hf-id="hf-cli8" class="pp-gate" id="pp-g1" style="left:5285px"><div data-hf-id="hf-p9k4" class="bl" style="border-color:#a9c4d0"></div><div data-hf-id="hf-jsjm" class="br" style="border-color:#a9c4d0"></div><div data-hf-id="hf-1vfw" class="lab" style="color:#a9c4d0">GRANT</div><div data-hf-id="hf-j9j6" class="pass">PASS</div></div>
+            <div data-hf-id="hf-ujtp" class="pp-gate" id="pp-g2" style="left:5535px"><div data-hf-id="hf-rhdx" class="bl" style="border-color:#ff9467"></div><div data-hf-id="hf-kbwf" class="br" style="border-color:#ff9467"></div><div data-hf-id="hf-sqv4" class="lab" style="color:#ff9467">ARMORIQ</div><div data-hf-id="hf-jnu7" class="pass">PASS</div></div>
+            <div data-hf-id="hf-kxb7" class="pp-gate" id="pp-g3" style="left:5785px"><div data-hf-id="hf-5opo" class="bl" style="border-color:#a9c4d0"></div><div data-hf-id="hf-oa7a" class="br" style="border-color:#a9c4d0"></div><div data-hf-id="hf-ddne" class="lab" style="color:#a9c4d0">SCOPE</div><div data-hf-id="hf-k258" class="pass">PASS</div></div>
+            <div data-hf-id="hf-pg0j" class="pp-gate" id="pp-g4" style="left:6035px"><div data-hf-id="hf-j44b" class="bl" style="border-color:#e5c285"></div><div data-hf-id="hf-wzs5" class="br" style="border-color:#e5c285"></div><div data-hf-id="hf-hr11" class="lab" style="color:#e5c285">DOMAIN</div><div data-hf-id="hf-kgg9" class="pass">PASS</div></div>
+            <div data-hf-id="hf-7l29" class="pp-gate" id="pp-g5" style="left:6285px"><div data-hf-id="hf-cc7v" class="bl" style="border-color:#e5c285"></div><div data-hf-id="hf-qgs9" class="br" style="border-color:#e5c285"></div><div data-hf-id="hf-3x7g" class="lab" style="color:#e5c285">REVIEWER &gt;$5K</div><div data-hf-id="hf-kura" class="pass">PASS</div></div>
+            <div data-hf-id="hf-ozmo" class="pp-note" id="pp-gnote" style="position:absolute; left:4800px; top:830px;">Any gate that cannot answer <b data-hf-id="hf-ykhe">refuses</b>. Fail closed.</div>
+            <!-- 05 ONE TRANSACTION -->
+            <div data-hf-id="hf-mr98" class="pp-st" id="pp-s4" style="left:6300px">
+              <div data-hf-id="hf-tp03" class="pp-kick" style="color:#a3ccb3">05&nbsp;&nbsp;—&nbsp;&nbsp;ONE TRANSACTION</div>
+              <div data-hf-id="hf-9rwh" class="pp-hmask" style="height:236px"><div data-hf-id="hf-mf2h" class="pp-h">One locked transaction.<br data-hf-id="hf-sldv"><i data-hf-id="hf-z2ge">Or nothing.</i></div></div>
+              <div data-hf-id="hf-hwp8" class="pp-det" style="left:690px; top:668px">
+                <div data-hf-id="hf-ra6s" class="pp-check" id="pp-k0"><span data-hf-id="hf-ls52">✓</span> lock the rows</div>
+                <div data-hf-id="hf-5797" class="pp-check" id="pp-k1"><span data-hf-id="hf-wobe">✓</span> re-check grant · digest · row versions</div>
+                <div data-hf-id="hf-kfwi" class="pp-check" id="pp-k2"><span data-hf-id="hf-x2mf">✓</span> write under a restricted role</div>
+                <div data-hf-id="hf-l4jo" class="pp-check rb" id="pp-k3"><span data-hf-id="hf-yqdd">↺</span> protected record would change → roll back</div>
+              </div>
+              <svg data-hf-id="hf-8l30" id="pp-db" style="position:absolute; left:420px; top:650px; width:190px; height:230px; overflow:visible" viewBox="0 0 190 230" aria-hidden="true">
+                <ellipse data-hf-id="hf-tt2z" cx="95" cy="30" rx="85" ry="26" fill="none" stroke="#a3ccb3" stroke-width="4"/>
+                <path data-hf-id="hf-rbst" d="M10 30v170c0 14 38 26 85 26s85-12 85-26V30" fill="none" stroke="#a3ccb3" stroke-width="4"/>
+                <path data-hf-id="hf-jhhd" d="M10 88c0 14 38 26 85 26s85-12 85-26M10 146c0 14 38 26 85 26s85-12 85-26" fill="none" stroke="#a3ccb3" stroke-width="3" opacity="0.6"/>
+              </svg>
+            </div>
+            <div data-hf-id="hf-lg9d" id="pp-commit" style="position:absolute; left:6990px; top:892px;">COMMIT ✓</div>
+            <!-- 06 SIGNED EVIDENCE -->
+            <div data-hf-id="hf-uzhh" class="pp-st" id="pp-s5" style="left:7800px">
+              <div data-hf-id="hf-7rqc" class="pp-kick" style="color:#e8602c">06&nbsp;&nbsp;—&nbsp;&nbsp;SIGNED EVIDENCE</div>
+              <div data-hf-id="hf-9dlg" class="pp-hmask" style="height:236px"><div data-hf-id="hf-rm4q" class="pp-h">Every event, hash-chained.<br data-hf-id="hf-qluq"><i data-hf-id="hf-e0xw">Signed</i> with Ed25519.</div></div>
+              <div data-hf-id="hf-0ora" class="pp-det" style="top:720px"><div data-hf-id="hf-bdrp" id="pp-seal">ED25519 ✓&nbsp;&nbsp;VERIFIABLE OFFLINE</div></div>
+            </div>
+            <div data-hf-id="hf-juit" class="pp-blk" id="pp-b0" style="left:7800px"><b data-hf-id="hf-xbcl">#01</b><span data-hf-id="hf-mgi9">36a62a8e</span></div>
+            <div data-hf-id="hf-4thv" class="pp-link" id="pp-l0" style="left:7953px"></div>
+            <div data-hf-id="hf-mntc" class="pp-blk" id="pp-b1" style="left:8009px"><b data-hf-id="hf-yi9o">#02</b><span data-hf-id="hf-8ak7">b91c07f4</span></div>
+            <div data-hf-id="hf-sxeb" class="pp-link" id="pp-l1" style="left:8162px"></div>
+            <div data-hf-id="hf-i6ib" class="pp-blk" id="pp-b2" style="left:8218px"><b data-hf-id="hf-y3yn">#03</b><span data-hf-id="hf-uv6v">4e2d9a10</span></div>
+            <div data-hf-id="hf-qcu6" class="pp-link" id="pp-l2" style="left:8371px"></div>
+            <div data-hf-id="hf-3wu2" class="pp-blk" id="pp-b3" style="left:8427px"><b data-hf-id="hf-qh70">···</b><span data-hf-id="hf-cufi">35 events</span></div>
+            <div data-hf-id="hf-gkrt" class="pp-link" id="pp-l3" style="left:8580px"></div>
+            <div data-hf-id="hf-qkx9" class="pp-blk" id="pp-b4" style="left:8636px; border-color:#f2f1ed"><b data-hf-id="hf-eolc">SEAL</b><span data-hf-id="hf-9dwi">6013cafa</span></div>
+
+            <div data-hf-id="hf-deme" id="pp-packet">apply_repair_manifest ▸</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var world = document.getElementById("pp-world"), ghosts = document.getElementById("pp-ghosts");
+          var cam = { x: 0, s: 1 };
+          function applyCamera() {
+            world.style.transform = "translate(" + cam.x.toFixed(2) + "px,0px) scale(" + cam.s.toFixed(4) + ")";
+            ghosts.style.transform = "translate(" + (cam.x * 0.85).toFixed(2) + "px,0px)";
+          }
+          world.style.transformOrigin = "0px 540px";
+          applyCamera();
+
+          // Enter: whip in from the right, velocity-matched to the previous frame's exit.
+          tl.fromTo("#pp-cam", { x: 420, filter: "blur(18px)" }, { x: 0, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, 0);
+          tl.fromTo("#pp-wire", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "expo.inOut" }, 0.0);
+
+          // Camera stops: station k sits centred at cam.x = -1500k. Each pan dips scale a touch for depth.
+          var PANS = [1.6, 3.6, 5.6, 9.0, 11.0];
+          PANS.forEach(function (t, i) {
+            tl.to(cam, { x: -1500 * (i + 1), duration: 0.62, ease: "power3.inOut", onUpdate: applyCamera }, t);
+            var dip = { v: 0 };
+            tl.to(dip, { v: 1, duration: 0.62, ease: "none", onUpdate: function () { cam.s = 1 - Math.sin(dip.v * Math.PI) * 0.035; applyCamera(); } }, t);
+            tl.fromTo("#pp-cam", { filter: "blur(0px)" }, { filter: "blur(4px)", duration: 0.31, ease: "power2.in", immediateRender: false }, t);
+            tl.to("#pp-cam", { filter: "blur(0px)", duration: 0.31, ease: "power2.out" }, t + 0.31);
+          });
+
+          // Station reveals: kicker clips in, headline rises from its mask, details stagger.
+          var REVEAL = [0.2, 1.95, 3.95, 5.95, 9.35, 11.35];
+          for (var k = 0; k < 6; k++) {
+            var st = "#pp-s" + k, r = REVEAL[k];
+            tl.fromTo(st + " .pp-kick", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power3.out" }, r);
+            tl.fromTo(st + " .pp-h", { yPercent: 100 }, { yPercent: 0, duration: 0.62, ease: "expo.out" }, r + 0.06);
+          }
+          tl.fromTo("#pp-s0 .pp-chip", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.07 }, 0.55);
+          var exp = document.getElementById("pp-exp"), ex = { s: 0 };
+          tl.to(ex, { s: 2, duration: 2, ease: "steps(2)", onUpdate: function () { exp.textContent = "29:5" + (10 - Math.round(ex.s)) % 10; if (ex.s < 0.5) exp.textContent = "30:00"; } }, 0.6);
+          tl.fromTo("#pp-s1 .pp-chip.aq", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out", stagger: 0.06 }, 2.3);
+          tl.fromTo("#pp-s1 .pp-chip.no", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 2.75);
+          tl.fromTo("#pp-s2 .pp-flow", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 4.25);
+          ["#pp-t0", "#pp-t1", "#pp-t2", "#pp-t3"].forEach(function (id, i) {
+            tl.to(id, { color: "#f2f1ed", borderColor: "rgba(242,241,237,0.85)", duration: 0.15, ease: "none" }, 4.45 + i * 0.2);
+          });
+          tl.to("#pp-t3", { borderColor: "#e8602c", color: "#e8602c", duration: 0.15, ease: "none" }, 5.15);
+
+          // The proposed call becomes a packet and rides the wire.
+          var PK = { x: 3300 + 1003, y: 708 };
+          gsap.set("#pp-packet", { opacity: 0 });
+          tl.fromTo("#pp-packet", { opacity: 0, x: PK.x, y: PK.y, scale: 0.9 }, { opacity: 1, x: PK.x, y: PK.y - 18, scale: 1, duration: 0.25, ease: "power3.out", immediateRender: false }, 5.3);
+          tl.to("#pp-packet", { x: 4800 + 30, y: 581, duration: 0.65, ease: "power3.inOut" }, 5.6);
+          tl.fromTo("#pp-gnote", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 6.35);
+          gsap.set(".pp-gate .pass", { opacity: 0 });
+          tl.fromTo(".pp-gate", { opacity: 0, scaleY: 0.4 }, { opacity: 1, scaleY: 1, duration: 0.4, ease: "expo.out", stagger: 0.05 }, 5.95);
+          var GX = [5035, 5285, 5535, 5785, 6035, 6285];
+          GX.forEach(function (gx, j) {
+            var ta = 6.62 + j * 0.3;
+            tl.to("#pp-packet", { x: gx - 125, duration: 0.2, ease: "power2.inOut" }, ta - 0.2);
+            tl.fromTo("#pp-g" + j, { scale: 1 }, { scale: 1.1, duration: 0.06, ease: "none", immediateRender: false }, ta);
+            tl.to("#pp-g" + j, { scale: 1, duration: 0.3, ease: "power3.out" }, ta + 0.06);
+            tl.fromTo("#pp-g" + j + " .pass", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out", immediateRender: false }, ta + 0.04);
+          });
+          tl.to("#pp-packet", { x: 6440, duration: 0.3, ease: "power2.out" }, 8.42);
+          // Into the database; absorbed on commit.
+          tl.to("#pp-packet", { x: 6661, y: 743, scale: 0.6, duration: 0.6, ease: "power3.inOut" }, 9.0);
+          tl.to("#pp-packet", { scale: 0, opacity: 0, duration: 0.2, ease: "power3.in" }, 9.62);
+          tl.fromTo("#pp-db", { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.08, duration: 0.1, ease: "none", immediateRender: false }, 9.8);
+          tl.to("#pp-db", { scale: 1, duration: 0.4, ease: "power3.out" }, 9.9);
+          ["#pp-k0", "#pp-k1", "#pp-k2", "#pp-k3"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, 9.75 + i * 0.16);
+          });
+          tl.fromTo("#pp-commit", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, 10.45);
+          // Evidence: blocks link into a chain, then the seal.
+          for (var b = 0; b < 5; b++) {
+            tl.fromTo("#pp-b" + b, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 11.55 + b * 0.14);
+            if (b < 4) tl.fromTo("#pp-l" + b, { scaleX: 0 }, { scaleX: 1, duration: 0.18, ease: "power2.out" }, 11.75 + b * 0.14);
+          }
+          tl.fromTo("#pp-seal", { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 12.45);
+          tl.fromTo("#pp-b4", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)" }, { boxShadow: "0 0 30px 6px rgba(255,128,80,0.6)", duration: 0.3, ease: "power2.out" }, 12.45);
+          var drift = { v: 0 };
+          tl.to(drift, { v: 1, duration: 2.0, ease: "sine.inOut", onUpdate: function () { cam.x = -7500 - drift.v * 40; applyCamera(); } }, 11.75);
+
+          // Exit: zoom through into the boundary test.
+          tl.fromTo("#pp-cam", { scale: 1, filter: "blur(0px)" }, { scale: 1.22, filter: "blur(18px)", duration: 0.22, ease: "power3.in", immediateRender: false }, 13.78);
+
+          window.__timelines["pipeline"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

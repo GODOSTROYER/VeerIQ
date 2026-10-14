@@ -1,0 +1,89 @@
+name: veeriq-oidc-rehearsal
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: veeriq_oidc
+      POSTGRES_USER: veeriq_oidc
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run scripts/local-oidc/up.sh first}
+    volumes:
+      - oidc-rehearsal-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.3
+    command: ["start-dev", "--import-realm", "--hostname=https://localhost:8444", "--proxy-headers=xforwarded"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    volumes:
+      - ../../.local-oidc/realm:/opt/keycloak/data/import:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "/bin/bash -lc 'echo >/dev/tcp/127.0.0.1/8080'"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+
+  veeriq:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    network_mode: "service:tls-proxy"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+      tls-proxy:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql://veeriq_oidc:${POSTGRES_PASSWORD}@postgres:5432/veeriq_oidc
+      REWINDSAFE_AUTH_MODE: oidc
+      REWINDSAFE_SESSION_SECRET: ${REWINDSAFE_SESSION_SECRET}
+      REWINDSAFE_COOKIE_SECURE: "true"
+      REWINDSAFE_OIDC_ISSUER: ${REWINDSAFE_OIDC_ISSUER}
+      REWINDSAFE_OIDC_CLIENT_ID: ${REWINDSAFE_OIDC_CLIENT_ID}
+      REWINDSAFE_OIDC_CLIENT_SECRET: ${REWINDSAFE_OIDC_CLIENT_SECRET}
+      REWINDSAFE_OIDC_REDIRECT_URI: ${REWINDSAFE_OIDC_REDIRECT_URI}
+      REWINDSAFE_APP_ORIGIN: ${REWINDSAFE_APP_ORIGIN}
+      REWINDSAFE_OIDC_SUBJECTS_JSON: ${REWINDSAFE_OIDC_SUBJECTS_JSON}
+      REWINDSAFE_ENFORCEMENT: offline
+      REWINDSAFE_PLANNER: scripted
+      SSL_CERT_FILE: /certs/localhost.crt
+    volumes:
+      - oidc-rehearsal-evidence:/app/.data
+      - ../../.local-oidc/tls:/certs:ro
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health/live', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 30s
+
+  tls-proxy:
+    image: caddy:2-alpine
+    ports:
+      - "127.0.0.1:8443:8443"
+      - "127.0.0.1:8444:8444"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../../.local-oidc/tls:/certs:ro
+    depends_on:
+      keycloak:
+        condition: service_healthy
+
+volumes:
+  oidc-rehearsal-postgres:
+  oidc-rehearsal-evidence:

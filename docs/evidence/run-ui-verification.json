@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-10-12T20:05:30.913Z",
+  "source": "real local rendered UI; no mutations",
+  "observations": [
+    {
+      "kind": "new",
+      "run_id": "run_01M4RV8W669EWXB0",
+      "recorded_results": "Records repaired\n1\n/ 1\n\nApproved values restored.\n\nToday’s decisions kept\n18\n/ 18\n\nAll 18 recorded checks preserved at run completion.\n\nAttacks stopped\n0\n\nNo requests were blocked; this run does not show an attack being stopped.\n\nOther tenant untouched\nNot recorded\n\nNo historical tenant-isolation check was recorded.",
+      "receipt_values_visible": true
+    },
+    {
+      "kind": "legacy",
+      "run_id": "run_01M4RFW72HSC79XG",
+      "recorded_results": "Records repaired\n1\n/ 1\n\nApproved values restored.\n\nToday’s decisions kept\nNot recorded\n\nDetailed historical protected checks were not recorded for this run.\n\nAttacks stopped\n0\n\nNo requests were blocked; this run does not show an attack being stopped.\n\nOther tenant untouched\nNot recorded\n\nNo historical tenant-isolation check was recorded.",
+      "receipt_values_visible": true
+    }
+  ]
+}

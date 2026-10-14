@@ -1,0 +1,2103 @@
+{
+  "schema": "rewindsafe.sealed-evidence.v1",
+  "payload": {
+    "contract_version": "1.0",
+    "disclaimers": [
+      "Live mode: ArmorIQ decisions were returned by the ArmorIQ SDK (armoriq-sdk 0.6.10) against the configured ArmorIQ environment. The SDK does not expose the HTTP status of the enforce call, so only transport failures are classified as 'enforcement unavailable'.",
+      "The ArmorIQ SDK binds tool names to the signed plan; argument/resource binding is enforced by RewindSafe immutable manifests and grant scope. Decisions labeled rewindsafe.* or postgres.* were made by RewindSafe or PostgreSQL, not by ArmorIQ.",
+      "Telemetry 'delivered' means the ArmorIQ audit endpoint returned an HTTP status below 400 for the report; the SDK itself swallows errors, so unverified reports are marked failed. Offline reports are 'skipped'.",
+      "Identities are local demo identities (cookie sessions), not enterprise SSO.",
+      "This evidence is exported from the application database and is not independently signed."
+    ],
+    "events": [
+      {
+        "actor": "system",
+        "data": {
+          "enforcement_mode": "live",
+          "planner": "scripted",
+          "planner_label": "Scripted re-enactment (deterministic, no LLM)",
+          "scenario_id": "imp_01M4RCWFCV5SKEG5"
+        },
+        "decision": null,
+        "detail": "Planner: Scripted re-enactment (deterministic, no LLM). Enforcement: live",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 78,
+        "title": "Run started: Warehouse stock locations inventory recovery",
+        "ts": "2026-10-12T15:49:45.041857Z",
+        "type": "run.created"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "previous": "created",
+          "status": "planning"
+        },
+        "decision": null,
+        "detail": "",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 79,
+        "title": "Run is now planning",
+        "ts": "2026-10-12T15:49:45.049931Z",
+        "type": "run.status"
+      },
+      {
+        "actor": "armoriq",
+        "data": {
+          "llm": "scripted",
+          "simulated": false,
+          "tools": [
+            "inspect_snapshot",
+            "compare_current",
+            "prepare_repair_manifest",
+            "apply_repair_manifest",
+            "get_recovery_receipt"
+          ]
+        },
+        "decision": null,
+        "detail": "The plan is derived from the human-reviewed grant and covers 5 tools; nothing the agent says can widen it.",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 80,
+        "title": "Requesting a signed intent plan from ArmorIQ",
+        "ts": "2026-10-12T15:49:45.056397Z",
+        "type": "plan.requested"
+      },
+      {
+        "actor": "armoriq",
+        "data": {
+          "latency_ms": 4501.5,
+          "matched_policies": [
+            "cli-rewindsafe-recovery-agent-rewindsafe-recovery"
+          ],
+          "plan": {
+            "error": null,
+            "expires_at": "2026-10-12T16:19:45Z",
+            "issued_at": "2026-10-12T15:49:45Z",
+            "latency_ms": 4501.473624994105,
+            "matched_policies": [
+              "cli-rewindsafe-recovery-agent-rewindsafe-recovery"
+            ],
+            "mode": "live",
+            "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+            "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+            "sdk_version": "0.6.10",
+            "session_mode": "sdk",
+            "simulated": false,
+            "steps": [
+              "inspect_snapshot",
+              "compare_current",
+              "prepare_repair_manifest",
+              "apply_repair_manifest",
+              "get_recovery_receipt"
+            ],
+            "token_id": "000245c455b44a269505a66c127cd907"
+          },
+          "steps": [
+            "inspect_snapshot",
+            "compare_current",
+            "prepare_repair_manifest",
+            "apply_repair_manifest",
+            "get_recovery_receipt"
+          ]
+        },
+        "decision": null,
+        "detail": "Plan hash 5e51d2b45ad9..., signed in 4.5 s, covers 5 tools: inspect_snapshot, compare_current, prepare_repair_manifest, apply_repair_manifest, get_recovery_receipt. Tools outside the plan cannot be called.",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 81,
+        "title": "ArmorIQ signed the recovery plan",
+        "ts": "2026-10-12T15:49:49.568786Z",
+        "type": "plan.bound"
+      },
+      {
+        "actor": "armoriq",
+        "data": {},
+        "decision": {
+          "created_at": "2026-10-12T15:49:49.563792Z",
+          "decision_id": "dec_01M4RCWKVVYM06JY",
+          "decisive": false,
+          "evidence": {
+            "tools": [
+              "inspect_snapshot",
+              "compare_current",
+              "prepare_repair_manifest",
+              "apply_repair_manifest",
+              "get_recovery_receipt"
+            ]
+          },
+          "invariant": null,
+          "latency_ms": 4501.473624994105,
+          "layer": "armoriq",
+          "outcome": "allow",
+          "proposal_id": null,
+          "reason": "ArmorIQ signed the recovery plan (5 tools, plan 5e51d2b4\u2026).",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "shadow": false,
+          "simulated": false,
+          "source": "armoriq.backend.token_issuance",
+          "sponsor": {
+            "delegation_id": null,
+            "matched_policy": null,
+            "mode": "live",
+            "obligations": [],
+            "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+            "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+            "raw_action": null,
+            "sanitized_response": {
+              "allowed_tools": [
+                "apply_repair_manifest",
+                "compare_current",
+                "get_recovery_receipt",
+                "inspect_snapshot",
+                "prepare_repair_manifest"
+              ],
+              "default_enforcement_action": "block",
+              "denied_tools": [],
+              "matched_policies": [
+                "cli-rewindsafe-recovery-agent-rewindsafe-recovery"
+              ],
+              "observability_session_id": "f7649040-605a-4d17-91cd-cb59708a71f6",
+              "policy_snapshot_entries": 1,
+              "total_steps": 5
+            },
+            "sdk_version": "0.6.10",
+            "session_mode": "sdk",
+            "token_id": "000245c455b44a269505a66c127cd907"
+          }
+        },
+        "detail": "ArmorIQ signed the recovery plan (5 tools, plan 5e51d2b4\u2026).",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 82,
+        "title": "ArmorIQ issued a signed plan token",
+        "ts": "2026-10-12T15:49:49.595927Z",
+        "type": "decision"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "kind": "agent"
+        },
+        "decision": null,
+        "detail": "Starting warehouse stock locations inventory recovery for incident n/a on tenant atlas. Reading approved snapshot approved-warehouse_bins first.",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 83,
+        "title": "Starting warehouse stock locations inventory recovery for incident n/a on tenant atlas. Reading approved snap\u2026",
+        "ts": "2026-10-12T15:49:49.603081Z",
+        "type": "agent.note"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "previous": "planning",
+          "status": "executing"
+        },
+        "decision": null,
+        "detail": "",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 84,
+        "title": "Run is now executing",
+        "ts": "2026-10-12T15:49:49.611028Z",
+        "type": "run.status"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "arguments": {
+            "order_ids": [
+              "SKU-402",
+              "SKU-512"
+            ],
+            "snapshot_id": "approved-warehouse_bins",
+            "tenant_id": "atlas"
+          },
+          "rationale": "Read the approved snapshot rows for the orders in my grant.",
+          "source": "agent",
+          "step_index": 0,
+          "tool": "inspect_snapshot"
+        },
+        "decision": null,
+        "detail": "Read the approved snapshot rows for the orders in my grant.",
+        "proposal_id": "prp_01M4RCWKXHVPPQR2",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 85,
+        "title": "Proposed inspect_snapshot",
+        "ts": "2026-10-12T15:49:49.624407Z",
+        "type": "agent.proposal"
+      },
+      {
+        "actor": "armoriq",
+        "data": {},
+        "decision": {
+          "created_at": "2026-10-12T15:49:50.420424Z",
+          "decision_id": "dec_01M4RCWMPMSECGRE",
+          "decisive": false,
+          "evidence": {
+            "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+            "argument_keys": [
+              "order_ids",
+              "snapshot_id",
+              "tenant_id"
+            ],
+            "arguments_digest": "sha256:9c58e387f64c67fb7f9d225dd3db38798d7b10666d1b3df9c344f080030992cf"
+          },
+          "invariant": null,
+          "latency_ms": 787.2008330014069,
+          "layer": "armoriq",
+          "outcome": "allow",
+          "proposal_id": "prp_01M4RCWKXHVPPQR2",
+          "reason": "allow_with_logging",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "shadow": false,
+          "simulated": false,
+          "source": "armoriq.backend.enforce",
+          "sponsor": {
+            "delegation_id": null,
+            "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+            "mode": "live",
+            "obligations": [],
+            "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+            "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+            "raw_action": "allow",
+            "sanitized_response": {
+              "action": "allow",
+              "allowed": true,
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "obligation_count": 0,
+              "reason": "allow_with_logging"
+            },
+            "sdk_version": "0.6.10",
+            "session_mode": "sdk",
+            "token_id": "000245c455b44a269505a66c127cd907"
+          }
+        },
+        "detail": "Inside the signed recovery plan and permitted by policy.",
+        "proposal_id": "prp_01M4RCWKXHVPPQR2",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 86,
+        "title": "ArmorIQ allowed inspect_snapshot",
+        "ts": "2026-10-12T15:49:50.432421Z",
+        "type": "decision"
+      },
+      {
+        "actor": "rewindsafe",
+        "data": {
+          "observation_preview": "{\"rows\":[{\"description\":\"Thermal label roll\",\"location\":\"A-03-C\",\"owner_account\":\"wh-west\",\"quantity\":140,\"record_id\":\"SKU-402\",\"sku\":\"SKU-402\",\"sync_grant_id\":null,\"tenant_id\":\"atlas\"},{\"description\":\"Stretch wrap case\",\"location\":\"R-16-A\",\"owner_account\":\"wh-west\",\"quantity\":18,\"record_id\":\"SKU-512\",\"sku\":\"SKU-512\",\"sync_grant_id\":null,\"tenant_id\":\"atlas\"}],\"snapshot_digest\":\"sha256:35a581045435c87bdc035ef5c15bfda4baf6f7b33dddc95d9bfd87ee60f71580\",\"snapshot_id\":\"approved-warehouse_bins\"}",
+          "summary": "Read 2 approved inventory record(s).",
+          "tool": "inspect_snapshot"
+        },
+        "decision": null,
+        "detail": "Read 2 approved inventory record(s).",
+        "proposal_id": "prp_01M4RCWKXHVPPQR2",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 87,
+        "title": "inspect_snapshot completed",
+        "ts": "2026-10-12T15:49:50.452211Z",
+        "type": "tool.result"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "error": null,
+          "status": "delivered",
+          "tool": "inspect_snapshot"
+        },
+        "decision": null,
+        "detail": "Report for inspect_snapshot was accepted by the ArmorIQ audit endpoint.",
+        "proposal_id": "prp_01M4RCWKXHVPPQR2",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 88,
+        "title": "ArmorIQ audit report delivered",
+        "ts": "2026-10-12T15:49:51.347813Z",
+        "type": "telemetry.delivery"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "kind": "agent"
+        },
+        "decision": null,
+        "detail": "",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 89,
+        "title": "Snapshot read. No annotations attached.",
+        "ts": "2026-10-12T15:49:51.364629Z",
+        "type": "agent.note"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "arguments": {
+            "order_ids": [
+              "SKU-402",
+              "SKU-512"
+            ],
+            "tenant_id": "atlas"
+          },
+          "rationale": "Compare the snapshot with today's data to see what is actually damaged.",
+          "source": "agent",
+          "step_index": 1,
+          "tool": "compare_current"
+        },
+        "decision": null,
+        "detail": "Compare the snapshot with today's data to see what is actually damaged.",
+        "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 90,
+        "title": "Proposed compare_current",
+        "ts": "2026-10-12T15:49:51.385739Z",
+        "type": "agent.proposal"
+      },
+      {
+        "actor": "armoriq",
+        "data": {},
+        "decision": {
+          "created_at": "2026-10-12T15:49:52.182602Z",
+          "decision_id": "dec_01M4RCWPDPYEG0PV",
+          "decisive": false,
+          "evidence": {
+            "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+            "argument_keys": [
+              "order_ids",
+              "tenant_id"
+            ],
+            "arguments_digest": "sha256:f0b7b89ae1c83e874e7b23011532dcb6e6b1d91037750ebfdcd82a090545e7e5"
+          },
+          "invariant": null,
+          "latency_ms": 786.7308749991935,
+          "layer": "armoriq",
+          "outcome": "allow",
+          "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+          "reason": "allow_with_logging",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "shadow": false,
+          "simulated": false,
+          "source": "armoriq.backend.enforce",
+          "sponsor": {
+            "delegation_id": null,
+            "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+            "mode": "live",
+            "obligations": [],
+            "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+            "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+            "raw_action": "allow",
+            "sanitized_response": {
+              "action": "allow",
+              "allowed": true,
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "obligation_count": 0,
+              "reason": "allow_with_logging"
+            },
+            "sdk_version": "0.6.10",
+            "session_mode": "sdk",
+            "token_id": "000245c455b44a269505a66c127cd907"
+          }
+        },
+        "detail": "Inside the signed recovery plan and permitted by policy.",
+        "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 91,
+        "title": "ArmorIQ allowed compare_current",
+        "ts": "2026-10-12T15:49:52.192593Z",
+        "type": "decision"
+      },
+      {
+        "actor": "rewindsafe",
+        "data": {
+          "observation_preview": "{\"orders\":[{\"changed_fields\":[\"quantity\",\"location\"],\"condition\":\"damaged\",\"current\":{\"location\":null,\"quantity\":0},\"differing_fields\":[\"quantity\",\"location\"],\"order_id\":\"SKU-402\",\"protected_reason\":null,\"row_version\":2,\"snapshot\":{\"location\":\"A-03-C\",\"quantity\":140},\"tenant_id\":\"atlas\"},{\"changed_fields\":[\"quantity\"],\"condition\":\"changed_after_snapshot\",\"current\":{\"location\":\"R-16-A\",\"quantity\":1},\"differing_fields\":[\"quantity\"],\"order_id\":\"SKU-512\",\"protected_reason\":\"later_edit\",\"row_version\":2,\"snapshot\":{\"location\":\"R-16-A\",\"quantity\":18},\"tenant_id\":\"atlas\"}]}",
+          "summary": "Compared 2 inventory record(s).",
+          "tool": "compare_current"
+        },
+        "decision": null,
+        "detail": "Compared 2 inventory record(s).",
+        "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 92,
+        "title": "compare_current completed",
+        "ts": "2026-10-12T15:49:52.213592Z",
+        "type": "tool.result"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "error": null,
+          "status": "delivered",
+          "tool": "compare_current"
+        },
+        "decision": null,
+        "detail": "Report for compare_current was accepted by the ArmorIQ audit endpoint.",
+        "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 93,
+        "title": "ArmorIQ audit report delivered",
+        "ts": "2026-10-12T15:49:53.074088Z",
+        "type": "telemetry.delivery"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "kind": "agent"
+        },
+        "decision": null,
+        "detail": "Snapshot has 1 damaged Atlas order in scope (SKU-402); SKU-512 was legitimately updated after the snapshot - leaving it as is.",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 94,
+        "title": "Snapshot has 1 damaged Atlas order in scope (SKU-402); SKU-512 was legitimately updated after the snapshot -\u2026",
+        "ts": "2026-10-12T15:49:53.095872Z",
+        "type": "agent.note"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "arguments": {
+            "repairs": [
+              {
+                "fields": [
+                  "quantity",
+                  "location"
+                ],
+                "order_id": "SKU-402"
+              }
+            ],
+            "snapshot_id": "approved-warehouse_bins",
+            "tenant_id": "atlas"
+          },
+          "rationale": "Prepare an exact manifest restoring SKU-402 from the approved snapshot.",
+          "source": "agent",
+          "step_index": 2,
+          "tool": "prepare_repair_manifest"
+        },
+        "decision": null,
+        "detail": "Prepare an exact manifest restoring SKU-402 from the approved snapshot.",
+        "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 95,
+        "title": "Proposed prepare_repair_manifest",
+        "ts": "2026-10-12T15:49:53.127519Z",
+        "type": "agent.proposal"
+      },
+      {
+        "actor": "armoriq",
+        "data": {},
+        "decision": {
+          "created_at": "2026-10-12T15:49:53.920462Z",
+          "decision_id": "dec_01M4RCWR40RYBPAQ",
+          "decisive": false,
+          "evidence": {
+            "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+            "argument_keys": [
+              "repairs",
+              "snapshot_id",
+              "tenant_id"
+            ],
+            "arguments_digest": "sha256:1659d495565e4d205df1791033cb9376be17439e13640b024df67d5a3a17f613"
+          },
+          "invariant": null,
+          "latency_ms": 777.6515829973505,
+          "layer": "armoriq",
+          "outcome": "allow",
+          "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+          "reason": "allow_with_logging",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "shadow": false,
+          "simulated": false,
+          "source": "armoriq.backend.enforce",
+          "sponsor": {
+            "delegation_id": null,
+            "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+            "mode": "live",
+            "obligations": [],
+            "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+            "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+            "raw_action": "allow",
+            "sanitized_response": {
+              "action": "allow",
+              "allowed": true,
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "obligation_count": 0,
+              "reason": "allow_with_logging"
+            },
+            "sdk_version": "0.6.10",
+            "session_mode": "sdk",
+            "token_id": "000245c455b44a269505a66c127cd907"
+          }
+        },
+        "detail": "Inside the signed recovery plan and permitted by policy.",
+        "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 96,
+        "title": "ArmorIQ allowed prepare_repair_manifest",
+        "ts": "2026-10-12T15:49:53.940849Z",
+        "type": "decision"
+      },
+      {
+        "actor": "rewindsafe",
+        "data": {
+          "manifest": {
+            "changes": [
+              {
+                "current_value": null,
+                "entity": "inventory_item",
+                "field": "location",
+                "new_value": "A-03-C",
+                "op": "update",
+                "row_id": "SKU-402",
+                "source_path": "snapshot:approved-warehouse_bins/inventory/SKU-402/location"
+              },
+              {
+                "current_value": 0,
+                "entity": "inventory_item",
+                "field": "quantity",
+                "new_value": 140,
+                "op": "update",
+                "row_id": "SKU-402",
+                "source_path": "snapshot:approved-warehouse_bins/inventory/SKU-402/quantity"
+              }
+            ],
+            "content_digest": "sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59",
+            "created_at": "2026-10-12T15:49:53.960786Z",
+            "grant_id": "grt_01M4RCWFDRVRGMNX",
+            "manifest_id": "man_01M4RCWR5873FGS9",
+            "preconditions": {
+              "authority_epoch": 0,
+              "fixture_generation": 1,
+              "hold_free": [
+                "SKU-402"
+              ],
+              "row_versions": {
+                "SKU-402": 2
+              },
+              "tombstone_free": [
+                "SKU-402"
+              ]
+            },
+            "principal": "maya",
+            "requires_review": false,
+            "restored_value_cents": 0,
+            "review_reason": null,
+            "run_id": "run_01M4RCWFEGB344NY",
+            "snapshot_digest": "sha256:35a581045435c87bdc035ef5c15bfda4baf6f7b33dddc95d9bfd87ee60f71580",
+            "snapshot_id": "approved-warehouse_bins",
+            "status": "prepared",
+            "tenant_id": "atlas",
+            "workflow": "rewindsafe.import_recovery"
+          }
+        },
+        "decision": null,
+        "detail": "Manifest man_01M4RCWR5873FGS9 stores 2 exact change(s) resolved from the approved snapshot.",
+        "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 97,
+        "title": "Repair manifest prepared",
+        "ts": "2026-10-12T15:49:53.988363Z",
+        "type": "manifest.prepared"
+      },
+      {
+        "actor": "rewindsafe",
+        "data": {
+          "observation_preview": "{\"changes\":[{\"current_value\":null,\"entity\":\"inventory_item\",\"field\":\"location\",\"new_value\":\"A-03-C\",\"op\":\"update\",\"row_id\":\"SKU-402\",\"source_path\":\"snapshot:approved-warehouse_bins/inventory/SKU-402/location\"},{\"current_value\":0,\"entity\":\"inventory_item\",\"field\":\"quantity\",\"new_value\":140,\"op\":\"update\",\"row_id\":\"SKU-402\",\"source_path\":\"snapshot:approved-warehouse_bins/inventory/SKU-402/quantity\"}],\"manifest_digest\":\"sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59\",\"manifest_id\":\"man_01M4RCWR5873FGS9\",\"requires_review\":false}",
+          "summary": "Prepared 2 exact inventory field change(s).",
+          "tool": "prepare_repair_manifest"
+        },
+        "decision": null,
+        "detail": "Prepared 2 exact inventory field change(s).",
+        "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 98,
+        "title": "prepare_repair_manifest completed",
+        "ts": "2026-10-12T15:49:54.003797Z",
+        "type": "tool.result"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "error": null,
+          "status": "delivered",
+          "tool": "prepare_repair_manifest"
+        },
+        "decision": null,
+        "detail": "Report for prepare_repair_manifest was accepted by the ArmorIQ audit endpoint.",
+        "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 99,
+        "title": "ArmorIQ audit report delivered",
+        "ts": "2026-10-12T15:49:54.869123Z",
+        "type": "telemetry.delivery"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "kind": "agent"
+        },
+        "decision": null,
+        "detail": "",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 100,
+        "title": "Manifest man_01M4RCWR5873FGS9 prepared: 2 change(s), restoring $0.00 of value.",
+        "ts": "2026-10-12T15:49:54.886360Z",
+        "type": "agent.note"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "arguments": {
+            "idempotency_key": "run_01M4RCWFEGB344NY:man_01M4RCWR5873FGS9",
+            "manifest_digest": "sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59",
+            "manifest_id": "man_01M4RCWR5873FGS9"
+          },
+          "rationale": "Apply manifest man_01M4RCWR5873FGS9 exactly as prepared.",
+          "source": "agent",
+          "step_index": 3,
+          "tool": "apply_repair_manifest"
+        },
+        "decision": null,
+        "detail": "Apply manifest man_01M4RCWR5873FGS9 exactly as prepared.",
+        "proposal_id": "prp_01M4RCWS2JDGYC4P",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 101,
+        "title": "Proposed apply_repair_manifest",
+        "ts": "2026-10-12T15:49:54.909152Z",
+        "type": "agent.proposal"
+      },
+      {
+        "actor": "armoriq",
+        "data": {},
+        "decision": {
+          "created_at": "2026-10-12T15:49:55.691159Z",
+          "decision_id": "dec_01M4RCWSVBBQP12F",
+          "decisive": false,
+          "evidence": {
+            "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+            "argument_keys": [
+              "amount",
+              "manifest_digest",
+              "manifest_id",
+              "order_ids",
+              "tenant_id"
+            ],
+            "arguments_digest": "sha256:056d7008832d6089674fb8d8626649b2de6561f758d2db5a9177ac99a3c92738"
+          },
+          "invariant": null,
+          "latency_ms": 766.9810840015998,
+          "layer": "armoriq",
+          "outcome": "allow",
+          "proposal_id": "prp_01M4RCWS2JDGYC4P",
+          "reason": "allow_with_logging",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "shadow": false,
+          "simulated": false,
+          "source": "armoriq.backend.enforce",
+          "sponsor": {
+            "delegation_id": null,
+            "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+            "mode": "live",
+            "obligations": [],
+            "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+            "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+            "raw_action": "allow",
+            "sanitized_response": {
+              "action": "allow",
+              "allowed": true,
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "obligation_count": 0,
+              "reason": "allow_with_logging"
+            },
+            "sdk_version": "0.6.10",
+            "session_mode": "sdk",
+            "token_id": "000245c455b44a269505a66c127cd907"
+          }
+        },
+        "detail": "Inside the signed recovery plan and permitted by policy.",
+        "proposal_id": "prp_01M4RCWS2JDGYC4P",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 102,
+        "title": "ArmorIQ allowed apply_repair_manifest",
+        "ts": "2026-10-12T15:49:55.712616Z",
+        "type": "decision"
+      },
+      {
+        "actor": "postgres",
+        "data": {
+          "receipt": {
+            "approval_id": null,
+            "changes": [
+              {
+                "after": "A-03-C",
+                "before": null,
+                "field": "location",
+                "row_id": "SKU-402"
+              },
+              {
+                "after": 140,
+                "before": 0,
+                "field": "quantity",
+                "row_id": "SKU-402"
+              }
+            ],
+            "checks": [],
+            "committed_at": "2026-10-12T15:49:55.745699Z",
+            "created_at": "2026-10-12T15:49:55.745689Z",
+            "decision_sources": [
+              "rewindsafe.dispatch",
+              "rewindsafe.import_recovery",
+              "postgres.privilege"
+            ],
+            "effect_counts": {
+              "rows_updated": 1
+            },
+            "enforcement_mode": "live",
+            "fixture_generation": 1,
+            "grant_id": "grt_01M4RCWFDRVRGMNX",
+            "idempotency_key": "run_01M4RCWFEGB344NY:man_01M4RCWR5873FGS9",
+            "manifest_digest": "sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59",
+            "manifest_id": "man_01M4RCWR5873FGS9",
+            "operation_id": "op_01M4RCWSWHZJCXSS",
+            "receipt_digest": "sha256:c3e56dad9d0726ff96fdfc07a61559605ee84cc3a323caf6fa920936e1de1ac7",
+            "result": "committed",
+            "run_id": "run_01M4RCWFEGB344NY",
+            "sdk_version": "0.6.10"
+          }
+        },
+        "decision": null,
+        "detail": "Committed 2 inventory field change(s).",
+        "proposal_id": "prp_01M4RCWS2JDGYC4P",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 103,
+        "title": "apply_repair_manifest committed",
+        "ts": "2026-10-12T15:49:55.761264Z",
+        "type": "execution.committed"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "tenant_id": "atlas"
+        },
+        "decision": null,
+        "detail": "",
+        "proposal_id": "prp_01M4RCWS2JDGYC4P",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 104,
+        "title": "Application data changed",
+        "ts": "2026-10-12T15:49:55.774164Z",
+        "type": "state.changed"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "error": null,
+          "status": "delivered",
+          "tool": "apply_repair_manifest"
+        },
+        "decision": null,
+        "detail": "Report for apply_repair_manifest was accepted by the ArmorIQ audit endpoint.",
+        "proposal_id": "prp_01M4RCWS2JDGYC4P",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 105,
+        "title": "ArmorIQ audit report delivered",
+        "ts": "2026-10-12T15:49:56.644943Z",
+        "type": "telemetry.delivery"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "arguments": {
+            "manifest_id": "man_01M4RCWR5873FGS9"
+          },
+          "rationale": "Fetch the receipt as proof of what changed.",
+          "source": "agent",
+          "step_index": 4,
+          "tool": "get_recovery_receipt"
+        },
+        "decision": null,
+        "detail": "Fetch the receipt as proof of what changed.",
+        "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 106,
+        "title": "Proposed get_recovery_receipt",
+        "ts": "2026-10-12T15:49:56.674157Z",
+        "type": "agent.proposal"
+      },
+      {
+        "actor": "armoriq",
+        "data": {},
+        "decision": {
+          "created_at": "2026-10-12T15:49:57.499274Z",
+          "decision_id": "dec_01M4RCWVKVN7ZHSY",
+          "decisive": false,
+          "evidence": {
+            "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+            "argument_keys": [
+              "manifest_id"
+            ],
+            "arguments_digest": "sha256:e86a99d0a1bbb6268b90f4ba89bfc36abef71138e3bd3ffa401a4876bb5149ca"
+          },
+          "invariant": null,
+          "latency_ms": 807.8146249972633,
+          "layer": "armoriq",
+          "outcome": "allow",
+          "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+          "reason": "allow_with_logging",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "shadow": false,
+          "simulated": false,
+          "source": "armoriq.backend.enforce",
+          "sponsor": {
+            "delegation_id": null,
+            "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+            "mode": "live",
+            "obligations": [],
+            "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+            "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+            "raw_action": "allow",
+            "sanitized_response": {
+              "action": "allow",
+              "allowed": true,
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "obligation_count": 0,
+              "reason": "allow_with_logging"
+            },
+            "sdk_version": "0.6.10",
+            "session_mode": "sdk",
+            "token_id": "000245c455b44a269505a66c127cd907"
+          }
+        },
+        "detail": "Inside the signed recovery plan and permitted by policy.",
+        "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 107,
+        "title": "ArmorIQ allowed get_recovery_receipt",
+        "ts": "2026-10-12T15:49:57.513368Z",
+        "type": "decision"
+      },
+      {
+        "actor": "rewindsafe",
+        "data": {
+          "observation_preview": "{\"receipt\":{\"approval_id\":null,\"changes\":[{\"after\":\"A-03-C\",\"before\":null,\"field\":\"location\",\"row_id\":\"SKU-402\"},{\"after\":140,\"before\":0,\"field\":\"quantity\",\"row_id\":\"SKU-402\"}],\"checks\":[],\"committed_at\":\"2026-10-12T15:49:55.745699Z\",\"created_at\":\"2026-10-12T15:49:55.745689Z\",\"decision_sources\":[\"rewindsafe.dispatch\",\"rewindsafe.import_recovery\",\"postgres.privilege\"],\"effect_counts\":{\"rows_updated\":1},\"enforcement_mode\":\"live\",\"fixture_generation\":1,\"grant_id\":\"grt_01M4RCWFDRVRGMNX\",\"idempotency_key\":\"run_01M4RCWFEGB344NY:man_01M4RCWR5873FGS9\",\"manifest_digest\":\"sha256:a00f4894df6fae15cc5c7b4f",
+          "summary": "Read the inventory repair receipt.",
+          "tool": "get_recovery_receipt"
+        },
+        "decision": null,
+        "detail": "Read the inventory repair receipt.",
+        "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 108,
+        "title": "get_recovery_receipt completed",
+        "ts": "2026-10-12T15:49:57.534712Z",
+        "type": "tool.result"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "error": null,
+          "status": "delivered",
+          "tool": "get_recovery_receipt"
+        },
+        "decision": null,
+        "detail": "Report for get_recovery_receipt was accepted by the ArmorIQ audit endpoint.",
+        "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 109,
+        "title": "ArmorIQ audit report delivered",
+        "ts": "2026-10-12T15:49:58.425175Z",
+        "type": "telemetry.delivery"
+      },
+      {
+        "actor": "agent",
+        "data": {
+          "kind": "agent"
+        },
+        "decision": null,
+        "detail": "Receipt op_01M4RCWSWHZJCXSS: committed, 2 field(s) restored on SKU-402; digest sha256:c3e56dad9d07\u2026 SKU-512 was left unrepaired on purpose.",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 110,
+        "title": "Receipt op_01M4RCWSWHZJCXSS: committed, 2 field(s) restored on SKU-402; digest sha256:c3e56dad9d07\u2026 SKU-512 w\u2026",
+        "ts": "2026-10-12T15:49:58.439376Z",
+        "type": "agent.note"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "previous": "executing",
+          "status": "partially_succeeded"
+        },
+        "decision": null,
+        "detail": "",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 111,
+        "title": "Run is now partially succeeded",
+        "ts": "2026-10-12T15:49:58.462092Z",
+        "type": "run.status"
+      },
+      {
+        "actor": "system",
+        "data": {
+          "metrics": {
+            "armoriq": {
+              "enforce": {
+                "count": 5,
+                "p50": 786.73,
+                "p95": 803.69
+              },
+              "issuance": {
+                "count": 1,
+                "p50": 4501.47,
+                "p95": 4501.47
+              },
+              "plan_binding": {
+                "count": 0
+              },
+              "simulated_count": 0
+            },
+            "armoriq_latency_ms": {
+              "count": 5,
+              "enforce": {
+                "count": 5,
+                "p50": 786.73,
+                "p95": 803.69
+              },
+              "issuance": {
+                "count": 1,
+                "p50": 4501.47,
+                "p95": 4501.47
+              },
+              "p50": 786.73,
+              "p95": 803.69,
+              "plan_binding_local_count": 0,
+              "plan_mint": {
+                "count": 1,
+                "p50": 4501.47,
+                "p95": 4501.47
+              },
+              "simulated_count": 0
+            },
+            "blocked_by_layer": {
+              "approval": 0,
+              "armoriq": 0,
+              "armoriq_simulated": 0,
+              "domain": 0,
+              "grant": 0,
+              "postgres": 0,
+              "runtime": 0
+            },
+            "blocked_proposals": 0,
+            "commits": 1,
+            "duplicates": 0,
+            "end_to_end_ms": 13412.9,
+            "enforcement_mode": "live",
+            "enforcement_unavailable": 0,
+            "executed": 5,
+            "forbidden_effects_observed": 0,
+            "prohibited_handler_entries": 0,
+            "proposal_status": {
+              "executed": 5
+            },
+            "proposals": 5,
+            "protected_checks_violated": 0,
+            "replans": 0,
+            "simulated": false
+          },
+          "outcome_summary": "Repaired SKU-402 from approved snapshot approved-warehouse_bins (2 fields restored in 1 commit). Not repaired: SKU-512 (changed legitimately after the snapshot (left as is)). All 2 protected-state checks held (deleted records stayed deleted, revoked access stayed revoked, later legitimate edits and other tenants were untouched).",
+          "status": "partially_succeeded"
+        },
+        "decision": null,
+        "detail": "Repaired SKU-402 from approved snapshot approved-warehouse_bins (2 fields restored in 1 commit). Not repaired: SKU-512 (changed legitimately after the snapshot (left as is)). All 2 protected-state checks held (deleted records stayed deleted, revoked access stayed revoked, later legitimate edits and other tenants were untouched).",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 112,
+        "title": "Run partially succeeded",
+        "ts": "2026-10-12T15:49:58.471959Z",
+        "type": "run.finished"
+      },
+      {
+        "actor": "armoriq",
+        "data": {
+          "completed": true,
+          "http_status": 200,
+          "kind": "plan.completed",
+          "observability_http_status": 200,
+          "observability_session_id": "f7649040-605a-4d17-91cd-cb59708a71f6",
+          "outcome": "partially_succeeded",
+          "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+          "simulated": false
+        },
+        "decision": null,
+        "detail": "",
+        "proposal_id": null,
+        "run_id": "run_01M4RCWFEGB344NY",
+        "seq": 113,
+        "title": "ArmorIQ plan marked completed",
+        "ts": "2026-10-12T15:49:59.535067Z",
+        "type": "telemetry.delivery"
+      }
+    ],
+    "exported_at": "2026-10-12T15:51:13.351750Z",
+    "fixture": {
+      "generation": 1,
+      "run_generation": 1,
+      "snapshot_digest": "sha256:35a581045435c87bdc035ef5c15bfda4baf6f7b33dddc95d9bfd87ee60f71580",
+      "snapshot_digest_verified": false,
+      "snapshot_id": "approved-warehouse_bins"
+    },
+    "grant": {
+      "allowed_tools": [
+        "inspect_snapshot",
+        "compare_current",
+        "prepare_repair_manifest",
+        "apply_repair_manifest",
+        "get_recovery_receipt"
+      ],
+      "authorized_at": "2026-10-12T15:49:45.027724Z",
+      "authorized_by": "maya",
+      "commits_used": 1,
+      "created_at": "2026-10-12T15:49:45.015986Z",
+      "expires_at": "2026-10-12T16:19:45.027724Z",
+      "fields": [
+        "quantity",
+        "location"
+      ],
+      "fixture_generation": 1,
+      "grant_digest": "sha256:823ea8d7bc3e1e476d3388ebeb37e3cc4768f405f6349d2d7623cb268af7a288",
+      "grant_id": "grt_01M4RCWFDRVRGMNX",
+      "incident_id": null,
+      "limits": {
+        "approval_ttl_seconds": 600,
+        "max_commits": 1,
+        "max_replans": 3,
+        "max_rows_per_commit": 5,
+        "max_steps": 20,
+        "review_threshold_cents": 500000
+      },
+      "principal": "maya",
+      "principal_email": "nova.reyes@atlas.example",
+      "prohibited_effects": [
+        "Change record identity, tenant, SKU, owner or access grants",
+        "Restore tombstoned records",
+        "Overwrite later changes",
+        "Touch another tenant"
+      ],
+      "purpose": "Recover selected inventory records for tenant atlas from approved snapshot approved-warehouse_bins.",
+      "resources": {
+        "order": [
+          "SKU-402",
+          "SKU-512"
+        ],
+        "snapshot": [
+          "approved-warehouse_bins"
+        ]
+      },
+      "reviewable": {},
+      "scenario_id": "imp_01M4RCWFCV5SKEG5",
+      "source_constraints": {
+        "dataset_id": "imp_01M4RCWFCV5SKEG5",
+        "snapshot_digest": "sha256:35a581045435c87bdc035ef5c15bfda4baf6f7b33dddc95d9bfd87ee60f71580",
+        "snapshot_id": "approved-warehouse_bins"
+      },
+      "status": "exhausted",
+      "tenant_id": "atlas",
+      "workflow": "rewindsafe.import_recovery"
+    },
+    "metrics": {
+      "armoriq": {
+        "enforce": {
+          "count": 5,
+          "p50": 786.73,
+          "p95": 803.69
+        },
+        "issuance": {
+          "count": 1,
+          "p50": 4501.47,
+          "p95": 4501.47
+        },
+        "plan_binding": {
+          "count": 0
+        },
+        "simulated_count": 0
+      },
+      "armoriq_latency_ms": {
+        "count": 5,
+        "enforce": {
+          "count": 5,
+          "p50": 786.73,
+          "p95": 803.69
+        },
+        "issuance": {
+          "count": 1,
+          "p50": 4501.47,
+          "p95": 4501.47
+        },
+        "p50": 786.73,
+        "p95": 803.69,
+        "plan_binding_local_count": 0,
+        "plan_mint": {
+          "count": 1,
+          "p50": 4501.47,
+          "p95": 4501.47
+        },
+        "simulated_count": 0
+      },
+      "blocked_by_layer": {
+        "approval": 0,
+        "armoriq": 0,
+        "armoriq_simulated": 0,
+        "domain": 0,
+        "grant": 0,
+        "postgres": 0,
+        "runtime": 0
+      },
+      "blocked_proposals": 0,
+      "commits": 1,
+      "duplicates": 0,
+      "end_to_end_ms": 13420.5,
+      "enforcement_mode": "live",
+      "enforcement_unavailable": 0,
+      "executed": 5,
+      "forbidden_effects_observed": 0,
+      "prohibited_handler_entries": 0,
+      "proposal_status": {
+        "executed": 5
+      },
+      "proposals": 5,
+      "protected_checks_violated": 0,
+      "replans": 0,
+      "simulated": false
+    },
+    "mutator_entries": {
+      "by_handler": {},
+      "entries": []
+    },
+    "plan": {
+      "error": null,
+      "expires_at": "2026-10-12T16:19:45Z",
+      "issued_at": "2026-10-12T15:49:45Z",
+      "latency_ms": 4501.473624994105,
+      "matched_policies": [
+        "cli-rewindsafe-recovery-agent-rewindsafe-recovery"
+      ],
+      "mode": "live",
+      "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+      "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+      "sdk_version": "0.6.10",
+      "session_mode": "sdk",
+      "simulated": false,
+      "steps": [
+        "inspect_snapshot",
+        "compare_current",
+        "prepare_repair_manifest",
+        "apply_repair_manifest",
+        "get_recovery_receipt"
+      ],
+      "token_id": "000245c455b44a269505a66c127cd907"
+    },
+    "proposals": [
+      {
+        "approval": null,
+        "decisions": [
+          {
+            "created_at": "2026-10-12T15:49:50.420424Z",
+            "decision_id": "dec_01M4RCWMPMSECGRE",
+            "decisive": false,
+            "evidence": {
+              "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+              "argument_keys": [
+                "order_ids",
+                "snapshot_id",
+                "tenant_id"
+              ],
+              "arguments_digest": "sha256:9c58e387f64c67fb7f9d225dd3db38798d7b10666d1b3df9c344f080030992cf"
+            },
+            "invariant": null,
+            "latency_ms": 787.2008330014069,
+            "layer": "armoriq",
+            "outcome": "allow",
+            "proposal_id": "prp_01M4RCWKXHVPPQR2",
+            "reason": "allow_with_logging",
+            "run_id": "run_01M4RCWFEGB344NY",
+            "shadow": false,
+            "simulated": false,
+            "source": "armoriq.backend.enforce",
+            "sponsor": {
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "mode": "live",
+              "obligations": [],
+              "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+              "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+              "raw_action": "allow",
+              "sanitized_response": {
+                "action": "allow",
+                "allowed": true,
+                "delegation_id": null,
+                "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+                "obligation_count": 0,
+                "reason": "allow_with_logging"
+              },
+              "sdk_version": "0.6.10",
+              "session_mode": "sdk",
+              "token_id": "000245c455b44a269505a66c127cd907"
+            }
+          }
+        ],
+        "manifest": null,
+        "proposal": {
+          "arguments": {
+            "order_ids": [
+              "SKU-402",
+              "SKU-512"
+            ],
+            "snapshot_id": "approved-warehouse_bins",
+            "tenant_id": "atlas"
+          },
+          "created_at": "2026-10-12T15:49:49.617074Z",
+          "proposal_id": "prp_01M4RCWKXHVPPQR2",
+          "rationale": "Read the approved snapshot rows for the orders in my grant.",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "source": "agent",
+          "status": "executed",
+          "step_index": 0,
+          "tool": "inspect_snapshot"
+        },
+        "receipt": null
+      },
+      {
+        "approval": null,
+        "decisions": [
+          {
+            "created_at": "2026-10-12T15:49:52.182602Z",
+            "decision_id": "dec_01M4RCWPDPYEG0PV",
+            "decisive": false,
+            "evidence": {
+              "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+              "argument_keys": [
+                "order_ids",
+                "tenant_id"
+              ],
+              "arguments_digest": "sha256:f0b7b89ae1c83e874e7b23011532dcb6e6b1d91037750ebfdcd82a090545e7e5"
+            },
+            "invariant": null,
+            "latency_ms": 786.7308749991935,
+            "layer": "armoriq",
+            "outcome": "allow",
+            "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+            "reason": "allow_with_logging",
+            "run_id": "run_01M4RCWFEGB344NY",
+            "shadow": false,
+            "simulated": false,
+            "source": "armoriq.backend.enforce",
+            "sponsor": {
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "mode": "live",
+              "obligations": [],
+              "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+              "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+              "raw_action": "allow",
+              "sanitized_response": {
+                "action": "allow",
+                "allowed": true,
+                "delegation_id": null,
+                "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+                "obligation_count": 0,
+                "reason": "allow_with_logging"
+              },
+              "sdk_version": "0.6.10",
+              "session_mode": "sdk",
+              "token_id": "000245c455b44a269505a66c127cd907"
+            }
+          }
+        ],
+        "manifest": null,
+        "proposal": {
+          "arguments": {
+            "order_ids": [
+              "SKU-402",
+              "SKU-512"
+            ],
+            "tenant_id": "atlas"
+          },
+          "created_at": "2026-10-12T15:49:51.376488Z",
+          "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+          "rationale": "Compare the snapshot with today's data to see what is actually damaged.",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "source": "agent",
+          "status": "executed",
+          "step_index": 1,
+          "tool": "compare_current"
+        },
+        "receipt": null
+      },
+      {
+        "approval": null,
+        "decisions": [
+          {
+            "created_at": "2026-10-12T15:49:53.920462Z",
+            "decision_id": "dec_01M4RCWR40RYBPAQ",
+            "decisive": false,
+            "evidence": {
+              "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+              "argument_keys": [
+                "repairs",
+                "snapshot_id",
+                "tenant_id"
+              ],
+              "arguments_digest": "sha256:1659d495565e4d205df1791033cb9376be17439e13640b024df67d5a3a17f613"
+            },
+            "invariant": null,
+            "latency_ms": 777.6515829973505,
+            "layer": "armoriq",
+            "outcome": "allow",
+            "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+            "reason": "allow_with_logging",
+            "run_id": "run_01M4RCWFEGB344NY",
+            "shadow": false,
+            "simulated": false,
+            "source": "armoriq.backend.enforce",
+            "sponsor": {
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "mode": "live",
+              "obligations": [],
+              "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+              "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+              "raw_action": "allow",
+              "sanitized_response": {
+                "action": "allow",
+                "allowed": true,
+                "delegation_id": null,
+                "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+                "obligation_count": 0,
+                "reason": "allow_with_logging"
+              },
+              "sdk_version": "0.6.10",
+              "session_mode": "sdk",
+              "token_id": "000245c455b44a269505a66c127cd907"
+            }
+          }
+        ],
+        "manifest": null,
+        "proposal": {
+          "arguments": {
+            "repairs": [
+              {
+                "fields": [
+                  "quantity",
+                  "location"
+                ],
+                "order_id": "SKU-402"
+              }
+            ],
+            "snapshot_id": "approved-warehouse_bins",
+            "tenant_id": "atlas"
+          },
+          "created_at": "2026-10-12T15:49:53.114077Z",
+          "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+          "rationale": "Prepare an exact manifest restoring SKU-402 from the approved snapshot.",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "source": "agent",
+          "status": "executed",
+          "step_index": 2,
+          "tool": "prepare_repair_manifest"
+        },
+        "receipt": null
+      },
+      {
+        "approval": null,
+        "decisions": [
+          {
+            "created_at": "2026-10-12T15:49:55.691159Z",
+            "decision_id": "dec_01M4RCWSVBBQP12F",
+            "decisive": false,
+            "evidence": {
+              "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+              "argument_keys": [
+                "amount",
+                "manifest_digest",
+                "manifest_id",
+                "order_ids",
+                "tenant_id"
+              ],
+              "arguments_digest": "sha256:056d7008832d6089674fb8d8626649b2de6561f758d2db5a9177ac99a3c92738"
+            },
+            "invariant": null,
+            "latency_ms": 766.9810840015998,
+            "layer": "armoriq",
+            "outcome": "allow",
+            "proposal_id": "prp_01M4RCWS2JDGYC4P",
+            "reason": "allow_with_logging",
+            "run_id": "run_01M4RCWFEGB344NY",
+            "shadow": false,
+            "simulated": false,
+            "source": "armoriq.backend.enforce",
+            "sponsor": {
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "mode": "live",
+              "obligations": [],
+              "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+              "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+              "raw_action": "allow",
+              "sanitized_response": {
+                "action": "allow",
+                "allowed": true,
+                "delegation_id": null,
+                "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+                "obligation_count": 0,
+                "reason": "allow_with_logging"
+              },
+              "sdk_version": "0.6.10",
+              "session_mode": "sdk",
+              "token_id": "000245c455b44a269505a66c127cd907"
+            }
+          }
+        ],
+        "manifest": {
+          "changes": [
+            {
+              "current_value": null,
+              "entity": "inventory_item",
+              "field": "location",
+              "new_value": "A-03-C",
+              "op": "update",
+              "row_id": "SKU-402",
+              "source_path": "snapshot:approved-warehouse_bins/inventory/SKU-402/location"
+            },
+            {
+              "current_value": 0,
+              "entity": "inventory_item",
+              "field": "quantity",
+              "new_value": 140,
+              "op": "update",
+              "row_id": "SKU-402",
+              "source_path": "snapshot:approved-warehouse_bins/inventory/SKU-402/quantity"
+            }
+          ],
+          "content_digest": "sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59",
+          "created_at": "2026-10-12T15:49:53.960786Z",
+          "grant_id": "grt_01M4RCWFDRVRGMNX",
+          "manifest_id": "man_01M4RCWR5873FGS9",
+          "preconditions": {
+            "authority_epoch": 0,
+            "fixture_generation": 1,
+            "hold_free": [
+              "SKU-402"
+            ],
+            "row_versions": {
+              "SKU-402": 2
+            },
+            "tombstone_free": [
+              "SKU-402"
+            ]
+          },
+          "principal": "maya",
+          "requires_review": false,
+          "restored_value_cents": 0,
+          "review_reason": null,
+          "run_id": "run_01M4RCWFEGB344NY",
+          "snapshot_digest": "sha256:35a581045435c87bdc035ef5c15bfda4baf6f7b33dddc95d9bfd87ee60f71580",
+          "snapshot_id": "approved-warehouse_bins",
+          "status": "committed",
+          "tenant_id": "atlas",
+          "workflow": "rewindsafe.import_recovery"
+        },
+        "proposal": {
+          "arguments": {
+            "idempotency_key": "run_01M4RCWFEGB344NY:man_01M4RCWR5873FGS9",
+            "manifest_digest": "sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59",
+            "manifest_id": "man_01M4RCWR5873FGS9"
+          },
+          "created_at": "2026-10-12T15:49:54.898189Z",
+          "proposal_id": "prp_01M4RCWS2JDGYC4P",
+          "rationale": "Apply manifest man_01M4RCWR5873FGS9 exactly as prepared.",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "source": "agent",
+          "status": "executed",
+          "step_index": 3,
+          "tool": "apply_repair_manifest"
+        },
+        "receipt": {
+          "approval_id": null,
+          "changes": [
+            {
+              "after": "A-03-C",
+              "before": null,
+              "field": "location",
+              "row_id": "SKU-402"
+            },
+            {
+              "after": 140,
+              "before": 0,
+              "field": "quantity",
+              "row_id": "SKU-402"
+            }
+          ],
+          "checks": [],
+          "committed_at": "2026-10-12T15:49:55.745699Z",
+          "created_at": "2026-10-12T15:49:55.745689Z",
+          "decision_sources": [
+            "rewindsafe.dispatch",
+            "rewindsafe.import_recovery",
+            "postgres.privilege"
+          ],
+          "effect_counts": {
+            "rows_updated": 1
+          },
+          "enforcement_mode": "live",
+          "fixture_generation": 1,
+          "grant_id": "grt_01M4RCWFDRVRGMNX",
+          "idempotency_key": "run_01M4RCWFEGB344NY:man_01M4RCWR5873FGS9",
+          "manifest_digest": "sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59",
+          "manifest_id": "man_01M4RCWR5873FGS9",
+          "operation_id": "op_01M4RCWSWHZJCXSS",
+          "receipt_digest": "sha256:c3e56dad9d0726ff96fdfc07a61559605ee84cc3a323caf6fa920936e1de1ac7",
+          "result": "committed",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "sdk_version": "0.6.10"
+        }
+      },
+      {
+        "approval": null,
+        "decisions": [
+          {
+            "created_at": "2026-10-12T15:49:57.499274Z",
+            "decision_id": "dec_01M4RCWVKVN7ZHSY",
+            "decisive": false,
+            "evidence": {
+              "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+              "argument_keys": [
+                "manifest_id"
+              ],
+              "arguments_digest": "sha256:e86a99d0a1bbb6268b90f4ba89bfc36abef71138e3bd3ffa401a4876bb5149ca"
+            },
+            "invariant": null,
+            "latency_ms": 807.8146249972633,
+            "layer": "armoriq",
+            "outcome": "allow",
+            "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+            "reason": "allow_with_logging",
+            "run_id": "run_01M4RCWFEGB344NY",
+            "shadow": false,
+            "simulated": false,
+            "source": "armoriq.backend.enforce",
+            "sponsor": {
+              "delegation_id": null,
+              "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+              "mode": "live",
+              "obligations": [],
+              "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+              "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+              "raw_action": "allow",
+              "sanitized_response": {
+                "action": "allow",
+                "allowed": true,
+                "delegation_id": null,
+                "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+                "obligation_count": 0,
+                "reason": "allow_with_logging"
+              },
+              "sdk_version": "0.6.10",
+              "session_mode": "sdk",
+              "token_id": "000245c455b44a269505a66c127cd907"
+            }
+          }
+        ],
+        "manifest": {
+          "changes": [
+            {
+              "current_value": null,
+              "entity": "inventory_item",
+              "field": "location",
+              "new_value": "A-03-C",
+              "op": "update",
+              "row_id": "SKU-402",
+              "source_path": "snapshot:approved-warehouse_bins/inventory/SKU-402/location"
+            },
+            {
+              "current_value": 0,
+              "entity": "inventory_item",
+              "field": "quantity",
+              "new_value": 140,
+              "op": "update",
+              "row_id": "SKU-402",
+              "source_path": "snapshot:approved-warehouse_bins/inventory/SKU-402/quantity"
+            }
+          ],
+          "content_digest": "sha256:a00f4894df6fae15cc5c7b4fb62c0f182b422b098dd020a76c2ad5520a962e59",
+          "created_at": "2026-10-12T15:49:53.960786Z",
+          "grant_id": "grt_01M4RCWFDRVRGMNX",
+          "manifest_id": "man_01M4RCWR5873FGS9",
+          "preconditions": {
+            "authority_epoch": 0,
+            "fixture_generation": 1,
+            "hold_free": [
+              "SKU-402"
+            ],
+            "row_versions": {
+              "SKU-402": 2
+            },
+            "tombstone_free": [
+              "SKU-402"
+            ]
+          },
+          "principal": "maya",
+          "requires_review": false,
+          "restored_value_cents": 0,
+          "review_reason": null,
+          "run_id": "run_01M4RCWFEGB344NY",
+          "snapshot_digest": "sha256:35a581045435c87bdc035ef5c15bfda4baf6f7b33dddc95d9bfd87ee60f71580",
+          "snapshot_id": "approved-warehouse_bins",
+          "status": "committed",
+          "tenant_id": "atlas",
+          "workflow": "rewindsafe.import_recovery"
+        },
+        "proposal": {
+          "arguments": {
+            "manifest_id": "man_01M4RCWR5873FGS9"
+          },
+          "created_at": "2026-10-12T15:49:56.663040Z",
+          "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+          "rationale": "Fetch the receipt as proof of what changed.",
+          "run_id": "run_01M4RCWFEGB344NY",
+          "source": "agent",
+          "status": "executed",
+          "step_index": 4,
+          "tool": "get_recovery_receipt"
+        },
+        "receipt": null
+      }
+    ],
+    "protected_checks": {
+      "checks": [
+        {
+          "category": "hold",
+          "check_id": "import:hold:imp_01M4RCWFCV5SKEG5",
+          "detail": "",
+          "evidence": {},
+          "label": "Held import records are unchanged",
+          "status": "preserved"
+        },
+        {
+          "category": "later_update",
+          "check_id": "import:later_update:imp_01M4RCWFCV5SKEG5",
+          "detail": "",
+          "evidence": {},
+          "label": "Later-edited import records are unchanged",
+          "status": "preserved"
+        }
+      ],
+      "error": null
+    },
+    "run": {
+      "created_at": "2026-10-12T15:49:45.039313Z",
+      "created_by": "maya",
+      "enforcement_mode": "live",
+      "finished_at": "2026-10-12T15:49:58.459774Z",
+      "fixture_generation": 1,
+      "grant_id": "grt_01M4RCWFDRVRGMNX",
+      "metadata": {
+        "agent_summary": "Receipt op_01M4RCWSWHZJCXSS: committed, 2 field(s) restored on SKU-402; digest sha256:c3e56dad9d07\u2026 SKU-512 was left unrepaired on purpose.",
+        "planner_label": "Scripted re-enactment (deterministic, no LLM)",
+        "protected_checks": {
+          "pending": 0,
+          "preserved": 2,
+          "repaired": 0,
+          "total": 2,
+          "violated": 0
+        },
+        "stop_reason": "finished"
+      },
+      "outcome_summary": "Repaired SKU-402 from approved snapshot approved-warehouse_bins (2 fields restored in 1 commit). Not repaired: SKU-512 (changed legitimately after the snapshot (left as is)). All 2 protected-state checks held (deleted records stayed deleted, revoked access stayed revoked, later legitimate edits and other tenants were untouched).",
+      "plan": {
+        "error": null,
+        "expires_at": "2026-10-12T16:19:45Z",
+        "issued_at": "2026-10-12T15:49:45Z",
+        "latency_ms": 4501.473624994105,
+        "matched_policies": [
+          "cli-rewindsafe-recovery-agent-rewindsafe-recovery"
+        ],
+        "mode": "live",
+        "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+        "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+        "sdk_version": "0.6.10",
+        "session_mode": "sdk",
+        "simulated": false,
+        "steps": [
+          "inspect_snapshot",
+          "compare_current",
+          "prepare_repair_manifest",
+          "apply_repair_manifest",
+          "get_recovery_receipt"
+        ],
+        "token_id": "000245c455b44a269505a66c127cd907"
+      },
+      "planner": "scripted",
+      "planner_kind": "scripted",
+      "replans_used": 0,
+      "run_id": "run_01M4RCWFEGB344NY",
+      "scenario_id": "imp_01M4RCWFCV5SKEG5",
+      "status": "partially_succeeded",
+      "steps_used": 5,
+      "updated_at": "2026-10-12T15:49:58.459774Z",
+      "workflow": "rewindsafe.import_recovery"
+    },
+    "run_decisions": [
+      {
+        "created_at": "2026-10-12T15:49:49.563792Z",
+        "decision_id": "dec_01M4RCWKVVYM06JY",
+        "decisive": false,
+        "evidence": {
+          "tools": [
+            "inspect_snapshot",
+            "compare_current",
+            "prepare_repair_manifest",
+            "apply_repair_manifest",
+            "get_recovery_receipt"
+          ]
+        },
+        "invariant": null,
+        "latency_ms": 4501.473624994105,
+        "layer": "armoriq",
+        "outcome": "allow",
+        "proposal_id": null,
+        "reason": "ArmorIQ signed the recovery plan (5 tools, plan 5e51d2b4\u2026).",
+        "run_id": "run_01M4RCWFEGB344NY",
+        "shadow": false,
+        "simulated": false,
+        "source": "armoriq.backend.token_issuance",
+        "sponsor": {
+          "delegation_id": null,
+          "matched_policy": null,
+          "mode": "live",
+          "obligations": [],
+          "plan_hash": "5e51d2b45ad961c6605e75619464f0363f6a9baa4cbe509c4141e813254a6d55",
+          "plan_id": "e67ce5f2-f268-414f-a307-72f6d8f239df",
+          "raw_action": null,
+          "sanitized_response": {
+            "allowed_tools": [
+              "apply_repair_manifest",
+              "compare_current",
+              "get_recovery_receipt",
+              "inspect_snapshot",
+              "prepare_repair_manifest"
+            ],
+            "default_enforcement_action": "block",
+            "denied_tools": [],
+            "matched_policies": [
+              "cli-rewindsafe-recovery-agent-rewindsafe-recovery"
+            ],
+            "observability_session_id": "f7649040-605a-4d17-91cd-cb59708a71f6",
+            "policy_snapshot_entries": 1,
+            "total_steps": 5
+          },
+          "sdk_version": "0.6.10",
+          "session_mode": "sdk",
+          "token_id": "000245c455b44a269505a66c127cd907"
+        }
+      }
+    ],
+    "source_commit": "821dd852ecac1f2281c64c4b66cde9f28e7e773e",
+    "telemetry": {
+      "by_status": {
+        "delivered": 5
+      },
+      "outbox": [
+        {
+          "attempts": 1,
+          "created_at": "2026-10-12T15:49:50.461781Z",
+          "kind": "armoriq.report",
+          "last_error": null,
+          "outbox_id": 11,
+          "proposal_id": "prp_01M4RCWKXHVPPQR2",
+          "status": "delivered",
+          "updated_at": "2026-10-12T15:49:51.342703Z"
+        },
+        {
+          "attempts": 1,
+          "created_at": "2026-10-12T15:49:52.228330Z",
+          "kind": "armoriq.report",
+          "last_error": null,
+          "outbox_id": 12,
+          "proposal_id": "prp_01M4RCWNMG1S8ZBP",
+          "status": "delivered",
+          "updated_at": "2026-10-12T15:49:53.069248Z"
+        },
+        {
+          "attempts": 1,
+          "created_at": "2026-10-12T15:49:54.015177Z",
+          "kind": "armoriq.report",
+          "last_error": null,
+          "outbox_id": 13,
+          "proposal_id": "prp_01M4RCWQAT4W7SZ5",
+          "status": "delivered",
+          "updated_at": "2026-10-12T15:49:54.865141Z"
+        },
+        {
+          "attempts": 1,
+          "created_at": "2026-10-12T15:49:55.789094Z",
+          "kind": "armoriq.report",
+          "last_error": null,
+          "outbox_id": 14,
+          "proposal_id": "prp_01M4RCWS2JDGYC4P",
+          "status": "delivered",
+          "updated_at": "2026-10-12T15:49:56.640361Z"
+        },
+        {
+          "attempts": 1,
+          "created_at": "2026-10-12T15:49:57.550651Z",
+          "kind": "armoriq.report",
+          "last_error": null,
+          "outbox_id": 15,
+          "proposal_id": "prp_01M4RCWTSQ5TKWDB",
+          "status": "delivered",
+          "updated_at": "2026-10-12T15:49:58.420174Z"
+        }
+      ]
+    }
+  },
+  "payload_digest": "sha256:8c92b66c4e93ab2446dac6c05a14917e5f6524b82d3785ec2e1fef9084a2d07c",
+  "event_chain": [
+    {
+      "seq": 78,
+      "event_digest": "sha256:3948c7a2aeb51f6559e39a8e478f0d359dee09ee3875ee27674461198e56d1f3",
+      "previous": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "digest": "sha256:e1cc01b99cbdf9f06cc08eda06c159008bdfba6befbfa04dd9cb9bfef3fc4eba"
+    },
+    {
+      "seq": 79,
+      "event_digest": "sha256:bc5522aa854da50420cd8d06c423c64703cfaaedbecc1830f8b90b4576be53a6",
+      "previous": "sha256:e1cc01b99cbdf9f06cc08eda06c159008bdfba6befbfa04dd9cb9bfef3fc4eba",
+      "digest": "sha256:33b126a9f4ecb97f970ebb271bade853400d7727485033edf323877738f28bc8"
+    },
+    {
+      "seq": 80,
+      "event_digest": "sha256:313b09f541705720c609848172383908b0bc708d0859f4615acd02daf41246ee",
+      "previous": "sha256:33b126a9f4ecb97f970ebb271bade853400d7727485033edf323877738f28bc8",
+      "digest": "sha256:e161951f91e11e1006cb26a993f03c1908e4b48f3124773a50f142285bfdc8f2"
+    },
+    {
+      "seq": 81,
+      "event_digest": "sha256:3c8d95b7bafc168708a2e0d72ddf396f7668dd83a5ae72ba083ebd2ddf60443c",
+      "previous": "sha256:e161951f91e11e1006cb26a993f03c1908e4b48f3124773a50f142285bfdc8f2",
+      "digest": "sha256:f6dac28866531c20664ec84c1199a2d333926480fd4bcc9144cb8db2c42ed646"
+    },
+    {
+      "seq": 82,
+      "event_digest": "sha256:5a6f956c07d3dd60928c5e8e967ec1e81947e3b2741a8dc62ea3ea8cc96309de",
+      "previous": "sha256:f6dac28866531c20664ec84c1199a2d333926480fd4bcc9144cb8db2c42ed646",
+      "digest": "sha256:a802458a072764f602b1177db9ef89ce7f5574772761f4cf5245af7939f521f2"
+    },
+    {
+      "seq": 83,
+      "event_digest": "sha256:5f4cad5b11a525970a2f796439c049d967a6d4f249289bfa5f0a030837c3d0cb",
+      "previous": "sha256:a802458a072764f602b1177db9ef89ce7f5574772761f4cf5245af7939f521f2",
+      "digest": "sha256:7238ef8969dda2e3effd096d4c65a9325d1e6cf7b4fcc6ac01127700de971eea"
+    },
+    {
+      "seq": 84,
+      "event_digest": "sha256:794b4bf6072d2c1a7644f3955ad24c938c923eabc6d92e60e3349be2c50190b6",
+      "previous": "sha256:7238ef8969dda2e3effd096d4c65a9325d1e6cf7b4fcc6ac01127700de971eea",
+      "digest": "sha256:e86ead92a55200ddf2bce8da9e989f0fce8d4078af80aafd5ae1d22e130e5732"
+    },
+    {
+      "seq": 85,
+      "event_digest": "sha256:f7c4019104cd58d13e23d23b91918586412c161c52f7884fa4af1347a3767270",
+      "previous": "sha256:e86ead92a55200ddf2bce8da9e989f0fce8d4078af80aafd5ae1d22e130e5732",
+      "digest": "sha256:f00a87a865fd060fd0afc9baaf514d68b72e0bbd471ce0c0f25e4663825bfb45"
+    },
+    {
+      "seq": 86,
+      "event_digest": "sha256:948af014c29dc7c785e873cddcbce4de7cf8458cf37a5a2292f6041daabf2c51",
+      "previous": "sha256:f00a87a865fd060fd0afc9baaf514d68b72e0bbd471ce0c0f25e4663825bfb45",
+      "digest": "sha256:d9ffbd872deba430938aef662cb308d29f9dc7db15e0283169521beabfd1e03c"
+    },
+    {
+      "seq": 87,
+      "event_digest": "sha256:fe21f711e8a61006ea1200552129b6454e55bd4b87421a74a3d6636cef2ef80b",
+      "previous": "sha256:d9ffbd872deba430938aef662cb308d29f9dc7db15e0283169521beabfd1e03c",
+      "digest": "sha256:d63d323c6437eb7af39e166aa6a077beac79fa550f7291ca5c59a4980d9e6bdf"
+    },
+    {
+      "seq": 88,
+      "event_digest": "sha256:c69b67dc5849419d5197cbb84422e06260386ec81d41b0fc866e4d5daf4066d7",
+      "previous": "sha256:d63d323c6437eb7af39e166aa6a077beac79fa550f7291ca5c59a4980d9e6bdf",
+      "digest": "sha256:fe44bc8815850c7c78ef80d8f59cd9d07bc83e8e1c0801558dcbe02bc5991041"
+    },
+    {
+      "seq": 89,
+      "event_digest": "sha256:4629ee76f7d0abf2752e42172560504b75811cdd9cabda1b319a84ba7aa579e2",
+      "previous": "sha256:fe44bc8815850c7c78ef80d8f59cd9d07bc83e8e1c0801558dcbe02bc5991041",
+      "digest": "sha256:a988422ae7d9f03b83978fdaf4e0c270789bd5d35fe6c3336abc152fe6e155d3"
+    },
+    {
+      "seq": 90,
+      "event_digest": "sha256:4a80975be9a0477fb830c24a45abc34ce75eb46656bce99e91078659048aecf3",
+      "previous": "sha256:a988422ae7d9f03b83978fdaf4e0c270789bd5d35fe6c3336abc152fe6e155d3",
+      "digest": "sha256:a1c35bbfb2237744fd6f541c05522508029ec3eb0bfa89ede1c6d0ddbdd1fb17"
+    },
+    {
+      "seq": 91,
+      "event_digest": "sha256:4aad1eab9451e386f004219b2bbdccd73ea3b20529c5bf8d033b73ed0afb93cf",
+      "previous": "sha256:a1c35bbfb2237744fd6f541c05522508029ec3eb0bfa89ede1c6d0ddbdd1fb17",
+      "digest": "sha256:07671c530be8b6caa51dc8a2770fd61df236fa341d68474209e8b044b901be26"
+    },
+    {
+      "seq": 92,
+      "event_digest": "sha256:2fa191fee81fa9140f5e7a3ecda6582742fa6f9cd936fbd99f0579f83bb0b6a8",
+      "previous": "sha256:07671c530be8b6caa51dc8a2770fd61df236fa341d68474209e8b044b901be26",
+      "digest": "sha256:7f40ecbb10f3cf8d4d88755ff47dd60719fde53017ac35d30b227a6e131e5c67"
+    },
+    {
+      "seq": 93,
+      "event_digest": "sha256:b65953b117cc245097ed57835d7138723f85acb55d5db090cef0229187bcc18f",
+      "previous": "sha256:7f40ecbb10f3cf8d4d88755ff47dd60719fde53017ac35d30b227a6e131e5c67",
+      "digest": "sha256:13950016278e18c7a276ea7619d21e93ed79ab2eb5810c5aef5a970310f55dcd"
+    },
+    {
+      "seq": 94,
+      "event_digest": "sha256:57292c20efe4a19efd0bfd85be9926f8d1827ceb7924a1eb00e94d5d8fa2fe2f",
+      "previous": "sha256:13950016278e18c7a276ea7619d21e93ed79ab2eb5810c5aef5a970310f55dcd",
+      "digest": "sha256:8a4e30681f1f36e5d4edda3bf033896bb15eaf9deae2b977d54be9cb4a8e269b"
+    },
+    {
+      "seq": 95,
+      "event_digest": "sha256:8e4cbf07a9a6c21690c243a7c316bfda52136f8f967190988637e26d9c6d91f7",
+      "previous": "sha256:8a4e30681f1f36e5d4edda3bf033896bb15eaf9deae2b977d54be9cb4a8e269b",
+      "digest": "sha256:31e3ba3baeaf5906d74effc402ed05d7585b2b00396f9481131b88beaacaa9bb"
+    },
+    {
+      "seq": 96,
+      "event_digest": "sha256:698c0c67ba8fb4854bcc4f6ca6067c35df0e26f9ea9df2256870efd4c06decd7",
+      "previous": "sha256:31e3ba3baeaf5906d74effc402ed05d7585b2b00396f9481131b88beaacaa9bb",
+      "digest": "sha256:e11a106ff4da51b4528bf6091e38c49385b6f468110a122680bfbbe6a09c83d9"
+    },
+    {
+      "seq": 97,
+      "event_digest": "sha256:1bbe0d1b03dae689b2d6436220f74cbf10fcf75216ab26e2f5adb93a84189267",
+      "previous": "sha256:e11a106ff4da51b4528bf6091e38c49385b6f468110a122680bfbbe6a09c83d9",
+      "digest": "sha256:01b1f3be414ee6c196e0172183943d61299051a8ebf9e6ebd41ee9a66cc09b6f"
+    },
+    {
+      "seq": 98,
+      "event_digest": "sha256:8820d8ebd857aa428951d14ece37b6c00d2e8b91bfc6860eaa546675fad678f7",
+      "previous": "sha256:01b1f3be414ee6c196e0172183943d61299051a8ebf9e6ebd41ee9a66cc09b6f",
+      "digest": "sha256:ed43047b333f8aab2b1038f18fe2df161564bac2e100f38f0a1daa5da7dd395b"
+    },
+    {
+      "seq": 99,
+      "event_digest": "sha256:a4631245a174ef58fef711b7b2ce61b13266a33ecf18a2e16acceebef05ded86",
+      "previous": "sha256:ed43047b333f8aab2b1038f18fe2df161564bac2e100f38f0a1daa5da7dd395b",
+      "digest": "sha256:30549d1cfbce20f1bb752d35441150ac97788ea444d11930ebf7d908e1924fab"
+    },
+    {
+      "seq": 100,
+      "event_digest": "sha256:6658be122b7d831a109122ec532ac57b91f6ff5b50b309ac0a96c6932cef1f69",
+      "previous": "sha256:30549d1cfbce20f1bb752d35441150ac97788ea444d11930ebf7d908e1924fab",
+      "digest": "sha256:3e47acbe6395240f2fd63a723188310c01bc52c5224bb2b3799546f5776bfd6e"
+    },
+    {
+      "seq": 101,
+      "event_digest": "sha256:c35ad75d931de5312049c498b2ed14c8ade828917696581bc50853067fdf4f1e",
+      "previous": "sha256:3e47acbe6395240f2fd63a723188310c01bc52c5224bb2b3799546f5776bfd6e",
+      "digest": "sha256:7b90c6544ba0b615a13365d5eb2a44dbecd7e0c6ea68c0c14481a36d849c0678"
+    },
+    {
+      "seq": 102,
+      "event_digest": "sha256:9ffdfe0816e6cbf7f2f3b59f113fd397180cc09c40faf494cf2f9df608829fc3",
+      "previous": "sha256:7b90c6544ba0b615a13365d5eb2a44dbecd7e0c6ea68c0c14481a36d849c0678",
+      "digest": "sha256:9bd209d2c72a1cb0b1a0177ad152e6a3b31a5bd2d31fef3430f8a9d5c884c92d"
+    },
+    {
+      "seq": 103,
+      "event_digest": "sha256:2fbf56533ce90817bebfd8cb8f1a952ab5dd1bf4d9602fc5d6034ec12220e904",
+      "previous": "sha256:9bd209d2c72a1cb0b1a0177ad152e6a3b31a5bd2d31fef3430f8a9d5c884c92d",
+      "digest": "sha256:532563134958389ee2f4b609cb4d4720244b03283a6c7d39299d647b189419ab"
+    },
+    {
+      "seq": 104,
+      "event_digest": "sha256:754fd87f8f6d1f8372bed3e050c90706ce0856158ea4522d7447bf939be75937",
+      "previous": "sha256:532563134958389ee2f4b609cb4d4720244b03283a6c7d39299d647b189419ab",
+      "digest": "sha256:b4391b66da0079da7d90a850f43ded3edb33cddac831fdb45d034a177384881d"
+    },
+    {
+      "seq": 105,
+      "event_digest": "sha256:abc5f46a65f79a3c601e1373d586ee865d82ca305621761bc5bcd3e0cd441add",
+      "previous": "sha256:b4391b66da0079da7d90a850f43ded3edb33cddac831fdb45d034a177384881d",
+      "digest": "sha256:55b13c9488768c89ce02c0518768fb2d08634d9a631139edf45cc6be8d72296f"
+    },
+    {
+      "seq": 106,
+      "event_digest": "sha256:4f445ff07cb4ce2eb62bf7d5b2d60e3a80099c1ea97ec3f3edaa32727cbb270c",
+      "previous": "sha256:55b13c9488768c89ce02c0518768fb2d08634d9a631139edf45cc6be8d72296f",
+      "digest": "sha256:e6820e931aa3dbd7bf552cee8a289872ea78d58c31fd06f2a41b03b72b9daabf"
+    },
+    {
+      "seq": 107,
+      "event_digest": "sha256:342f9d197dd2c9a30ad916c6b591b452fef8b4112bc3f09027d520a2d0050181",
+      "previous": "sha256:e6820e931aa3dbd7bf552cee8a289872ea78d58c31fd06f2a41b03b72b9daabf",
+      "digest": "sha256:2b0e66ae5c3129f6e829e666919e89334edccdfecd7a355bdbad15845bdd04f9"
+    },
+    {
+      "seq": 108,
+      "event_digest": "sha256:ddb822dd16a4635ee4f6686d51e8ff95d8d2fc74758ab022d0a5479930e62002",
+      "previous": "sha256:2b0e66ae5c3129f6e829e666919e89334edccdfecd7a355bdbad15845bdd04f9",
+      "digest": "sha256:473673c2e09045535fd3a0b6578c32cefe8562c19ee95f2b1ca5159945ebdd2e"
+    },
+    {
+      "seq": 109,
+      "event_digest": "sha256:9354f79eac4bbd165582a9fb93159b21fc3da8723f89988da65555f6cfe6f488",
+      "previous": "sha256:473673c2e09045535fd3a0b6578c32cefe8562c19ee95f2b1ca5159945ebdd2e",
+      "digest": "sha256:f65fdca4334472a2618c0265d11b64a14977cf2212858d2827d3a2fb457ef04f"
+    },
+    {
+      "seq": 110,
+      "event_digest": "sha256:52ec311a595e3a01a41a4dbee1b702d500df92646cef14f7699710f6aae77bd3",
+      "previous": "sha256:f65fdca4334472a2618c0265d11b64a14977cf2212858d2827d3a2fb457ef04f",
+      "digest": "sha256:02f929ec2c6e3e26e416efd3d90524d84643051ea99d874aeb604fd138aadc5b"
+    },
+    {
+      "seq": 111,
+      "event_digest": "sha256:087aa144e471d1180345fab1bf5bf85092a6c15f7bf58185ebcbdbd5257bc0f5",
+      "previous": "sha256:02f929ec2c6e3e26e416efd3d90524d84643051ea99d874aeb604fd138aadc5b",
+      "digest": "sha256:781eb91a8b29945b230ed67197f583c5df23d96d47ef1f3491274f1be6319043"
+    },
+    {
+      "seq": 112,
+      "event_digest": "sha256:834623c5f8a7d636c482f8201a7fd62d4e8ff2d2700578e69ad363087ec66a43",
+      "previous": "sha256:781eb91a8b29945b230ed67197f583c5df23d96d47ef1f3491274f1be6319043",
+      "digest": "sha256:a82155d3e77beb91174411cf7520bca6cf37644988a1f2bc1f01a48b431e49b7"
+    },
+    {
+      "seq": 113,
+      "event_digest": "sha256:46a5c1cb55b87b3427ae23774b232a3e25fe2caa0bae30bfa3ef81f3129d6958",
+      "previous": "sha256:a82155d3e77beb91174411cf7520bca6cf37644988a1f2bc1f01a48b431e49b7",
+      "digest": "sha256:f36678b3e6f2f14a4ad3cad16b72364dd7c53b711c5855f543e8a99e4b3e5c7f"
+    }
+  ],
+  "signature": {
+    "statement": {
+      "schema": "rewindsafe.sealed-evidence.v1",
+      "issuer": "rewindsafe.local",
+      "algorithm": "Ed25519",
+      "run_id": "run_01M4RCWFEGB344NY",
+      "payload_digest": "sha256:8c92b66c4e93ab2446dac6c05a14917e5f6524b82d3785ec2e1fef9084a2d07c",
+      "event_count": 36,
+      "event_chain_head": "sha256:f36678b3e6f2f14a4ad3cad16b72364dd7c53b711c5855f543e8a99e4b3e5c7f",
+      "signed_at": "2026-10-12T15:51:13.377122Z"
+    },
+    "public_key": "FTH2cQ2PveT8vdthF4nHqr40yf2YKNEwHFqKTGjpNeY=",
+    "key_fingerprint": "sha256:6013cafaa02d0b46ba659dc82dc267ed0be4f7691d06e5ae0d4ca8177ae14a0d",
+    "signature": "17c5+RKZjvL6itygZi4nBCmGBOemQa4VPcs9r00rc4TMuKflUNprZDXpUuRHfm57wV5RkhQpvkLqehUPtUbSBg=="
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "item_id": "seat-billing-01",
+    "tenant": "atlas",
+    "sku": "BILLING-PRO",
+    "on_hand": 8,
+    "bin": "team-finance",
+    "description": "Billing Pro seats",
+    "owner": "billing-admin"
+  },
+  {
+    "item_id": "seat-analytics-02",
+    "tenant": "atlas",
+    "sku": "ANALYTICS",
+    "on_hand": 12,
+    "bin": "team-data",
+    "description": "Analytics seats",
+    "owner": "data-admin"
+  },
+  {
+    "item_id": "seat-support-03",
+    "tenant": "beacon",
+    "sku": "SUPPORT",
+    "on_hand": 6,
+    "bin": "team-cx",
+    "description": "Support seats",
+    "owner": "cx-admin"
+  }
+]

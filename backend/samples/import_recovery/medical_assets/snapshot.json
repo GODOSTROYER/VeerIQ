@@ -1,0 +1,29 @@
+[
+  {
+    "item_id": "ASSET-88",
+    "tenant": "atlas",
+    "sku": "OX-88",
+    "on_hand": 5,
+    "bin": "Dock 4",
+    "description": "Oxygen sensor unit",
+    "owner": "clinical-ops"
+  },
+  {
+    "item_id": "ASSET-92",
+    "tenant": "atlas",
+    "sku": "OX-92",
+    "on_hand": 2,
+    "bin": "Sterile 2",
+    "description": "Portable monitor battery",
+    "owner": "clinical-ops"
+  },
+  {
+    "item_id": "ASSET-17",
+    "tenant": "beacon",
+    "sku": "OX-17",
+    "on_hand": 9,
+    "bin": "Ward B",
+    "description": "Pulse oximeter probes",
+    "owner": "biomed"
+  }
+]

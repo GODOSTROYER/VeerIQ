@@ -1,0 +1,31 @@
+# ArmorIQ registration TEMPLATE for RewindSafe. No secrets and no personal email are committed:
+#   api_key  is an env reference, ARMORIQ_USER_EMAIL / ARMORIQ_AGENT_ID are filled from .env.
+# Apply with:  python tasks.py armoriq-register   (renders this file to a temp copy and runs `armoriq register`)
+# Do not pass this file to `armoriq register` directly: the ${...} placeholders are not expanded by the SDK.
+version: v1
+identity:
+  api_key: $ARMORIQ_API_KEY
+  user_id: ${ARMORIQ_USER_EMAIL}
+  agent_id: ${ARMORIQ_AGENT_ID}
+environment: production
+proxy:
+  url: https://customer-proxy.armoriq.ai
+  timeout: 30
+  max_retries: 3
+mcp_servers:
+  - id: rewindsafe-recovery
+    url: http://127.0.0.1:8765/mcp
+    description: RewindSafe incident-recovery tools (local executor; ArmorIQ decides, RewindSafe executes)
+    auth: none
+policy:
+  allow:
+    - rewindsafe-recovery.inspect_snapshot
+    - rewindsafe-recovery.compare_current
+    - rewindsafe-recovery.prepare_repair_manifest
+    - rewindsafe-recovery.apply_repair_manifest
+    - rewindsafe-recovery.get_recovery_receipt
+  deny:
+    - rewindsafe-recovery.restore_access_grant
+intent:
+  ttl_seconds: 1800
+  require_csrg: true

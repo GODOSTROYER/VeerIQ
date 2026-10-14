@@ -1,0 +1,19 @@
+{
+  "source_commit": "f0231e0913e0c8eff2953727ac93b131f4456ce7",
+  "repository": "https://github.com/ayushcody/veeriq",
+  "site": "https://proud-crest-c9mj.here.now/",
+  "kind": "static walkthrough, recorded demo and public evidence; no live backend",
+  "publish_status": "live",
+  "verified_root_get": 200,
+  "expires_at": "2026-10-13T21:26:16.997Z",
+  "anonymous": true,
+  "claim_link": "Provided privately in user conversation; not committed",
+  "desktop_mobile_checks": "1440 and 390 pixels; controls, overflow and axe serious/critical passed",
+  "published_version": "01M4V3HK1KRA7BDQE44Y89MBFK",
+  "ci_evidence_link": "https://github.com/ayushcody/veeriq/actions/runs/38434801253",
+  "public_download_offline_check": {
+    "authentic": "exit 0: signature, payload hash, 35 linked events, 2 receipt digests valid",
+    "tampered": "exit 1: payload digest does not match",
+    "source": "files downloaded from deployed here.now site with curl; backend venv Python used only for cryptography dependency"
+  }
+}

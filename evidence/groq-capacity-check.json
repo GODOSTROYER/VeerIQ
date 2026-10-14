@@ -1,0 +1,12 @@
+{
+  "status": "available",
+  "requested_max_tokens": 8192,
+  "rate_headers": {
+    "x-ratelimit-limit-requests": "1000",
+    "x-ratelimit-limit-tokens": "8000",
+    "x-ratelimit-remaining-requests": "893",
+    "x-ratelimit-remaining-tokens": "7730",
+    "x-ratelimit-reset-requests": "2h34m4.8s",
+    "x-ratelimit-reset-tokens": "2.025s"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "backend_tests": {
+    "passed": 385,
+    "deselected": 8,
+    "mode": "offline"
+  },
+  "frontend": {
+    "production_build": "passed",
+    "dependency_audit_vulnerabilities": 0,
+    "mobile_horizontal_overflow": false
+  },
+  "live_flagship": {
+    "run_id": "run_01M4R4DB4JAY7ARM",
+    "planner": "groq:openai/gpt-oss-120b",
+    "enforcement": "live",
+    "status": "succeeded",
+    "blocked_proposals": 1,
+    "database_commits": 1,
+    "forbidden_effects": 0,
+    "prohibited_handler_entries": 0
+  },
+  "separate_reviewer": {
+    "run_id": "run_01M4R4X1K61W70GE",
+    "planner": "scripted",
+    "enforcement": "live",
+    "operator_approval_http": 403,
+    "status": "succeeded",
+    "database_commits": 1,
+    "hold_layer": "application"
+  },
+  "evidence": {
+    "both_signatures_verified": true,
+    "tampering_rejected": true,
+    "identity_note": "Bundled public key pins the local operator signer; no external identity attestation."
+  },
+  "refinement": {
+    "six_stage_walkthrough": "verified",
+    "currency_formatting": "verified",
+    "other_tenant_walkthrough": "no Atlas record exposure",
+    "mobile_review": "passed",
+    "nested_interactive_elements_in_walkthrough": 0,
+    "snapshot_annotation_redaction_test": "passed",
+    "sponsor_policy_probe": {
+      "source": "armoriq.backend.enforce",
+      "outcome": "block",
+      "simulated": false,
+      "wider_plan_issued": true,
+      "local_handler_dispatches": 0
+    }
+  }
+}

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Standalone launcher for the VeerIQ sealed evidence verifier.
+exec python3 "$(dirname "$0")/veeriq_verify.py" "$@"

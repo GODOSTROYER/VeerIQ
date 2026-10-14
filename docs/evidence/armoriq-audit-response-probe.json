@@ -1,0 +1,40 @@
+{
+  "audit_endpoint_observed": true,
+  "audit_responses": [
+    {
+      "http_status": 200,
+      "response_shape": {
+        "nested_key_names": [
+          "position",
+          "sibling_hash"
+        ],
+        "top_level_keys": [
+          "audit_id",
+          "csrg_audit_index",
+          "csrg_commitment",
+          "csrg_merkle_proof",
+          "csrg_merkle_root",
+          "iap_sync_status",
+          "intent_plan_id",
+          "is_orphan",
+          "merkle_proof",
+          "merkle_root",
+          "plan_id"
+        ]
+      }
+    }
+  ],
+  "dispatch_status": "executed",
+  "explicit_audit_identifiers": [
+    {
+      "field": "audit_id",
+      "value": "224dbcbd-6d86-48a2-8bdd-53fc82ee9a4d"
+    }
+  ],
+  "no_llm": true,
+  "plan_hash": "1fff0ac8fd2c26073b8a517243895bc82cad501bb57b3724ba120947f386936b",
+  "plan_mode": "live",
+  "read_only_dispatch_succeeded": true,
+  "scope": "single live ArmorIQ audit-response observation via isolated runtime dispatch",
+  "tool": "inspect_snapshot"
+}

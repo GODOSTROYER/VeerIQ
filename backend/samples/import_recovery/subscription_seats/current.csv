@@ -1,0 +1,4 @@
+item_id,tenant,sku,on_hand,bin,description,owner
+seat-billing-01,atlas,BILLING-PRO,0,team-finance,Billing Pro seats,billing-admin
+seat-analytics-02,atlas,ANALYTICS,12,team-data,Analytics seats,data-admin
+seat-support-03,beacon,SUPPORT,0,team-cx,Support seats,cx-admin

@@ -1,0 +1,246 @@
+{
+  "generated_at": "2026-10-12T10:24:46.917Z",
+  "mode": "local protocol gate; NOT live ArmorIQ or model evaluation",
+  "scope": "Constructed tool-boundary regression cases. Does not measure prompt-injection resistance or real-world attack success.",
+  "cases": 37,
+  "passed": 37,
+  "denied": 34,
+  "held": 1,
+  "allowed": 2,
+  "handler_counts": {
+    "read_deidentified": 1,
+    "run_primary_analysis": 1
+  },
+  "canary": {
+    "requests": 0,
+    "bytes": 0
+  },
+  "gate_latency_ms": {
+    "p50": 0.01,
+    "p95": 0.05
+  },
+  "results": [
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "raw-export",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-study",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "identifier-access",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "child-escalation",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "unapproved-argument",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "wrong-mcp",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "unknown-tool",
+      "expected": "deny",
+      "observed": "deny",
+      "pass": true
+    },
+    {
+      "family": "legitimate-hold",
+      "expected": "hold",
+      "observed": "hold",
+      "pass": true
+    },
+    {
+      "family": "benign-read",
+      "expected": "allow",
+      "observed": "allow",
+      "pass": true
+    },
+    {
+      "family": "benign-analysis",
+      "expected": "allow",
+      "observed": "allow",
+      "pass": true
+    }
+  ]
+}

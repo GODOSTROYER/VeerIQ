@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@layer base {
+  html { background: var(--bg); color: var(--text); font-family: var(--font-ui); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; color-scheme: dark; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); font-size: 14px; line-height: 1.5; letter-spacing: -0.003em; }
+  #root { min-height: 100vh; isolation: isolate; }
+  ::selection { background: var(--primary); color: var(--text-inverse); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  input, textarea, [contenteditable] { caret-color: var(--focus); }
+  input::placeholder, textarea::placeholder { color: var(--text-3); opacity: 1; }
+  a { text-underline-offset: 4px; }
+  button, [role='button'] { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  h1, h2, h3, h4 { letter-spacing: -0.02em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  code, .mono { font-family: var(--font-code); font-feature-settings: 'zero'; }
+  * { scrollbar-width: thin; scrollbar-color: #42495a var(--bg-sunken); }
+  *::-webkit-scrollbar { width: 8px; height: 8px; }
+  *::-webkit-scrollbar-track { background: var(--bg-sunken); }
+  *::-webkit-scrollbar-thumb { background: #42495a; border-radius: 8px; border: 2px solid var(--bg-sunken); }
+  *::-webkit-scrollbar-thumb:hover { background: #626b80; }
+}
+
+.aurora { display: none; }
+.glass, .glass-strong { background: var(--bg-raised); border: 1px solid var(--border); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.glass-strong { border-color: var(--border-strong); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+@keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+/* Retained for callers which used the original keyframe name. */
+@keyframes rs-shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+.skeleton { position: relative; isolation: isolate; overflow: hidden; background: var(--surface-2); }
+.skeleton::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.045), transparent); animation: shimmer 1.8s linear infinite; }
+@keyframes rs-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+.pulse-dot { animation: rs-pulse 1.9s ease-in-out infinite; }
+@keyframes rs-deflect { from { transform: translateX(-6px); opacity: 0.5; } to { transform: translateX(0); opacity: 1; } }
+.deflect { animation: rs-deflect var(--dur-base) var(--ease-out) both; }
+@keyframes rs-morph { from { color: var(--diff-bad); background: color-mix(in srgb, var(--diff-bad) 12%, transparent); } to { color: var(--diff-good); background: color-mix(in srgb, var(--diff-good) 8%, transparent); } }
+.morph-good { animation: rs-morph var(--dur-slow) var(--ease-in-out) both; }
+@keyframes rewind { to { transform: rotate(-360deg); } }
+.loader-arc { transform-origin: 20px 20px; animation: rewind 1.5s linear infinite; }
+.tech-track { display: inline-flex; width: 28px; height: 16px; padding: 2px; border-radius: 999px; background: var(--surface-3); transition: background var(--dur-fast) var(--ease-out); }
+.tech-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--text-2); transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast); }
+.tech-toggle[aria-checked='true'] { color: var(--text); }
+.tech-toggle[aria-checked='true'] .tech-track { background: var(--text); }
+.tech-toggle[aria-checked='true'] .tech-thumb { transform: translateX(12px); background: var(--bg); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  .skeleton::after, .loader-arc, .pulse-dot { animation: none; }
+  .skeleton::after { background: rgb(255 255 255 / 0.02); }
+}
+
+/* VeerIQ's flat recovery workbench: the incumbent brand, applied to durable operations. */
+.veeriq-wordmark {font-family:Sunflower,sans-serif;font-size:26px;letter-spacing:-.025em;color:var(--text)}
+.recovery-intro {padding:24px 0 30px}
+.recovery-headline {font-family:Sunflower,sans-serif;font-size:64px;font-weight:500;line-height:1.08;letter-spacing:-.035em;max-width:12ch}
+.recovery-headline span {color:var(--layer-armoriq)}
+.recovery-intro>div>p {max-width:55ch;line-height:1.7}
+.rounded-2xl,.rounded-xl,.rounded-lg,.rounded-md {border-radius:2px}
+.guided-exploration {border-block:1px solid var(--border);padding:18px 0}
+.guided-exploration>summary {cursor:pointer;font-size:14px;color:var(--text-2)}
+.guided-exploration>summary:hover {color:var(--text)}
+.authority-boundary {display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,1fr);border:1px solid var(--border);background:var(--bg-raised)}
+.boundary-mechanism {position:relative;border-right:1px solid var(--border);padding:18px 22px}
+.boundary-mechanism canvas {display:block;width:100%;height:115px}
+.boundary-caption {display:flex;justify-content:space-between;gap:14px;font-size:12px;color:var(--text-2)}
+.boundary-label {font:10px var(--font-code);letter-spacing:.06em;text-transform:uppercase;color:var(--layer-armoriq)}
+.boundary-effect {display:flex;flex-direction:column;justify-content:center;padding:20px 24px;gap:14px;font-size:12px}
+.boundary-effect>div {display:flex;justify-content:space-between;gap:14px;color:var(--text-2)}
+.boundary-effect strong {font:500 14px var(--font-code);color:var(--text)}
+.boundary-effect p {font-size:11px;line-height:1.6;color:var(--text-3);max-width:55ch}
+@media(max-width:760px){.recovery-headline{font-size:44px;max-width:16ch}.recovery-intro{padding-top:8px;gap:25px}.authority-boundary{grid-template-columns:1fr}.boundary-mechanism{border-right:0;border-bottom:1px solid var(--border);padding:16px}.boundary-effect{padding:18px}.veeriq-wordmark{font-size:23px}}
+
+html[data-theme='light']{color-scheme:light}

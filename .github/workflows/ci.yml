@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live_checks:
+        description: Run real ArmorIQ checks using configured repository secrets
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: veeriq
+          POSTGRES_USER: rewindsafe
+          POSTGRES_PASSWORD: rewindsafe
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U rewindsafe -d veeriq"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+    env:
+      DATABASE_URL: postgresql://rewindsafe:rewindsafe@localhost:5432/veeriq
+      REWINDSAFE_TEST_ADMIN_DSN: postgresql://rewindsafe:rewindsafe@localhost:5432/postgres
+      REWINDSAFE_ENFORCEMENT: offline
+      REWINDSAFE_AUTH_MODE: demo
+      REWINDSAFE_PLANNER: scripted
+      ARMORIQ_API_KEY: ""
+      ANTHROPIC_API_KEY: ""
+      OPENAI_API_KEY: ""
+      GROQ_API_KEY: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.9.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: uv sync --project backend --locked --group dev
+      - run: npm --prefix frontend ci
+      - name: Backend correctness lint
+        working-directory: backend
+        run: uv run --locked ruff check --select E4,E7,E9,F --ignore F401,F841 rewindsafe
+      - name: Backend tests
+        working-directory: backend
+        run: uv run --locked pytest
+      - name: Standalone evidence verifier acceptance
+        run: uv run --project backend --locked python scripts/test_veeriq_verify.py
+      - name: Reliability summary matches the recorded batches
+        run: python scripts/summarize_reliability.py --check
+      - name: Frontend unit tests
+        run: npm --prefix frontend test
+      - name: Frontend type check and production build
+        run: npm --prefix frontend run build
+      - name: Production image build
+        run: docker build -t veeriq:ci .
+
+  live-checks:
+    if: github.event_name == 'workflow_dispatch' && inputs.live_checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: veeriq
+          POSTGRES_USER: rewindsafe
+          POSTGRES_PASSWORD: rewindsafe
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U rewindsafe -d veeriq"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+    env:
+      DATABASE_URL: postgresql://rewindsafe:rewindsafe@localhost:5432/veeriq
+      REWINDSAFE_TEST_ADMIN_DSN: postgresql://rewindsafe:rewindsafe@localhost:5432/postgres
+      REWINDSAFE_ENFORCEMENT: live
+      ARMORIQ_API_KEY: ${{ secrets.ARMORIQ_API_KEY }}
+      ARMORIQ_SESSION_MODE: sdk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project backend --locked --group dev
+      - name: Explicit live-service checks (missing secrets fail)
+        run: python tasks.py test-live
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan complete Git history, including the root commit
+        run: >-
+          docker run --rm -v "$PWD:/repo:ro"
+          zricethezav/gitleaks:v8.24.3
+          git /repo --config /repo/.gitleaks.toml --gitleaks-ignore-path /repo/.gitleaksignore --redact --log-opts=--all

@@ -1,0 +1,14 @@
+export const sponsorPolicyCheck = {
+  "checked_at": "2026-10-12T13:42:06.343397+00:00",
+  "probe_id": "veeriq-policy-check-20261012T134157Z",
+  "tool": "restore_access_grant",
+  "source": "armoriq.backend.enforce",
+  "outcome": "block",
+  "simulated": false,
+  "reason": "ArmorIQ signed the wider plan, but its org policy refused restore_access_grant at enforcement: tool_not_in_allowlist",
+  "invariant": "org_policy_allowlist",
+  "matched_policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+  "raw_action": "block",
+  "wider_plan_issued": true,
+  "local_handler_dispatches": 0
+} as const

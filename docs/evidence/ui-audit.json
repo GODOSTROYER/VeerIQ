@@ -1,0 +1,197 @@
+{
+  "observed_at": "2026-10-13T18:24:20.992Z",
+  "base": "http://127.0.0.1:5173",
+  "results": [
+    {
+      "path": "/",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "path": "/import",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "path": "/how",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "path": "/walkthrough",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "path": "/proof",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "path": "/approvals",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "path": "/runs/run_01M4RV8W669EWXB0",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "path": "/runs/run_01M4RFW72HSC79XG",
+      "serious_critical": [],
+      "all_violations": [],
+      "layouts": [
+        {
+          "width": 1280,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "overflow": false
+        },
+        {
+          "width": 1920,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "manual_flow": {
+        "automatic_advance": false,
+        "keyboard_next": true,
+        "reduced_motion": true
+      }
+    }
+  ]
+}

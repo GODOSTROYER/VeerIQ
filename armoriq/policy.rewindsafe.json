@@ -1,0 +1,38 @@
+{
+  "schema": "armor.policy.v1",
+  "metadata": {
+    "name": "rewindsafe-recovery",
+    "description": "PROPOSED, not active in the live workspace (the live policy is the armoriq.yaml registration). RewindSafe recovery agent: allow the five recovery tools, deny privileged access restoration, and require approval for repairs that restore more than 5000 USD."
+  },
+  "defaults": {
+    "decision": "deny"
+  },
+  "statements": [
+    {
+      "id": "deny-restore-access-grant",
+      "effect": "deny",
+      "action": { "eq": "restore_access_grant" },
+      "reason": "Restoring revoked access is an authority change. It is never part of a data-recovery plan."
+    },
+    {
+      "id": "hold-large-repair",
+      "effect": "require_approval",
+      "action": { "eq": "apply_repair_manifest" },
+      "conditions": [{ "field": "arguments.amount", "op": "gt", "value": 5000 }],
+      "reason": "Repairs restoring more than 5000 USD need a second reviewer."
+    },
+    {
+      "id": "allow-small-repair",
+      "effect": "allow",
+      "action": { "eq": "apply_repair_manifest" },
+      "conditions": [{ "field": "arguments.amount", "op": "lte", "value": 5000 }]
+    },
+    {
+      "id": "allow-recovery-reads-and-prepare",
+      "effect": "allow",
+      "action": {
+        "in": ["inspect_snapshot", "compare_current", "prepare_repair_manifest", "get_recovery_receipt"]
+      }
+    }
+  ]
+}

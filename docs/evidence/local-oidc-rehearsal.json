@@ -1,0 +1,62 @@
+{
+  "observed_at": "2026-10-13T17:34:00Z",
+  "scope": "Disposable local full-stack OIDC rehearsal",
+  "provider": "Keycloak 26.3.5",
+  "application": "VeerIQ Docker image with the unchanged production OIDC implementation",
+  "database": "Dedicated PostgreSQL 16 Compose volume",
+  "issuer": "https://localhost:8444/realms/veeriq-local",
+  "tls": {
+    "server_verifies_local_certificate": true,
+    "trust_source": "Mounted SSL_CERT_FILE in the VeerIQ container",
+    "browser_test_context_ignores_local_self_signed_certificate": true,
+    "system_trust_store_modified": false
+  },
+  "outcomes": {
+    "real_authorization_code_pkce_logins": 3,
+    "isolated_browser_logins": 3,
+    "secure_httponly_session_cookies": 3,
+    "mapped_roles": [
+      "operator",
+      "reviewer"
+    ],
+    "mapped_seeded_tenants": [
+      "atlas",
+      "beacon"
+    ],
+    "tenant_scoped_identity_and_application_reads": "pass",
+    "cross_tenant_grant_read": "denied_as_not_found",
+    "operator_cannot_decide_review": "denied",
+    "reviewer_cannot_use_operator_admin_route": "denied",
+    "demo_identity_impersonation": "denied",
+    "separate_operator_reviewer_payload_bound_approval": "passed_with_scripted_planner_and_offline_enforcement",
+    "existing_run_sealed_export_downloaded_over_authenticated_api": "pass",
+    "standalone_verification_with_api_delivered_instance_public_key": "valid",
+    "instance_signer_differs_from_repository_master_key": true,
+    "container_runtime_uid": 10001,
+    "mounted_signing_key_file_mode": "0600",
+    "authenticated_instance_signing_public_key_endpoint": "pass",
+    "public_key_endpoint_no_store_pem_attachment": "pass",
+    "public_key_endpoint_does_not_expose_private_material": "pass",
+    "standalone_instance_key_export_verification": "pass_payload_event_chain_two_receipt_digests_and_ed25519_signature"
+  },
+  "sealed_export": {
+    "public_key_source": "authenticated GET /api/evidence/signing-public-key over TLS with mounted local CA; no independent external attestation",
+    "instance_key_fingerprint_sha256": "sha256:abc772b03cf11c650edd21b845ddb3f48857a989614bbf7763eefb62f86c765a",
+    "public_key_file_sha256": "sha256:98f07b44753f7a5deba99d5a27a912057ad4acbf751c20565eb87ae92bd3250a",
+    "export_sha256": "sha256:628464675b0328608fcd5131477381b448b76b35bb85d4a76b5c39f27779c418",
+    "verified_event_count": 42,
+    "verified_execution_receipt_digest_count": 2
+  },
+  "limits": [
+    "Synthetic local identities and a short-lived self-signed localhost certificate only.",
+    "Browser certificate errors were ignored in isolated test contexts; no system trust was changed.",
+    "The approval was executed by automation using distinct fixture credentials, not by independent human participants.",
+    "Scripted planning and offline ArmorIQ enforcement; no sponsor HOLD or external provider deployment claim.",
+    "The signer public key was downloaded from the authenticated app endpoint over the local TLS rehearsal; this verifies export consistency against the served key, not an independent external signer attestation."
+  ],
+  "sha256": {
+    "api_rehearsal_script": "aa197d8c7e3333e5084d0ae51b3a5cbdd4e2835f1d959ea6f7b4956e53e43716",
+    "browser_rehearsal_script": "a26a7b911a42c197c9c48ecca95269a2bc4950be99067fea38b67dc977c9a69f",
+    "compose_definition": "ce018607c7050d0a7a04be14c144c89155e3e381c265b68974ee2340704dbc36"
+  }
+}

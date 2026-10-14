@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-13",
+  "source": "local execution; scripted/simulated unless independently labelled live",
+  "backend_suite": {
+    "passed": 433,
+    "skipped": 1,
+    "deselected": "live provider tests",
+    "seconds": 45.64,
+    "skip": "Optional externally configured verified-TLS PostgreSQL acceptance; separate positive evidence exists"
+  },
+  "standalone_verifier": {
+    "passed": 6
+  },
+  "frontend_typecheck_build": "passed",
+  "correctness_lint": "passed",
+  "dispatcher_sha256": "3394bc0cda48cc14b879705bae2086e33ad0fabf2d21c6bf4f71ddbf918cb2a2",
+  "dispatcher_git_diff": "empty",
+  "ui_audit": "eight views, complete axe ruleset, 32 responsive captures; zero serious/critical and no overflow",
+  "historical_protected_checks": "18 lifecycle tests passed; final event retains observed checks independently of current adapter state"
+}

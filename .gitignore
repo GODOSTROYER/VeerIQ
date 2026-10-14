@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.env
+.data/
+.playwright-mcp/
+*.log
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.tsbuildinfo
+frontend/dist/
+
+# Keep credentials and generated source archives out of version control.
+.env.*
+!.env.example
+.local-oidc/
+deliverables/*.tar.gz
+deliverables/*.sha256
+deliverables/package-check.json

@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="outro-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        @font-face { font-family: "Sunflower"; font-style: normal; font-weight: 500; src: url("../../assets/fonts/Sunflower-normal-500.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #ou-world { position: absolute; inset: 0; transform-origin: 50% 50%; }
+        #ou-glow { position: absolute; left: 960px; top: 560px; width: 1700px; height: 1100px; margin: -550px 0 0 -850px; border-radius: 50%; background: radial-gradient(ellipse, rgba(232,96,44,0.24) 0%, rgba(232,96,44,0.06) 40%, rgba(232,96,44,0) 64%); }
+        #ou-st { position: absolute; left: 140px; top: 250px; width: 1640px; }
+        .ou-m { overflow: hidden; }
+        #ou-s1 { font-family: "Instrument Serif", serif; font-size: 112px; line-height: 124px; letter-spacing: -0.03em; word-spacing: 0.04em; white-space: nowrap; }
+        #ou-s2-wrap { position: relative; height: 236px; margin-top: 8px; }
+        .ou-s2 { position: absolute; left: 0; top: 0; font-family: "Instrument Serif", serif; font-style: italic; font-size: 232px; line-height: 236px; letter-spacing: -0.035em; white-space: nowrap; color: #e8602c; }
+        #ou-s2r { color: rgba(255,80,50,0.6); mix-blend-mode: screen; }
+        #ou-s2b { color: rgba(80,160,255,0.45); mix-blend-mode: screen; }
+        #ou-line { position: absolute; left: 0; top: 739px; width: 1920px; height: 3px; background: #e8602c; transform-origin: 0 50%; box-shadow: 0 0 18px rgba(255,128,80,0.6); }
+        #ou-lock { position: absolute; left: 470px; top: 336px; width: 980px; height: 260px; }
+        #ou-mark { position: absolute; left: 0; top: 0; width: 254px; height: 254px; }
+        #ou-mark svg { width: 254px; height: 254px; overflow: visible; }
+        #ou-mark path { fill: none; stroke: #ff9467; stroke-linejoin: round; stroke-linecap: round; }
+        #ou-wm-mask { position: absolute; left: 290px; top: 0; width: 720px; height: 270px; overflow: hidden; }
+        #ou-wm { position: absolute; left: 0; top: 4px; font-family: "Sunflower", sans-serif; font-weight: 500; font-size: 250px; line-height: 250px; letter-spacing: -0.03em; white-space: nowrap; display: flex; }
+        #ou-wm span { display: inline-block; }
+        #ou-tag { position: absolute; left: 140px; top: 664px; width: 1640px; text-align: center; font-family: "Instrument Serif", serif; font-size: 64px; line-height: 72px; letter-spacing: -0.02em; white-space: nowrap; }
+        #ou-tag i { color: #e8602c; }
+        #ou-meta { position: absolute; left: 140px; top: 800px; width: 1640px; display: flex; justify-content: center; gap: 46px; font-family: "Geist Mono", monospace; font-size: 20px; letter-spacing: 0.14em; color: #aaa9a7; white-space: nowrap; }
+        #ou-meta b { color: #f2f1ed; font-weight: 500; }
+        #ou-black { position: absolute; inset: 0; background: #0e0e10; opacity: 0; }
+      </style>
+      <div data-hf-id="hf-x7nm" id="root" data-composition-id="outro" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-06ta" id="ou-world">
+          <div data-hf-id="hf-zzw6" id="ou-glow" data-layout-ignore></div>
+          <div data-hf-id="hf-ivsj" id="ou-st">
+            <div data-hf-id="hf-alw2" class="ou-m" style="height:124px"><div data-hf-id="hf-m6d4" id="ou-s1">The agent reached past its boundary.</div></div>
+            <div data-hf-id="hf-etry" id="ou-s2-wrap">
+              <div data-hf-id="hf-fs5m" class="ou-s2" id="ou-s2r" aria-hidden="true" data-layout-ignore>The boundary held.</div>
+              <div data-hf-id="hf-dt96" class="ou-s2" id="ou-s2b" aria-hidden="true" data-layout-ignore>The boundary held.</div>
+              <div data-hf-id="hf-c39m" class="ou-s2" id="ou-s2">The boundary held.</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-2r5n" id="ou-lock">
+            <div data-hf-id="hf-26z1" id="ou-mark">
+              <svg data-hf-id="hf-nlni" viewBox="0 0 32 32" aria-hidden="true">
+                <path data-hf-id="hf-i2l8" id="ou-shield" stroke-width="1.7" d="M16 3 27 8v9c0 6-6 10-11 13C11 27 5 23 5 17V8L16 3Z" />
+                <path data-hf-id="hf-4m0i" id="ou-chev" stroke-width="2" d="m10 11 6 11 6-11" />
+              </svg>
+            </div>
+            <div data-hf-id="hf-tnmj" id="ou-wm-mask"><div data-hf-id="hf-5tza" id="ou-wm"><span data-hf-id="hf-dn4l">V</span><span data-hf-id="hf-xwr0">e</span><span data-hf-id="hf-pn38">e</span><span data-hf-id="hf-ry5l">r</span><span data-hf-id="hf-jlq0">I</span><span data-hf-id="hf-gf9s">Q</span></div></div>
+          </div>
+          <div data-hf-id="hf-taik" id="ou-line"></div>
+          <div data-hf-id="hf-9i44" id="ou-tag">Restore yesterday's data. <i data-hf-id="hf-puhl">Keep today's decisions.</i></div>
+          <div data-hf-id="hf-enz5" id="ou-meta"><span data-hf-id="hf-gjhb"><b data-hf-id="hf-6kz0">BUILT FOR</b>&nbsp;&nbsp;ARMORIQ FLOW STATE</span><span data-hf-id="hf-f51e">ARMORIQ-SDK 0.6.10</span><span data-hf-id="hf-zht3">FASTAPI · POSTGRESQL 16 · REACT</span></div>
+        </div>
+        <div data-hf-id="hf-duvm" id="ou-black" data-layout-ignore></div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          function hash(n) { var x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+          // Out of the dissolve: the confession rises, then the verdict slams on the bar.
+          tl.fromTo("#ou-glow", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 2.4, ease: "sine.out" }, 0);
+          tl.fromTo("#ou-s1", { yPercent: 104 }, { yPercent: 0, duration: 0.8, ease: "expo.out" }, 0.25);
+          var SLAM = 2.0;
+          tl.fromTo("#ou-s2", { opacity: 0, scale: 1.25, filter: "blur(16px)", transformOrigin: "0% 70%" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.22, ease: "expo.out" }, SLAM);
+          var r = document.getElementById("ou-s2r"), b = document.getElementById("ou-s2b");
+          gsap.set([r, b], { opacity: 0 });
+          tl.set([r, b], { opacity: 1 }, SLAM);
+          var ga = { a: 1 };
+          tl.fromTo(ga, { a: 1 }, { a: 0, duration: 0.36, ease: "power3.in", immediateRender: false, onUpdate: function () {
+            var k = Math.floor(tl.time() * 24);
+            r.style.transform = "translate(" + ((hash(k * 13 + 1) * 2 - 1) * 22 * ga.a).toFixed(1) + "px," + ((hash(k * 7 + 2) * 2 - 1) * 6 * ga.a).toFixed(1) + "px)";
+            b.style.transform = "translate(" + ((hash(k * 17 + 3) * 2 - 1) * 22 * ga.a).toFixed(1) + "px," + ((hash(k * 11 + 4) * 2 - 1) * 6 * ga.a).toFixed(1) + "px)";
+          } }, SLAM);
+          tl.set([r, b], { opacity: 0, x: 0, y: 0 }, SLAM + 0.37);
+          // The line draws beneath the verdict, edge to edge — the same line as the first frame.
+          tl.fromTo("#ou-line", { scaleX: 0, x: 0, y: 0 }, { scaleX: 1, x: 0, y: 0, duration: 0.6, ease: "expo.out" }, SLAM);
+          tl.fromTo("#ou-world", { y: 0 }, { y: 9, duration: 0.05, ease: "none", immediateRender: false }, SLAM);
+          tl.to("#ou-world", { y: 0, duration: 0.45, ease: "elastic.out(1, 0.4)" }, SLAM + 0.05);
+
+          // Statement clears; the line slides up and narrows into the wordmark's underline.
+          tl.to("#ou-st", { y: -70, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power3.in" }, 3.7);
+          tl.to("#ou-line", { y: -113, x: 470, scaleX: 980 / 1920, duration: 0.75, ease: "power3.inOut" }, 3.85);
+
+          // Lockup assembles over its underline.
+          var shield = document.getElementById("ou-shield"), chev = document.getElementById("ou-chev");
+          var L1 = shield.getTotalLength() * 1.04, L2 = chev.getTotalLength() * 1.04;
+          shield.style.strokeDasharray = L1; chev.style.strokeDasharray = L2;
+          gsap.set([shield, chev], { opacity: 0 });
+          tl.set(shield, { opacity: 1 }, 4.35);
+          tl.set(chev, { opacity: 1 }, 4.85);
+          tl.fromTo(shield, { strokeDashoffset: L1 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 4.35);
+          tl.fromTo(chev, { strokeDashoffset: L2 }, { strokeDashoffset: 0, duration: 0.38, ease: "power2.out" }, 4.85);
+          var letters = document.querySelectorAll("#ou-wm span");
+          gsap.set(letters, { opacity: 0 });
+          for (var i = 0; i < letters.length; i++) {
+            var t = 4.55 + i * 0.06;
+            tl.set(letters[i], { opacity: 1, x: -150 - i * 10 }, t);
+            tl.to(letters[i], { x: 0, duration: 0.5, ease: "expo.out" }, t);
+          }
+          tl.fromTo("#ou-tag", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 5.15);
+          tl.fromTo("#ou-meta span", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.09 }, 5.5);
+          tl.fromTo("#ou-world", { scale: 1 }, { scale: 1.03, duration: 3.4, ease: "sine.inOut", immediateRender: false }, 4.3);
+
+          // Final scene: fade to black.
+          tl.fromTo("#ou-black", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.in" }, 7.4);
+
+          window.__timelines["outro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

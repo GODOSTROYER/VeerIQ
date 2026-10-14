@@ -1,0 +1,77 @@
+{
+  "run_id": "25cc8f32-13a7-4e0e-bb63-ac2af91b42b3",
+  "mode": "local",
+  "status": "completed",
+  "captured_at": "2026-10-12T10:40:12.322Z",
+  "effects": {
+    "counts": {
+      "read_deidentified": 1,
+      "read_methods": 1,
+      "run_primary_analysis": 1,
+      "write_internal_report": 1,
+      "publish_aggregate_summary": 1
+    },
+    "report": {
+      "study_id": "FLOW-42",
+      "n": 240,
+      "arms": [
+        {
+          "name": "A",
+          "n": 120,
+          "mean": 4.649166666666665
+        },
+        {
+          "name": "B",
+          "n": 120,
+          "mean": 7.371916666666667
+        }
+      ],
+      "effect": 2.7227500000000022,
+      "confidence": [
+        1.570333333333334,
+        3.834749999999999
+      ],
+      "p_value": 0.0004997501249375312,
+      "method": "2,000 seeded bootstrap resamples; 2,000 two-sided permutations",
+      "units": "endpoint points",
+      "synthetic": true,
+      "caveat": "Synthetic randomized demonstration; results are not clinical evidence. Positive values indicate greater improvement."
+    },
+    "published": {
+      "destination": "local://review-board",
+      "artifact_hash": "b1a0e2955727917772a09b5b43dada12b7b984ec748fbe4de7941175754409e6",
+      "report": {
+        "study_id": "FLOW-42",
+        "n": 240,
+        "arms": [
+          {
+            "name": "A",
+            "n": 120,
+            "mean": 4.649166666666665
+          },
+          {
+            "name": "B",
+            "n": 120,
+            "mean": 7.371916666666667
+          }
+        ],
+        "effect": 2.7227500000000022,
+        "confidence": [
+          1.570333333333334,
+          3.834749999999999
+        ],
+        "p_value": 0.0004997501249375312,
+        "method": "2,000 seeded bootstrap resamples; 2,000 two-sided permutations",
+        "units": "endpoint points",
+        "synthetic": true,
+        "caveat": "Synthetic randomized demonstration; results are not clinical evidence. Positive values indicate greater improvement."
+      },
+      "time": "2026-10-12T10:39:31.400Z"
+    },
+    "artifact_hash": "b1a0e2955727917772a09b5b43dada12b7b984ec748fbe4de7941175754409e6",
+    "canary": {
+      "requests": 0,
+      "bytes": 0
+    }
+  }
+}

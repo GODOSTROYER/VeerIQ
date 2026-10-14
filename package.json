@@ -1,0 +1,16 @@
+{
+  "name": "veeriq",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bounded recovery with durable effects and signed evidence.",
+  "scripts": {
+    "setup": "node scripts/setup-merged.mjs",
+    "dev": "node scripts/dev-merged.mjs",
+    "build": "npm --prefix frontend run build",
+    "test": "node scripts/test-merged.mjs",
+    "test:frontend": "npm --prefix frontend test",
+    "start": "backend/.venv/bin/python -m uvicorn rewindsafe.api.app:app --host 127.0.0.1 --port 8020",
+    "verify-receipt": "backend/.venv/bin/python backend/scripts/verify_sealed_evidence.py",
+    "test:research": "npm --prefix legacy/research test"
+  }
+}

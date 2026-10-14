@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="surgical-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; perspective: 1400px; }
+        #sg-world { position: absolute; inset: 0; transform-origin: 50% 40%; }
+        #sg-glow { position: absolute; left: 1330px; top: 420px; width: 1100px; height: 900px; margin: -450px 0 0 -550px; border-radius: 50%; background: radial-gradient(ellipse, rgba(163,204,179,0.14) 0%, rgba(163,204,179,0) 62%); }
+        #sg-title { position: absolute; left: 140px; top: 150px; font-family: "Geist Mono", monospace; font-size: 22px; letter-spacing: 0.14em; color: #aaa9a7; white-space: nowrap; }
+        #sg-title b { color: #e8602c; font-weight: 600; }
+        #sg-pill { position: absolute; right: 140px; top: 138px; width: 420px; white-space: pre; text-align: center; padding: 12px 0; border: 2px solid rgba(163,204,179,0.7); color: #a3ccb3; font-family: "Geist Mono", monospace; font-size: 21px; letter-spacing: 0.1em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+        #sg-head { position: absolute; left: 140px; top: 214px; width: 1640px; height: 30px; font-family: "Geist Mono", monospace; font-size: 18px; letter-spacing: 0.16em; color: #aaa9a7; }
+        #sg-head span { position: absolute; top: 0; }
+        #sg-top { position: absolute; left: 140px; top: 260px; width: 1640px; height: 3px; background: #e8602c; transform-origin: 0 50%; }
+        .sg-row { position: absolute; left: 140px; width: 1640px; height: 104px; border-bottom: 2px solid rgba(242,241,237,0.11); }
+        .sg-cell { position: absolute; top: 0; height: 104px; display: flex; align-items: center; white-space: nowrap; }
+        .sg-id { left: 0; font-family: "Geist Mono", monospace; font-size: 28px; }
+        .sg-ent { left: 190px; font-family: "Instrument Serif", serif; font-size: 46px; letter-spacing: -0.01em; }
+        .sg-kind { left: 720px; }
+        .sg-pill2 { font-family: "Geist Mono", monospace; font-size: 17px; letter-spacing: 0.14em; padding: 7px 12px; border: 2px solid; }
+        .sg-pill2.dmg { color: #ffa185; border-color: rgba(255,161,133,0.6); }
+        .sg-pill2.dec { color: #a9c4d0; border-color: rgba(169,196,208,0.6); }
+        .sg-field { left: 1000px; font-family: "Geist Mono", monospace; font-size: 21px; letter-spacing: 0.08em; color: #aaa9a7; }
+        .sg-val { left: 1190px; width: 270px; padding-left: 20px; font-family: "Geist Mono", monospace; font-size: 36px; font-weight: 500; transform-origin: 50% 100%; }
+        .sg-hl { position: absolute; left: 0; top: 18px; width: 270px; height: 68px; background: rgba(163,204,179,0.2); transform-origin: 0 50%; }
+        .sg-box { position: absolute; left: 0; top: 18px; width: 270px; height: 68px; border: 2px solid rgba(169,196,208,0.75); transform-origin: 0 50%; }
+        .sg-val .t { position: relative; }
+        .sg-res { left: 1470px; width: 170px; justify-content: flex-end; gap: 10px; }
+        .sg-chip { font-family: "Geist Mono", monospace; font-size: 20px; letter-spacing: 0.06em; padding: 8px 12px; white-space: nowrap; color: #0e0e10; }
+        .sg-chip.ok { background: #a3ccb3; }
+        .sg-chip.keep { background: #a9c4d0; }
+        .sg-lock { width: 30px; height: 30px; }
+        #sg-scalpel { position: absolute; left: 1330px; top: 263px; width: 4px; height: 104px; margin-left: -2px; background: #e8602c; box-shadow: 0 0 16px 3px rgba(255,128,80,0.75); }
+        #sg-hl-wrap { position: absolute; left: 140px; top: 802px; width: 1640px; }
+        .sg-hl-mask { overflow: hidden; height: 86px; }
+        .sg-hlt { font-family: "Instrument Serif", serif; font-size: 76px; line-height: 86px; letter-spacing: -0.025em; word-spacing: 0.05em; white-space: nowrap; }
+        #sg-hl2 { font-style: italic; color: #e8602c; }
+      </style>
+      <div data-hf-id="hf-yu6p" id="root" data-composition-id="surgical" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-4k9s" id="sg-world">
+          <div data-hf-id="hf-p5b0" id="sg-glow" data-layout-ignore></div>
+          <div data-hf-id="hf-k79n" id="sg-title"><b data-hf-id="hf-8g8u">VEERIQ REPAIR</b>&nbsp;&nbsp;·&nbsp;&nbsp;VALUES READ FROM THE APPROVED SNAPSHOT</div>
+          <div data-hf-id="hf-bibj" id="sg-pill">REPAIRED 0/2  ·  KEPT 0/3</div>
+          <div data-hf-id="hf-dfw2" id="sg-head">
+            <span data-hf-id="hf-rk70" style="left:0">RECORD</span><span data-hf-id="hf-rck8" style="left:190px">ENTITY</span><span data-hf-id="hf-ch0d" style="left:720px">CHANGED BY</span>
+            <span data-hf-id="hf-wjmw" style="left:1000px">FIELD</span><span data-hf-id="hf-8pny" style="left:1210px">VALUE</span><span data-hf-id="hf-oagq" style="left:1520px">RESULT</span>
+          </div>
+          <div data-hf-id="hf-n50t" id="sg-top"></div>
+          <div data-hf-id="hf-vpzd" class="sg-row" id="sg-r0" style="top:262px">
+            <div data-hf-id="hf-758j" class="sg-cell sg-id">O-2046</div><div data-hf-id="hf-lhf4" class="sg-cell sg-ent">Juniper Health</div>
+            <div data-hf-id="hf-6gua" class="sg-cell sg-kind"><span data-hf-id="hf-p06n" class="sg-pill2 dmg">INCIDENT</span></div><div data-hf-id="hf-bcoy" class="sg-cell sg-field">total</div>
+            <div data-hf-id="hf-n1d8" class="sg-cell sg-val" id="sg-v0"><span data-hf-id="hf-0awv" class="sg-hl" id="sg-hl0"></span><span data-hf-id="hf-ujij" class="t">$0.00</span></div>
+            <div data-hf-id="hf-3dby" class="sg-cell sg-res"><span data-hf-id="hf-unvr" class="sg-chip ok" id="sg-c0">✓ repaired</span></div></div>
+          <div data-hf-id="hf-3ix9" class="sg-row" id="sg-r1" style="top:366px">
+            <div data-hf-id="hf-55pe" class="sg-cell sg-id">O-2041</div><div data-hf-id="hf-inuw" class="sg-cell sg-ent">Juniper Health</div>
+            <div data-hf-id="hf-dc12" class="sg-cell sg-kind"><span data-hf-id="hf-l9an" class="sg-pill2 dmg">INCIDENT</span></div><div data-hf-id="hf-jr6u" class="sg-cell sg-field">total</div>
+            <div data-hf-id="hf-nt11" class="sg-cell sg-val" id="sg-v1"><span data-hf-id="hf-wcsu" class="sg-hl" id="sg-hl1"></span><span data-hf-id="hf-cgbv" class="t">$0.00</span></div>
+            <div data-hf-id="hf-odgi" class="sg-cell sg-res"><span data-hf-id="hf-4wo2" class="sg-chip ok" id="sg-c1">✓ repaired</span></div></div>
+          <div data-hf-id="hf-j6rw" class="sg-row" id="sg-r2" style="top:470px">
+            <div data-hf-id="hf-5ybg" class="sg-cell sg-id">O-2043</div><div data-hf-id="hf-rjj0" class="sg-cell sg-ent">Northwind Labs</div>
+            <div data-hf-id="hf-dqc3" class="sg-cell sg-kind"><span data-hf-id="hf-ab39" class="sg-pill2 dec">LATER DECISION</span></div><div data-hf-id="hf-ji8q" class="sg-cell sg-field">status</div>
+            <div data-hf-id="hf-pdhd" class="sg-cell sg-val"><span data-hf-id="hf-66vw" class="sg-box" id="sg-b2"></span><span data-hf-id="hf-a78q" class="t">shipped</span></div>
+            <div data-hf-id="hf-3klo" class="sg-cell sg-res" id="sg-k2"><svg data-hf-id="hf-azc9" class="sg-lock" viewBox="0 0 24 24" aria-hidden="true"><rect data-hf-id="hf-mnr7" x="4" y="11" width="16" height="10" fill="none" stroke="#a9c4d0" stroke-width="2"/><path data-hf-id="hf-x82n" d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#a9c4d0" stroke-width="2"/></svg><span data-hf-id="hf-upb5" class="sg-chip keep">kept</span></div></div>
+          <div data-hf-id="hf-84g0" class="sg-row" id="sg-r3" style="top:574px">
+            <div data-hf-id="hf-xtfv" class="sg-cell sg-id">C-1003</div><div data-hf-id="hf-hiz3" class="sg-cell sg-ent">Orion Freight</div>
+            <div data-hf-id="hf-e4n4" class="sg-cell sg-kind"><span data-hf-id="hf-2e49" class="sg-pill2 dec">LATER DECISION</span></div><div data-hf-id="hf-bjyo" class="sg-cell sg-field">customer</div>
+            <div data-hf-id="hf-wryt" class="sg-cell sg-val"><span data-hf-id="hf-6yjp" class="sg-box" id="sg-b3"></span><span data-hf-id="hf-18h8" class="t">deleted</span></div>
+            <div data-hf-id="hf-4c9h" class="sg-cell sg-res" id="sg-k3"><svg data-hf-id="hf-tobh" class="sg-lock" viewBox="0 0 24 24" aria-hidden="true"><rect data-hf-id="hf-r7lv" x="4" y="11" width="16" height="10" fill="none" stroke="#a9c4d0" stroke-width="2"/><path data-hf-id="hf-4rrz" d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#a9c4d0" stroke-width="2"/></svg><span data-hf-id="hf-r2yd" class="sg-chip keep">kept</span></div></div>
+          <div data-hf-id="hf-n0s0" class="sg-row" id="sg-r4" style="top:678px">
+            <div data-hf-id="hf-ws9k" class="sg-cell sg-id">AG-77</div><div data-hf-id="hf-vsmf" class="sg-cell sg-ent">svc-legacy-sync</div>
+            <div data-hf-id="hf-bchx" class="sg-cell sg-kind"><span data-hf-id="hf-3l1c" class="sg-pill2 dec">LATER DECISION</span></div><div data-hf-id="hf-y1m2" class="sg-cell sg-field">access</div>
+            <div data-hf-id="hf-xyvw" class="sg-cell sg-val"><span data-hf-id="hf-pq9e" class="sg-box" id="sg-b4"></span><span data-hf-id="hf-mlxz" class="t">revoked</span></div>
+            <div data-hf-id="hf-n3z6" class="sg-cell sg-res" id="sg-k4"><svg data-hf-id="hf-uv8k" class="sg-lock" viewBox="0 0 24 24" aria-hidden="true"><rect data-hf-id="hf-qtau" x="4" y="11" width="16" height="10" fill="none" stroke="#a9c4d0" stroke-width="2"/><path data-hf-id="hf-4dgy" d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#a9c4d0" stroke-width="2"/></svg><span data-hf-id="hf-s9vg" class="sg-chip keep">kept</span></div></div>
+          <div data-hf-id="hf-tyd0" id="sg-scalpel"></div>
+          <div data-hf-id="hf-smp1" id="sg-hl-wrap">
+            <div data-hf-id="hf-hwa4" class="sg-hl-mask"><div data-hf-id="hf-mga5" class="sg-hlt" id="sg-hl1t">Repairs only the damaged values.</div></div>
+            <div data-hf-id="hf-hr9g" class="sg-hl-mask"><div data-hf-id="hf-0jr3" class="sg-hlt" id="sg-hl2">Leaves every later decision in place.</div></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var GLYPHS = "0123456789$,.#%";
+          function hash(n) { var x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+          // Arrive from below, velocity-matched to the previous frame's push up.
+          tl.fromTo("#sg-world", { y: 170, filter: "blur(10px)" }, { y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0);
+          tl.fromTo("#sg-top", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.inOut" }, 0.05);
+          tl.fromTo("#sg-title", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power3.out" }, 0.25);
+          tl.fromTo("#sg-pill", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 0.35);
+          tl.fromTo("#sg-glow", { opacity: 0 }, { opacity: 1, duration: 2, ease: "sine.inOut" }, 0.6);
+          gsap.set(".sg-chip, .sg-lock", { opacity: 0, scale: 0 });
+          gsap.set(".sg-hl, .sg-box", { scaleX: 0 });
+          gsap.set("#sg-scalpel", { opacity: 0, scaleY: 0 });
+
+          var pill = document.getElementById("sg-pill");
+          function pillText(c, d) { pill.textContent = "REPAIRED " + c + "/2  ·  KEPT " + d + "/3"; }
+
+          // The scalpel: one short vertical cut of the line, visiting only the damaged cells.
+          tl.to("#sg-scalpel", { opacity: 1, scaleY: 1, duration: 0.22, ease: "expo.out" }, 0.75);
+          var AFTER = ["$12,400.00", "$1,240.00"];
+          [0, 1].forEach(function (i) {
+            var t0 = 0.95 + i * 0.62;
+            if (i > 0) tl.to("#sg-scalpel", { y: 104 * i, duration: 0.3, ease: "power3.inOut" }, t0 - 0.32);
+            tl.to("#sg-hl" + i, { scaleX: 1, duration: 0.42, ease: "power2.out" }, t0);
+            tl.fromTo("#sg-scalpel", { x: 0 }, { x: 260, duration: 0.42, ease: "power2.out", immediateRender: false }, t0);
+            tl.set("#sg-scalpel", { x: 0 }, t0 + 0.45);
+            var cell = document.getElementById("sg-v" + i), txt = cell.querySelector(".t");
+            var before = txt.textContent, target = AFTER[i];
+            var st = { p: 0 };
+            tl.to(st, { p: 1, duration: 0.45, ease: "power3.out", onUpdate: function () {
+              var p = st.p;
+              if (p <= 0) { txt.textContent = before; cell.style.color = "#f2f1ed"; return; }
+              var shown = Math.floor(p * 1.3 * target.length), step = Math.floor(p * 14), out = "";
+              for (var c = 0; c < target.length; c++) out += c < shown ? target[c] : GLYPHS[Math.floor(hash(i * 50 + c * 3 + step) * GLYPHS.length)];
+              txt.textContent = out; cell.style.color = "#a3ccb3";
+            } }, t0 + 0.05);
+            tl.fromTo("#sg-c" + i, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out", immediateRender: false }, t0 + 0.3);
+          });
+          tl.to("#sg-scalpel", { scaleY: 0, opacity: 0, duration: 0.25, ease: "power3.in" }, 2.05);
+
+          // The three later decisions lock in place: boxed, locked, kept.
+          [2, 3, 4].forEach(function (i, k) {
+            var t = 2.2 + k * 0.12;
+            tl.to("#sg-b" + i, { scaleX: 1, duration: 0.4, ease: "expo.out" }, t);
+            tl.fromTo("#sg-k" + i + " .sg-lock", { scale: 0, opacity: 0, rotation: -12 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.45, ease: "power3.out", immediateRender: false }, t + 0.08);
+            tl.fromTo("#sg-k" + i + " .sg-chip", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out", immediateRender: false }, t + 0.14);
+          });
+
+          // Tally in the pill follows the work.
+          var tally = { t: 0 };
+          tl.to(tally, { t: 1, duration: 5.4, ease: "none", onUpdate: function () {
+            var tt = tally.t * 5.4 + 0.3;
+            var c = tt >= 1.87 ? 2 : (tt >= 1.25 ? 1 : 0);
+            var d = tt >= 2.56 ? 3 : (tt >= 2.44 ? 2 : (tt >= 2.32 ? 1 : 0));
+            pillText(c, d);
+          } }, 0.3);
+
+          // Headline rises from behind the table's last rule.
+          tl.fromTo("#sg-hl1t", { yPercent: 105 }, { yPercent: 0, duration: 0.6, ease: "power4.out" }, 2.7);
+          tl.fromTo("#sg-hl2", { yPercent: 105 }, { yPercent: 0, duration: 0.65, ease: "expo.out" }, 3.05);
+          tl.fromTo("#sg-world", { scale: 1 }, { scale: 1.025, duration: 4.6, ease: "sine.inOut", immediateRender: false }, 0.55);
+
+          // Whip-pan out to the left; the next frame enters from the right at the same speed.
+          tl.to("#sg-world", { x: -420, filter: "blur(18px)", duration: 0.28, ease: "power3.in" }, 5.72);
+
+          window.__timelines["surgical"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "audit_identifier_source": "armoriq.audit_response.audit_id",
+  "audit_report_ids": [
+    "1ecdaabb-259c-4392-aa6b-5b80a8bb964a",
+    "7798def7-8816-4b60-b7c4-388328ee02d0",
+    "2bc4edcc-a176-446e-916a-b67128a4ab8c",
+    "6560f5ba-fac1-4094-b0fa-a4e1cb51ef29",
+    "f422eab9-204e-49c0-9548-a23fdfcba984"
+  ],
+  "event_count": 35,
+  "execution_receipt_count": 2,
+  "plan_hash": "1fff0ac8fd2c26073b8a517243895bc82cad501bb57b3724ba120947f386936b",
+  "run_status": "succeeded",
+  "scope": "single isolated scripted live-ArmorIQ recovery; no LLM",
+  "sealed_export_private_path": ".local-oidc/verification/live-scripted-recovery-sealed.json",
+  "sealed_export_sha256": "f5a87709d254820f9658eb0a62e557c0b3a8b57f15e975a426e88dac37b6bb81",
+  "standalone_verification": {
+    "audit_report_ids_reported_by_verifier": 5,
+    "event_chain": "valid_35_events",
+    "execution_receipt_digests_checked": 2,
+    "payload_sha256": "sha256:b4a558534a4778522f01fd97fe07453eabfa0865e0e04651607259dccaa3df23",
+    "signature": "valid_with_pinned_repository_operator_key",
+    "signer_fingerprint_sha256": "sha256:6013cafaa02d0b46ba659dc82dc267ed0be4f7691d06e5ae0d4ca8177ae14a0d",
+    "tool": "scripts/veeriq_verify.py",
+    "trusted_key": "verification/operator-public-key.pem",
+    "valid": true
+  }
+}

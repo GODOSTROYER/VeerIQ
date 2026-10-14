@@ -1,0 +1,35 @@
+{
+  "observed_at": "2026-10-13T17:13:05.990218+00:00",
+  "source": "live Groq short-request capacity diagnostic; not a repair trial or proof of daily cohort capacity",
+  "model": "openai/gpt-oss-120b",
+  "status": "available_for_short_request",
+  "quota": {
+    "limit_tokens": 8000,
+    "remaining_tokens": 7910,
+    "used_tokens": null,
+    "requested_tokens": null,
+    "retry_after_s": 1.174,
+    "reset_tokens_s": 0.674,
+    "limit_requests": 1000,
+    "remaining_requests": 999,
+    "message_limit_tokens": null,
+    "limit_period": null
+  },
+  "usage": {
+    "completion_tokens": 16,
+    "prompt_tokens": 74,
+    "total_tokens": 90,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 14,
+      "rejected_prediction_tokens": null,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": null,
+    "queue_time": 0.392994325,
+    "prompt_time": 0.014512082,
+    "completion_time": 0.033108224,
+    "total_time": 0.047620306
+  }
+}

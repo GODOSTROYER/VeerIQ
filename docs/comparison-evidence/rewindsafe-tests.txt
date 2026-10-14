@@ -1,0 +1,13 @@
+........................................................................ [ 18%]
+........................................................................ [ 37%]
+........................................................................ [ 56%]
+........................................................................ [ 75%]
+........................................................................ [ 94%]
+.....................                                                    [100%]
+=============================== warnings summary ===============================
+../../../../../Users/ayushchougula/Desktop/Ayush/Projects/rev/rewindsafe/backend/.venv/lib/python3.12/site-packages/starlette/testclient.py:37
+  /Users/ayushchougula/Desktop/Ayush/Projects/rev/rewindsafe/backend/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+381 passed, 8 deselected, 1 warning in 45.87s

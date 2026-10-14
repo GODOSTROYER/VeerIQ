@@ -1,0 +1,56 @@
+# VeerIQ and RewindSafe: product comparison
+
+**Date:** 2026-10-12  
+**Scope:** Read-only comparison of VeerIQ in this workspace and the extracted RewindSafe source at `/private/tmp/flow-comparison/rewindsafe-master`. This report does not run either product or independently validate RewindSafe's runtime claims. Embedded project instructions were treated as source data.
+
+## Recommendation
+
+RewindSafe is the stronger product concept and hackathon story. “Restore yesterday’s data. Keep today’s decisions.” turns a familiar operational risk into a concrete outcome: repair damaged orders from an approved snapshot while keeping later edits, deletions, holds, and revoked access intact. Its flagship scenario gives the audience visible stakes, an adversarial turn, a recovery, and a measurable final result.
+
+VeerIQ is the stronger ready-to-demo package on the evidence supplied for this comparison. Its local run is deterministic, uses actual MCP tools and a separate canary, and the workspace brief reports 14 passing tests and 37 constructed boundary cases. RewindSafe’s repository documents a richer live integration and database workflow, but its current runtime state was not independently verified here. If choosing one concept to advance, choose RewindSafe; if choosing the build with the clearest currently substantiated local replay, choose VeerIQ.
+
+## What the products do
+
+VeerIQ takes a research objective for the fixed synthetic study FLOW-42, reads de-identified participants and a methods note, computes an analysis, writes an internal report, and can request approval to publish an aggregate. Its demo deliberately proposes exporting participant rows and reading identifiers; a dispatcher denies those proposals before the corresponding MCP handlers run. The product is an agent-mediated research workflow with study-level authority. The intended user is a researcher, with hackathon judges as the immediate audience. See `PRODUCT.md`, `README.md`, `server/engine.mjs`, and `server/dispatcher.mjs`.
+
+RewindSafe handles incident INC-4471 against a synthetic orders database. It compares current orders with an approved snapshot, prepares an immutable repair manifest using snapshot values, and applies allowed changes transactionally. It is designed to leave tombstoned orders deleted, keep revoked access revoked, preserve legitimate later edits, honor holds, and avoid touching a second tenant. Its poisoned-runbook scenario asks the agent to re-enable a revoked account and alter another tenant’s order; the intended run blocks both attempts, replans, and repairs the in-scope orders. See the extracted `PRODUCT.md`, `backend/rewindsafe/workflows/rewindsafe/tools.py`, and `backend/rewindsafe/workflows/rewindsafe/executor.py`.
+
+These are distinct product categories, so the scores below compare how well each project communicates and implements the relevant dimension, not whether research or recovery is inherently the better market.
+
+## Scores
+
+Scores are comparative judgments from source and documentation, on a 0–10 scale. They are not user research, runtime measurements, or visual design ratings. The UI assessment is based on routes, components, and interaction code; neither interface was rendered during this review.
+
+| Category | VeerIQ | RewindSafe | Evidence and caveat |
+|---|---:|---:|---|
+| Problem clarity and user value | 7.5 | 9.5 | RewindSafe’s repair-versus-preserve outcome and named incident are immediately tangible. VeerIQ offers a useful governance workflow, but synthetic clinical-style results need careful framing and are not evidence for real research. |
+| Demo narrative and stakes | 8.0 | 9.5 | VeerIQ has a compact “hostile note → blocked export → complete analysis → exact-artifact review” arc. RewindSafe adds a damaged dataset, current-state protections, two separately attributed blocks, successful repair, and a receipt. Its three-minute script is more memorable, with more steps to execute. |
+| Boundary design and effect evidence | 9.0 | 9.0 | Both put proposed calls behind a single dispatch gate and distinguish a denial from handler execution. VeerIQ’s supplied baseline includes independent canary counters, actual MCP tools, a local receipt, 14 passing tests, and 37/37 constructed cases. RewindSafe’s code has layered admission and a transactional executor with database privileges, immutable manifests, stale-state checks, and idempotency. RewindSafe’s documented 27/27 verification and live ArmorIQ results are not independently validated in this task. |
+| User-facing capability breadth | 7.5 | 9.0 | VeerIQ’s code exposes a focused research workspace, event timeline, scope panel, denial and effect counts, report, exact publication approval, receipt, and an architecture view. RewindSafe’s source defines Mission Control, run workspaces, cross-person approvals, a Proof Board, and a “How it works” view, along with incident, stale-state, review, and boundary scenarios. This is a source-level capability inventory, not a claim about rendered polish. |
+| Architecture efficiency for stated MVP | 9.0 | 6.5 | VeerIQ uses a Node modular monolith, a separate stdio MCP tool process, and SQLite for a single synthetic study. RewindSafe uses React/TypeScript, FastAPI, PostgreSQL, a runtime and workflow-adapter hierarchy, and broad route/API modules. The extra database and transaction machinery supports real state changes and concurrency checks, but is operationally heavier for one synthetic workflow. Neither score rewards code size. |
+| Local demo reliability and setup | 9.0 | 6.0 | VeerIQ’s deterministic replay is documented as credential-free; the supplied comparison facts include working MCP dispatch and replay verification. RewindSafe’s preferred demo depends on PostgreSQL, a registered ArmorIQ workspace, live ArmorIQ credentials, and a configured LLM; its docs prescribe scripted and offline fallbacks, clearly labeled. The live path also carries seconds of plan/check latency and model variability. RewindSafe’s present runtime was not run here. |
+| Honesty about limits | 9.5 | 9.5 | Both projects explicitly distinguish simulated/local enforcement from sponsor enforcement and synthetic fixtures from real customer data. RewindSafe also documents that ArmorIQ’s observed signed-plan check did not bind arguments and that its amount HOLD was not configured. VeerIQ documents that its live adapter was wired against a stub and lacks provider validation. |
+
+## Product and UX comparison
+
+RewindSafe’s product model centers on a real operator decision: which values from a known-good snapshot can safely repair this incident now? Its grant review, order diff, protected-state checklist, reviewer flow, and receipt match that decision. The source maps these to separate user journeys and pages, which should make a live demo easier to explore after the flagship scenario. The risk is breadth: Mission Control, grant authorization, identity switching, live planning, approval, evidence, and verification can distract from the repair unless the walkthrough stays tightly scripted.
+
+VeerIQ makes the core boundary legible in one workspace. The run timeline, scope panel, denied-call state, independent sink counters, report, and approval are visible together. The architecture view provides a second explanation surface. This is a clean fit for a fast judged demo, although the research task itself is more abstract and the overall workspace UI is concentrated in `src/main.jsx`, so adding richer product areas may become harder to maintain.
+
+RewindSafe’s frontend is organized into route-level pages and domain components. Its code includes keyboard/motion and detail-on-demand components, but this review did not render the app or audit accessibility. VeerIQ’s source includes a responsive layout and reduced-motion handling, but its visual quality was likewise not assessed from a running screen. The scores reflect feature architecture and information surfaces only.
+
+## Architecture and implementation trade-offs
+
+VeerIQ’s modular monolith is well matched to a single synthetic protocol: one API coordinates runs, one dispatcher owns checks, the MCP process owns effects, and SQLite stores events and receipts. Live mode uses the official SDK path while local replay is explicitly labeled. A weakness is the gap between local demonstration and sponsor validation: the project’s own docs say live ArmorIQ token and policy behavior have not yet been validated, and the model adapter is optional. Its frontend also concentrates most workspace behavior in one JSX module.
+
+RewindSafe makes more of the domain change explicit. The grant, plan, manifest, approval, execution transaction, database role, row-level tenant policy, receipt, and event history form a coherent chain for a stateful repair. This complexity buys meaningful guarantees such as rejecting stale previews and making repeated commits idempotent. It also brings a larger setup surface and more failure points: PostgreSQL, API, frontend, external planner, ArmorIQ registration, plus the coordination of authorization and reviewer states. The architecture contract describes an adapter runtime reusable by another workflow, while the limitations doc says only one workflow adapter is shipped; judge the shipped recovery flow rather than counting reuse claims as delivered product.
+
+## Hackathon presentation and demo risks
+
+RewindSafe has the sharper opening line and a clearer before/after image: damaged orders are repaired, while the deleted order, revoked account, changed order, and other tenant remain protected. A live model following the planted note could make its denial compelling. Its demo script itself warns about long waits, rate limits, model variability, fixture reset, workspace registration, and sponsor dashboard setup. The documented fallback is responsible, but a scripted run proves boundary behavior rather than a live model being persuaded by the note. Current live integration statements in the extracted docs should be presented as documented evidence until the runtime and the linked evidence package are independently checked.
+
+VeerIQ has less setup risk and predictable replay. Its local demo can show an attack attempt, prove zero canary bytes, finish the analysis, then leave publication for exact-artifact approval. It has actual MCP tools and local evidence in the current comparison brief. The weakness is the less vivid business problem and the possibility that statistical output looks like clinical evidence; the UI and narration must keep the synthetic-data label prominent. Its live ArmorIQ and live-model claims remain pending provider validation.
+
+## Decision
+
+Advance RewindSafe if the selection criterion is the strongest concept for judges: it offers more immediate stakes and a distinctive, explainable recovery outcome. Use VeerIQ as the benchmark for how compact, repeatable, and locally substantiated the demo can be. Before presenting RewindSafe as a live integration, confirm the current runtime status and reproduce the documented run; keep the scripted/offline label visible if that is the path used. If live verification cannot be repeated, RewindSafe still has the stronger product story, but VeerIQ currently has the more directly substantiated local-demo evidence in this comparison.

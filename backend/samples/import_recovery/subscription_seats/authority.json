@@ -1,0 +1,26 @@
+[
+  {
+    "item_id": "seat-billing-01",
+    "tenant": "atlas",
+    "tombstoned": false,
+    "revoked": false,
+    "held": false,
+    "later_edit": false
+  },
+  {
+    "item_id": "seat-analytics-02",
+    "tenant": "atlas",
+    "tombstoned": false,
+    "revoked": false,
+    "held": false,
+    "later_edit": true
+  },
+  {
+    "item_id": "seat-support-03",
+    "tenant": "beacon",
+    "tombstoned": true,
+    "revoked": true,
+    "held": false,
+    "later_edit": false
+  }
+]

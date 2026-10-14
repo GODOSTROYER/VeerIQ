@@ -1,0 +1,71 @@
+# Public judging demo: the full VeerIQ workspace on synthetic data, with LIVE ArmorIQ enforcement.
+#
+#   POSTGRES_PASSWORD=... REWINDSAFE_SESSION_SECRET=... ARMORIQ_API_KEY=... \
+#     docker compose -f compose.showcase.yml up -d --build
+#
+# Serve it over HTTPS (Cloudflare Tunnel, a reverse proxy, or a platform that terminates TLS): the session
+# cookie is Secure-only. Visitors sign in with the built-in demo identities; every tool call is checked by
+# ArmorIQ for real. Startup refuses simulated enforcement, a default session secret, or plain-HTTP cookies.
+# See docs/live-demo.md.
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: veeriq
+      POSTGRES_USER: veeriq
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a strong POSTGRES_PASSWORD}
+    volumes:
+      - veeriq-showcase-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [internal]
+    security_opt: ["no-new-privileges:true"]
+
+  veeriq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://veeriq:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}@postgres:5432/veeriq
+      REWINDSAFE_ENV: showcase
+      REWINDSAFE_AUTH_MODE: demo
+      REWINDSAFE_SESSION_SECRET: ${REWINDSAFE_SESSION_SECRET:?Set a random session secret of at least 32 characters}
+      REWINDSAFE_COOKIE_SECURE: "true"
+      REWINDSAFE_ENFORCEMENT: live
+      ARMORIQ_API_KEY: ${ARMORIQ_API_KEY:?Set an API key generated at platform.armoriq.ai; the demo never simulates enforcement}
+      ARMORIQ_USER_EMAIL: ${ARMORIQ_USER_EMAIL:-}
+      ARMORIQ_ENV: ${ARMORIQ_ENV:-}
+      ARMORIQ_MCP_NAME: ${ARMORIQ_MCP_NAME:-rewindsafe-recovery}
+      REWINDSAFE_ARMORIQ_TIMEOUT_S: ${REWINDSAFE_ARMORIQ_TIMEOUT_S:-15}
+      REWINDSAFE_PLANNER: ${REWINDSAFE_PLANNER:-auto}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      REWINDSAFE_MUTATION_RATE_PER_MINUTE: ${REWINDSAFE_MUTATION_RATE_PER_MINUTE:-60}
+      REWINDSAFE_LOGIN_RATE_PER_MINUTE: ${REWINDSAFE_LOGIN_RATE_PER_MINUTE:-12}
+    ports:
+      - "127.0.0.1:${PORT:-8000}:8000"
+    volumes:
+      - veeriq-showcase-evidence:/app/.data
+    networks: [internal]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  veeriq-showcase-data:
+  veeriq-showcase-evidence:

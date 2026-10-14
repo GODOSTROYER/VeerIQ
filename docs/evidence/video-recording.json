@@ -1,0 +1,15 @@
+{
+  "video": "docs/video/veerIQ-demo.webm",
+  "duration_seconds": 43.12,
+  "run": {
+    "run_id": "run_01M4RV8W669EWXB0",
+    "workflow": "rewindsafe.import_recovery",
+    "planner_kind": "scripted",
+    "enforcement_mode": "live",
+    "status": "succeeded",
+    "outcome_summary": "Repaired SKU-402 from approved snapshot snap_01M4RV8PTBN5F6EV (2 fields restored in 1 commit). All 18 protected-state checks held (deleted records stayed deleted, revoked access stayed revoked, later legitimate edits and other tenants were untouched)."
+  },
+  "verification_slate": "actual recorded standalone CLI output for named prior export and public samples",
+  "sponsor_hold": "not verified; ALLOW probe shown",
+  "protected_check_evidence": "historical-check-observation.json"
+}

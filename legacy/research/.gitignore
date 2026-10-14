@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.data/
+.playwright-mcp/
+*.log
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.tsbuildinfo
+frontend/dist/

@@ -1,0 +1,34 @@
+{
+  "run_id": "run_01M4RBWMFH1T2K1K",
+  "observation": "Application review held; sponsor HOLD not observed",
+  "apply_check": [
+    {
+      "tool": "apply_repair_manifest",
+      "arguments": {
+        "manifest_id": "mf_01M4RBWXPMY1QM49",
+        "idempotency_key": "run_01M4RBWMFH1T2K1K:mf_01M4RBWXPMY1QM49",
+        "manifest_digest": "sha256:4dbde335929ee511f582d695e34939e933ad8cd3419664604f5d3972ee2e1212"
+      },
+      "decisions": [
+        {
+          "source": "armoriq.backend.enforce",
+          "outcome": "allow",
+          "reason": "allow_with_logging",
+          "policy": "cli-rewindsafe-recovery-agent-rewindsafe-recovery",
+          "raw_action": "allow",
+          "evidence": {
+            "argument_keys": [
+              "amount",
+              "manifest_digest",
+              "manifest_id",
+              "order_ids",
+              "tenant_id"
+            ],
+            "argument_binding": "ArmorIQ SDK binds tool names to the signed plan; arguments are not bound by it.",
+            "arguments_digest": "sha256:30d72060b064c0d94bb22418006ca9b6427e75201637c1813d6c65d802efc8c6"
+          }
+        }
+      ]
+    }
+  ]
+}
