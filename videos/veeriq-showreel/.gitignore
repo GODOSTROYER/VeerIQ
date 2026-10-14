@@ -1,0 +1,6 @@
+# Local Studio caches and ad-hoc renders; only the delivery render is tracked (via Git LFS).
+.hyperframes/
+.thumbnails/
+.waveform-cache/
+renders/*
+!renders/veeriq-showreel-1080p60.mp4

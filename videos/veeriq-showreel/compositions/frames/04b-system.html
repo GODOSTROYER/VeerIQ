@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="system-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #ar-cam { position: absolute; inset: 0; }
+        #ar-world { position: absolute; inset: 0; transform-origin: 1100px 640px; }
+        #ar-kick { position: absolute; left: 140px; top: 150px; font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; color: #e8602c; white-space: nowrap; }
+        #ar-hm { position: absolute; left: 140px; top: 192px; width: 1640px; height: 96px; overflow: hidden; }
+        #ar-h { font-family: "Instrument Serif", serif; font-size: 88px; line-height: 96px; letter-spacing: -0.03em; word-spacing: 0.04em; white-space: nowrap; }
+        #ar-h i { color: #e8602c; }
+        #ar-sub { position: absolute; left: 144px; top: 300px; font-family: "Geist Mono", monospace; font-size: 20px; color: #aaa9a7; white-space: nowrap; }
+        #ar-sub b { color: #f2f1ed; font-weight: 500; }
+        .ar-zone { position: absolute; top: 392px; font-family: "Geist Mono", monospace; font-size: 17px; letter-spacing: 0.16em; color: #aaa9a7; white-space: nowrap; }
+        /* The boundary: the film's vermillion line, doing its literal job. */
+        #ar-line { position: absolute; left: 608px; top: 352px; width: 4px; height: 600px; background: #e8602c; box-shadow: 0 0 22px 3px rgba(255,128,80,0.5); transform-origin: 50% 0%; }
+        #ar-line-l { position: absolute; left: 628px; top: 350px; font-family: "Geist Mono", monospace; font-size: 17px; font-weight: 600; letter-spacing: 0.16em; color: #e8602c; white-space: nowrap; }
+        .ar-box { position: absolute; background: #151517; border: 2px solid rgba(242,241,237,0.22); padding: 18px 20px; font-family: "Geist Mono", monospace; }
+        .ar-k { font-size: 14px; letter-spacing: 0.16em; color: #aaa9a7; white-space: nowrap; }
+        .ar-n { margin-top: 8px; font-size: 20px; font-weight: 500; color: #f2f1ed; white-space: nowrap; }
+        .ar-s { margin-top: 8px; font-size: 16px; line-height: 24px; color: #aaa9a7; white-space: nowrap; }
+        .ar-tag { position: absolute; right: 12px; top: -13px; padding: 4px 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: #0e0e10; white-space: nowrap; }
+        #ar-agent { left: 140px; top: 420px; width: 380px; height: 152px; border-style: dashed; border-color: rgba(255,161,133,0.6); }
+        #ar-agent .ar-un { margin-top: 10px; display: inline-block; padding: 3px 8px; border: 2px solid rgba(255,161,133,0.7); color: #ffa185; font-size: 13px; letter-spacing: 0.12em; }
+        #ar-note { left: 140px; top: 650px; width: 380px; height: 120px; border-style: dashed; border-color: rgba(255,161,133,0.45); }
+        #ar-mcp { left: 690px; top: 420px; width: 300px; height: 140px; border-color: #e8602c; }
+        #ar-op { left: 690px; top: 640px; width: 300px; height: 170px; border-color: rgba(169,196,208,0.7); }
+        #ar-disp { left: 1080px; top: 400px; width: 340px; height: 440px; border-color: rgba(242,241,237,0.6); }
+        #ar-adp { left: 1080px; top: 866px; width: 340px; height: 74px; padding: 14px 20px; }
+        #ar-aq { left: 1490px; top: 400px; width: 290px; height: 140px; border-style: dashed; border-color: #ff9467; }
+        #ar-pg { left: 1490px; top: 580px; width: 290px; height: 120px; border-color: #a3ccb3; }
+        #ar-ev { left: 1490px; top: 740px; width: 290px; height: 120px; border-color: #e8602c; }
+        .ar-g { position: relative; display: flex; align-items: center; gap: 14px; height: 44px; font-size: 18px; color: #aaa9a7; white-space: nowrap; }
+        .ar-g .bar { width: 4px; height: 26px; }
+        .ar-g .num { width: 26px; font-size: 14px; letter-spacing: 0.1em; }
+        .ar-g .dot { position: absolute; right: 0; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(242,241,237,0.35); }
+        #ar-gates { margin-top: 16px; }
+        #ar-disp .ar-foot { position: absolute; left: 20px; bottom: 16px; font-size: 14px; letter-spacing: 0.12em; color: #aaa9a7; white-space: nowrap; }
+        #ar-svg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+        .ar-w { fill: none; stroke: #e8602c; stroke-width: 3; }
+        .ar-w.soft { stroke: rgba(242,241,237,0.45); stroke-width: 2; }
+        .ar-w.bad { stroke: rgba(255,161,133,0.7); stroke-width: 2; stroke-dasharray: 6 6; }
+        #ar-chip { position: absolute; left: 536px; top: 506px; width: 148px; text-align: center; padding: 5px 0; background: #0e0e10; border: 2px solid #e8602c; font-family: "Geist Mono", monospace; font-size: 13px; letter-spacing: 0.06em; color: #e8602c; white-space: nowrap; }
+        #ar-reads { position: absolute; left: 344px; top: 592px; font-family: "Geist Mono", monospace; font-size: 15px; letter-spacing: 0.12em; color: #ffa185; white-space: nowrap; }
+        #ar-pk { position: absolute; left: 0; top: 0; padding: 8px 14px; background: #e8602c; color: #0e0e10; font-family: "Geist Mono", monospace; font-size: 17px; font-weight: 600; white-space: nowrap; box-shadow: 0 0 24px 6px rgba(255,128,80,0.55); }
+        .ar-spark { position: absolute; left: 0; top: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #ff8050; box-shadow: 0 0 16px 6px rgba(255,128,80,0.7); }
+      </style>
+      <div id="root" data-composition-id="system" data-width="1920" data-height="1080">
+        <div id="ar-cam">
+          <div id="ar-world">
+            <div id="ar-kick">03&nbsp;&nbsp;—&nbsp;&nbsp;THE SYSTEM</div>
+            <div id="ar-hm"><div id="ar-h">Authority lives <i>outside</i> the model.</div></div>
+            <div id="ar-sub">The model proposes. Every effect passes <b>six gates</b>, ArmorIQ among them, and <b>one locked transaction</b>.</div>
+
+            <div class="ar-zone" style="left:140px">UNTRUSTED</div>
+            <div class="ar-zone" style="left:690px">VEERIQ · TRUSTED CODE</div>
+            <div id="ar-line"></div>
+            <div id="ar-line-l">THE BOUNDARY</div>
+
+            <svg id="ar-svg" viewBox="0 0 1920 1080" aria-hidden="true" data-layout-ignore>
+              <path class="ar-w bad" id="ar-p0" d="M330 650 L330 572" />
+              <path class="ar-w" id="ar-p1" d="M520 490 L690 490" />
+              <path class="ar-w" id="ar-p2" d="M990 490 L1080 490" />
+              <path class="ar-w soft" id="ar-p3" d="M990 725 L1080 725" />
+              <path class="ar-w" id="ar-p4" d="M1420 470 L1490 470" />
+              <path class="ar-w" id="ar-p5" d="M1420 640 L1490 640" />
+              <path class="ar-w" id="ar-p6" d="M1420 800 L1490 800" />
+              <path class="ar-w soft" id="ar-p7" d="M1250 840 L1250 866" />
+            </svg>
+
+            <div class="ar-box" id="ar-agent"><div class="ar-k">AGENT</div><div class="ar-n">openai/gpt-oss-120b</div><div class="ar-s">on Groq</div><div class="ar-un">PROPOSES ONLY</div></div>
+            <div class="ar-box" id="ar-note"><div class="ar-k">SNAPSHOT NOTE · ANN-9</div><div class="ar-n" style="color:#ffa185">untrusted text</div><div class="ar-s">read as data, never as orders</div></div>
+            <div class="ar-box" id="ar-mcp"><div class="ar-k">MCP SERVER</div><div class="ar-n">rewindsafe-recovery</div><div class="ar-s">6 tools · stdio or HTTP</div></div>
+            <div class="ar-box" id="ar-op"><div class="ar-k">OPERATOR · WORKSPACE</div><div class="ar-n">React + FastAPI</div><div class="ar-s">authorizes one narrow<br />grant: records, fields,<br />tools, one commit</div></div>
+            <div class="ar-box" id="ar-disp">
+              <div class="ar-k">GUARDED DISPATCHER</div><div class="ar-n">the only road to data</div>
+              <div id="ar-gates">
+                <div class="ar-g" id="ar-g0"><span class="bar" style="background:#94a3b8"></span><span class="num">01</span>schema<span class="dot"></span></div>
+                <div class="ar-g" id="ar-g1"><span class="bar" style="background:#a9c4d0"></span><span class="num">02</span>grant<span class="dot"></span></div>
+                <div class="ar-g" id="ar-g2"><span class="bar" style="background:#ff9467"></span><span class="num">03</span>ArmorIQ check<span class="dot"></span></div>
+                <div class="ar-g" id="ar-g3"><span class="bar" style="background:#a9c4d0"></span><span class="num">04</span>scope<span class="dot"></span></div>
+                <div class="ar-g" id="ar-g4"><span class="bar" style="background:#e5c285"></span><span class="num">05</span>domain rules<span class="dot"></span></div>
+                <div class="ar-g" id="ar-g5"><span class="bar" style="background:#e5c285"></span><span class="num">06</span>reviewer &gt; $5K<span class="dot"></span></div>
+              </div>
+              <div class="ar-foot">FAIL CLOSED</div>
+            </div>
+            <div class="ar-box" id="ar-adp"><div class="ar-k">ADAPTERS</div><div class="ar-s" style="margin-top:4px; font-size:14px">order recovery · imported inventory</div></div>
+            <div class="ar-box" id="ar-aq"><div class="ar-k" style="color:#ff9467">EXTERNAL · ARMORIQ</div><div class="ar-n">signed plan</div><div class="ar-s">enforce · audit</div><div class="ar-tag" id="ar-aq-t" style="background:#a3ccb3">ALLOW</div></div>
+            <div class="ar-box" id="ar-pg"><div class="ar-k" style="color:#a3ccb3">POSTGRESQL 16</div><div class="ar-n">1 locked transaction</div><div class="ar-s">restricted role</div><div class="ar-tag" id="ar-pg-t" style="background:#a3ccb3">COMMIT ✓</div></div>
+            <div class="ar-box" id="ar-ev"><div class="ar-k" style="color:#e8602c">SEALED EVIDENCE</div><div class="ar-n">hash-chained events</div><div class="ar-s">Ed25519 · offline verifier</div><div class="ar-tag" id="ar-ev-t" style="background:#e8602c">SEALED</div></div>
+
+            <div id="ar-chip">MCP tools/call</div>
+            <div id="ar-reads">READS</div>
+            <div id="ar-pk" data-layout-allow-occlusion>apply_repair_manifest ▸</div>
+            <div class="ar-spark" id="ar-sp0"></div>
+            <div class="ar-spark" id="ar-sp1"></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          // Enter: whip in from the right, velocity-matched to the previous frame's exit.
+          tl.fromTo("#ar-cam", { x: 420, filter: "blur(18px)" }, { x: 0, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, 0);
+          tl.fromTo("#ar-kick", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power3.out" }, 0.15);
+          tl.fromTo("#ar-h", { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: "expo.out" }, 0.25);
+
+          // The boundary draws from its anchor; it never fades in.
+          tl.fromTo("#ar-line", { scaleY: 0 }, { scaleY: 1, duration: 0.8, ease: "expo.inOut" }, 0.55);
+          tl.fromTo("#ar-line-l", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power3.out" }, 0.95);
+          tl.fromTo(".ar-zone", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.1 }, 0.9);
+
+          // Components assemble: the untrusted side first, then VeerIQ's side in reading order.
+          var BOXES = [["#ar-agent", 1.0], ["#ar-note", 1.12], ["#ar-mcp", 1.3], ["#ar-op", 1.4], ["#ar-disp", 1.5], ["#ar-adp", 1.62], ["#ar-aq", 1.7], ["#ar-pg", 1.8], ["#ar-ev", 1.9]];
+          BOXES.forEach(function (b) {
+            tl.fromTo(b[0], { opacity: 0, y: 24, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "power3.out" }, b[1]);
+          });
+          tl.fromTo(".ar-g", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out", stagger: 0.06 }, 1.75);
+          gsap.set(".ar-tag", { opacity: 0 });
+
+          // Wires draw from source to target.
+          for (var p = 0; p < 8; p++) {
+            var path = document.getElementById("ar-p" + p), len = path.getTotalLength();
+            path.style.strokeDasharray = p === 0 ? "6 6" : len + " " + len;
+            if (p === 0) tl.fromTo(path, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "none" }, 2.1);
+            else tl.fromTo(path, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 2.15 + p * 0.07);
+          }
+          tl.fromTo("#ar-reads", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "none" }, 2.2);
+          tl.fromTo("#ar-chip", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.25, ease: "expo.out" }, 2.5);
+          tl.fromTo("#ar-sub", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 2.6);
+
+          // One call walks the whole path: agent → boundary → MCP → six gates (ArmorIQ consulted) → commit → sealed.
+          gsap.set("#ar-pk", { opacity: 0 });
+          tl.set("#ar-pk", { x: 300, y: 470 }, 3.0);
+          tl.fromTo("#ar-pk", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.22, ease: "expo.out", immediateRender: false }, 3.0);
+          tl.to("#ar-pk", { x: 520, duration: 0.45, ease: "power3.in" }, 3.15);
+          tl.fromTo("#ar-line", { scaleX: 1 }, { scaleX: 4, duration: 0.05, ease: "none", immediateRender: false }, 3.55);
+          tl.to("#ar-line", { scaleX: 1, duration: 0.5, ease: "expo.out" }, 3.6);
+          tl.fromTo("#ar-chip", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)" }, { boxShadow: "0 0 28px 8px rgba(255,128,80,0.65)", duration: 0.06, ease: "none", immediateRender: false }, 3.55);
+          tl.to("#ar-chip", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)", duration: 0.5, ease: "power2.out" }, 3.61);
+          tl.to("#ar-pk", { x: 740, duration: 0.3, ease: "power2.out" }, 3.6);
+          tl.fromTo("#ar-mcp", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)" }, { boxShadow: "0 0 30px 8px rgba(255,128,80,0.6)", duration: 0.08, ease: "none", immediateRender: false }, 3.8);
+          tl.to("#ar-mcp", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)", duration: 0.5, ease: "power2.out" }, 3.88);
+          tl.to("#ar-pk", { x: 1010, duration: 0.3, ease: "power3.inOut" }, 3.95);
+          tl.to("#ar-pk", { scale: 0.4, opacity: 0, duration: 0.18, ease: "power3.in" }, 4.2);
+
+          // Gates tick one by one; at gate 03 the dispatcher asks ArmorIQ and the answer comes back.
+          for (var g = 0; g < 6; g++) {
+            var tg = 4.3 + g * 0.2 + (g >= 3 ? 0.35 : 0);
+            tl.to("#ar-g" + g, { color: "#f2f1ed", duration: 0.12, ease: "none" }, tg);
+            tl.to("#ar-g" + g + " .dot", { backgroundColor: "#a3ccb3", borderColor: "#a3ccb3", duration: 0.12, ease: "none" }, tg);
+            tl.fromTo("#ar-g" + g + " .dot", { scale: 1 }, { scale: 1.6, duration: 0.06, ease: "none", immediateRender: false }, tg);
+            tl.to("#ar-g" + g + " .dot", { scale: 1, duration: 0.3, ease: "power3.out" }, tg + 0.06);
+          }
+          gsap.set(".ar-spark", { opacity: 0 });
+          tl.fromTo("#ar-sp0", { opacity: 1, x: 1420, y: 470 }, { opacity: 1, x: 1490, y: 470, duration: 0.16, ease: "power2.in", immediateRender: false }, 4.72);
+          tl.set("#ar-sp0", { opacity: 0 }, 4.88);
+          tl.fromTo("#ar-aq", { boxShadow: "0 0 0px 0px rgba(255,148,103,0)" }, { boxShadow: "0 0 30px 8px rgba(255,148,103,0.55)", duration: 0.08, ease: "none", immediateRender: false }, 4.88);
+          tl.to("#ar-aq", { boxShadow: "0 0 0px 0px rgba(255,148,103,0)", duration: 0.6, ease: "power2.out" }, 4.96);
+          tl.fromTo("#ar-aq-t", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.2, ease: "expo.out", immediateRender: false }, 4.9);
+          tl.fromTo("#ar-sp1", { opacity: 1, x: 1490, y: 470 }, { opacity: 1, x: 1420, y: 470, duration: 0.16, ease: "power2.out", immediateRender: false }, 5.0);
+          tl.set("#ar-sp1", { opacity: 0 }, 5.16);
+
+          // Into the database in one transaction; the event is sealed.
+          tl.fromTo("#ar-pk", { opacity: 0, x: 1330, y: 620, scale: 0.6 }, { opacity: 1, x: 1330, y: 620, scale: 0.75, duration: 0.15, ease: "power2.out", immediateRender: false }, 5.9);
+          tl.to("#ar-pk", { x: 1520, scale: 0.4, opacity: 0, duration: 0.35, ease: "power3.in" }, 6.05);
+          tl.fromTo("#ar-pg", { boxShadow: "0 0 0px 0px rgba(163,204,179,0)" }, { boxShadow: "0 0 30px 8px rgba(163,204,179,0.5)", duration: 0.08, ease: "none", immediateRender: false }, 6.38);
+          tl.to("#ar-pg", { boxShadow: "0 0 0px 0px rgba(163,204,179,0)", duration: 0.6, ease: "power2.out" }, 6.46);
+          tl.fromTo("#ar-pg-t", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.2, ease: "expo.out", immediateRender: false }, 6.4);
+          tl.fromTo("#ar-sp0", { opacity: 1, x: 1420, y: 800 }, { opacity: 1, x: 1490, y: 800, duration: 0.18, ease: "power2.in", immediateRender: false }, 6.6);
+          tl.set("#ar-sp0", { opacity: 0 }, 6.78);
+          tl.fromTo("#ar-ev", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)" }, { boxShadow: "0 0 30px 8px rgba(255,128,80,0.55)", duration: 0.08, ease: "none", immediateRender: false }, 6.78);
+          tl.to("#ar-ev", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)", duration: 0.6, ease: "power2.out" }, 6.86);
+          tl.fromTo("#ar-ev-t", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.2, ease: "expo.out", immediateRender: false }, 6.8);
+
+          // One slow push across the whole system; then whip out left into the gate fly-through.
+          tl.fromTo("#ar-world", { scale: 1 }, { scale: 1.02, duration: 7.2, ease: "sine.inOut", immediateRender: false }, 0.5);
+          tl.to("#ar-cam", { x: -420, filter: "blur(18px)", duration: 0.28, ease: "power3.in" }, 7.72);
+
+          window.__timelines["system"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

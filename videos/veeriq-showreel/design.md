@@ -25,7 +25,7 @@ radius: 2px
 
 **Concept.** One vermillion line is the boundary, and it runs through the whole film doing a
 different job in every scene: the incident timeline, the rewind playhead, the wire between the
-gates, the wall the agent hits, the link in the evidence chain, and finally the underline of the
+gates, the trust boundary in the system diagram, the wall the agent hits, the link in the evidence chain, and finally the underline of the
 VeerIQ wordmark. Every scene is the same line, changing its job.
 
 ## Colour

@@ -7,7 +7,7 @@ destination: youtube
 aspect: 1920x1080
 language: en
 audience: ArmorIQ Flow State judges and engineers who build with AI agents
-length: 96s
+length: 106s
 angle: showreel
 ---
 
@@ -27,6 +27,11 @@ the type and the motion carry the story, with an authored score and sound design
   bundled HyperFrames sound-effect library for hits, whooshes and UI ticks.
 - Real product screenshots from `docs/img/` in one camera-flight beat.
 - Real verifier output (`scripts/veeriq_verify.py`) in the proof beat.
+- 15 Oct revision: the opening is a relatable story in plain language (no record IDs or ledger
+  table), VeerIQ is introduced as the answer, the architecture is shown as a full system diagram,
+  and MCP is shown working: the agent acts through the `rewindsafe-recovery` MCP server, and a
+  dedicated beat replays the recorded live `demo-mcp-agent` run
+  (`docs/evidence/mcp-live-agent-run.json`).
 
 ## Notes
 

@@ -42,6 +42,7 @@
         #at-con { position: absolute; left: 140px; top: 466px; font-family: "Geist Mono", monospace; font-size: 32px; white-space: pre; color: #f2f1ed; display: flex; align-items: baseline; min-width: 1240px; }
         #at-con .pr { color: #aaa9a7; }
         #at-con .fn { color: #ffa185; }
+        #at-con .mc { color: #f2f1ed; }
         #at-caret { display: inline-block; width: 16px; height: 34px; background: #f2f1ed; transform: translateY(5px); }
         #at-pk { position: absolute; left: 140px; top: 462px; padding: 12px 20px; background: #ffa185; color: #0e0e10; font-family: "Geist Mono", monospace; font-size: 26px; font-weight: 600; white-space: nowrap; }
         .at-ghostpk { position: absolute; left: 140px; top: 462px; padding: 12px 20px; background: #ffa185; color: rgba(14,14,16,0); font-family: "Geist Mono", monospace; font-size: 26px; font-weight: 600; white-space: nowrap; }
@@ -81,11 +82,12 @@
               <div data-hf-id="hf-mpx2" class="at-mchips">
                 <div data-hf-id="hf-i4bf" class="at-chip" id="at-mc1">openai/gpt-oss-120b · Groq</div>
                 <div data-hf-id="hf-xbzd" class="at-chip live" id="at-mc2">LIVE ARMORIQ ENFORCEMENT</div>
+                <div data-hf-id="hf-mcc3" class="at-chip" id="at-mc3">VIA MCP · rewindsafe-recovery</div>
               </div>
             </div>
           </div>
           <div data-hf-id="hf-lo3y" id="at-c">
-            <div data-hf-id="hf-459o" id="at-hdr"><b data-hf-id="hf-en77">openai/gpt-oss-120b</b>&nbsp;&nbsp;·&nbsp;&nbsp;live&nbsp;&nbsp;·&nbsp;&nbsp;next action</div>
+            <div data-hf-id="hf-459o" id="at-hdr"><b data-hf-id="hf-en77">openai/gpt-oss-120b</b>&nbsp;&nbsp;·&nbsp;&nbsp;live&nbsp;&nbsp;·&nbsp;&nbsp;MCP stdio&nbsp;&nbsp;·&nbsp;&nbsp;next action</div>
             <div data-hf-id="hf-xowv" id="at-wall"></div>
             <div data-hf-id="hf-1ibi" id="at-wall-l">SIGNED PLAN · 5 TOOLS</div>
             <div data-hf-id="hf-ft1g" id="at-plan">inspect_snapshot<br data-hf-id="hf-x5px">compare_current<br data-hf-id="hf-rsrt">prepare_repair_manifest<br data-hf-id="hf-szow">apply_repair_manifest<br data-hf-id="hf-sldv">get_recovery_receipt</div>
@@ -162,7 +164,7 @@
           tl.to(mks, { b: 1, duration: 0.45, ease: "power2.out", onUpdate: mk }, 5.6);
           tl.fromTo("#at-mh1", { yPercent: 102 }, { yPercent: 0, duration: 0.6, ease: "power4.out" }, 4.9);
           tl.fromTo("#at-mh2", { yPercent: 102 }, { yPercent: 0, duration: 0.6, ease: "expo.out" }, 5.08);
-          tl.fromTo("#at-mc1, #at-mc2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out", stagger: 0.1 }, 5.35);
+          tl.fromTo("#at-mc1, #at-mc2, #at-mc3", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out", stagger: 0.1 }, 5.35);
           tl.to("#at-b", { x: -140, opacity: 0, filter: "blur(10px)", duration: 0.36, ease: "power3.in" }, 6.3);
 
           // ── C: the model takes the bait. The boundary stands up.
@@ -174,18 +176,21 @@
           tl.fromTo("#at-red", { opacity: 0 }, { opacity: 0.55, duration: 3.2, ease: "power2.in" }, 6.8);
           tl.fromTo("#at-world", { scale: 1 }, { scale: 1.055, duration: 3.4, ease: "power2.in", immediateRender: false }, 6.6);
 
+          // The call leaves over MCP, as in the recorded live run (docs/evidence/mcp-live-agent-run.json).
           var SEQ = [
-            { t: 6.9, s: "agent ▸ " }, { t: 7.08, s: "agent ▸ restore" }, { t: 7.22, s: "agent ▸ restore_access" },
-            { t: 7.36, s: "agent ▸ restore_access_grant(" }, { t: 7.62, s: 'agent ▸ restore_access_grant({ grant: "AG' },
-            { t: 7.76, s: 'agent ▸ restore_access_grant({ grant: "AG-77", ' }, { t: 7.98, s: 'agent ▸ restore_access_grant({ grant: "AG-77", tenant: "at' },
-            { t: 8.1, s: 'agent ▸ restore_access_grant({ grant: "AG-77", tenant: "atlas" })' }
+            { t: 6.9, s: "mcp ▸ " }, { t: 7.02, s: "mcp ▸ tools/" }, { t: 7.12, s: "mcp ▸ tools/call " },
+            { t: 7.26, s: "mcp ▸ tools/call restore" }, { t: 7.38, s: "mcp ▸ tools/call restore_access" },
+            { t: 7.5, s: "mcp ▸ tools/call restore_access_grant " }, { t: 7.7, s: 'mcp ▸ tools/call restore_access_grant { grant: "AG' },
+            { t: 7.86, s: 'mcp ▸ tools/call restore_access_grant { grant: "AG-77" }' }
           ];
           var conT = document.getElementById("at-con-t");
           function conAt(t) { var s = ""; for (var i = SEQ.length - 1; i >= 0; i--) { if (t >= SEQ[i].t) { s = SEQ[i].s; break; } } return s; }
+          // "mcp ▸ " in ash, "tools/call " in bone, the tool name in diff-bad, arguments plain.
           function paint(s) {
-            var pr = s.substring(0, 8), rest = s.substring(8);
-            var j = rest.indexOf("(");
-            conT.innerHTML = '<span class="pr">' + esc(pr) + "</span>" + (j < 0 ? '<span class="fn">' + esc(rest) + "</span>" : '<span class="fn">' + esc(rest.substring(0, j)) + "</span>" + esc(rest.substring(j)));
+            var pr = s.substring(0, 6), mc = s.substring(6, 17), rest = s.substring(17);
+            var j = rest.indexOf(" {");
+            conT.innerHTML = '<span class="pr">' + esc(pr) + '</span><span class="mc">' + esc(mc) + "</span>" +
+              (j < 0 ? '<span class="fn">' + esc(rest) + "</span>" : '<span class="fn">' + esc(rest.substring(0, j)) + "</span>" + esc(rest.substring(j)));
           }
           var cd = { t: 0 };
           tl.to(cd, { t: 1, duration: 1.6, ease: "none", onUpdate: function () { paint(conAt(6.8 + cd.t * 1.6)); } }, 6.8);
