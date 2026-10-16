@@ -1,0 +1,9 @@
+# Local Studio caches and ad-hoc renders; the delivery render lives in videos/demo-video/final/ (Git LFS).
+.hyperframes/
+.thumbnails/
+.waveform-cache/
+renders/*
+# Raw capture output and superseded takes; only the converted MP4s of the kept takes are tracked.
+assets/footage/*.webm
+assets/footage/*-oldkey.*
+assets/footage/*-teamkey2.*

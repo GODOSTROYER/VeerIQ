@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="importov-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; }
+        #io-frame { position: absolute; left: 207px; top: 96px; width: 1506px; height: 850px; border: 2px solid rgba(242,241,237,0.22); box-shadow: 0 30px 90px rgba(0,0,0,0.6); }
+        .io-rail { position: absolute; top: 150px; width: 168px; font-family: "Geist Mono", monospace; white-space: nowrap; }
+        #io-left { left: 28px; }
+        #io-right { right: 24px; }
+        .io-k { font-size: 13px; letter-spacing: 0.16em; color: #aaa9a7; margin-top: 26px; }
+        .io-v { margin-top: 6px; font-size: 17px; color: #f2f1ed; line-height: 24px; }
+        .io-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; letter-spacing: 0.12em; color: #e8602c; }
+        .io-tag i { width: 10px; height: 10px; border-radius: 50%; background: #e8602c; }
+        #io-speed { font-size: 30px; font-weight: 600; color: #e8602c; font-variant-numeric: tabular-nums; }
+        #io-stepn { font-family: "Instrument Serif", serif; font-style: italic; font-size: 64px; line-height: 64px; color: #e8602c; margin-top: 4px; }
+        #io-stept { margin-top: 10px; font-size: 16px; line-height: 23px; color: #f2f1ed; white-space: normal; width: 168px; }
+        #io-note { margin-top: 30px; padding: 12px 12px; border: 2px solid rgba(255,148,103,0.6); font-size: 14px; line-height: 21px; color: #f2f1ed; white-space: normal; width: 168px; opacity: 0; }
+        #io-note b { display: block; font-size: 12px; letter-spacing: 0.16em; color: #ff9467; margin-bottom: 6px; }
+      </style>
+      <div data-hf-id="hf-ud7j" id="root" data-composition-id="importov" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-3e6g" id="io-frame" data-layout-ignore></div>
+        <div data-hf-id="hf-foy3" class="io-rail" id="io-left">
+          <div data-hf-id="hf-tzkk" class="io-tag"><i data-hf-id="hf-wt6k"></i>REAL PRODUCT</div>
+          <div data-hf-id="hf-t1oz" class="io-k">PAGE</div><div data-hf-id="hf-w1pn" class="io-v">/import</div>
+          <div data-hf-id="hf-ayx6" class="io-k">SAMPLE</div><div data-hf-id="hf-5ghq" class="io-v">warehouse stock<br data-hf-id="hf-x5px" />locations</div>
+          <div data-hf-id="hf-hjl0" class="io-k">PLANNER</div><div data-hf-id="hf-u28l" class="io-v">scripted<br data-hf-id="hf-rsrt" />(labelled)</div>
+          <div data-hf-id="hf-xmp5" class="io-k">ARMORIQ</div><div data-hf-id="hf-rcmh" class="io-v">live enforcement</div>
+          <div data-hf-id="hf-v0zn" class="io-k">SPEED</div><div data-hf-id="hf-z4fb" class="io-v" id="io-speed">1.75×</div>
+        </div>
+        <div data-hf-id="hf-ntjq" class="io-rail" id="io-right">
+          <div data-hf-id="hf-xv48" class="io-k" style="margin-top:0">STEP</div>
+          <div data-hf-id="hf-eg13" id="io-stepn">03</div>
+          <div data-hf-id="hf-3dmu" id="io-stept">Bring your data and map the columns</div>
+          <div data-hf-id="hf-r8rg" id="io-note"><b data-hf-id="hf-sxz2">TODAY</b>Repairs land in VeerIQ's recovery workspace. Writing back to your systems is next.</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#io-frame", { opacity: 0, scale: 0.985 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, 0);
+          tl.fromTo(".io-rail", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.1 }, 0.15);
+          // The edit: I1 1.75x (0-11.09), I2 2x (11.09-16.34), I3 1x (16.34-23.74).
+          var SEG = [[0, "03", "Bring your data and map the columns", "1.75×"], [11.09, "04", "Authorize one narrow repair and run it", "2×"],
+                     [16.34, "04", "Receipt and signed evidence", "1×"]];
+          var n = document.getElementById("io-stepn"), t = document.getElementById("io-stept"), sp = document.getElementById("io-speed"), st = { v: 0 };
+          tl.to(st, { v: 23.74, duration: 23.74, ease: "none", onUpdate: function () {
+            var k = 0; for (var i = 0; i < SEG.length; i++) if (st.v >= SEG[i][0]) k = i;
+            n.textContent = SEG[k][1]; t.textContent = SEG[k][2]; sp.textContent = SEG[k][3];
+          } }, 0);
+          tl.fromTo("#io-stepn", { scale: 1.35 }, { scale: 1, duration: 0.4, ease: "expo.out", immediateRender: false }, 11.09);
+          // "Today, repairs land in VeerIQ's recovery workspace." (narration at 17.4 s here)
+          tl.fromTo("#io-note", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", immediateRender: false }, 17.3);
+          tl.fromTo("#io-note", { boxShadow: "0 0 0px 0px rgba(255,148,103,0)" }, { boxShadow: "0 0 24px 4px rgba(255,148,103,0.45)", duration: 0.12, ease: "none", immediateRender: false }, 17.35);
+          tl.to("#io-note", { boxShadow: "0 0 0px 0px rgba(255,148,103,0)", duration: 0.8, ease: "power2.out" }, 17.47);
+          window.__timelines["importov"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

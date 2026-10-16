@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="hud-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        @font-face { font-family: "Sunflower"; font-style: normal; font-weight: 500; src: url("../assets/fonts/Sunflower-normal-500.woff2") format("woff2"); }
+
+        #root { position: absolute; inset: 0; pointer-events: none; color: #f2f1ed; font-family: "Geist Mono", monospace; }
+        #hud-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 70% at 50% 48%, rgba(14,14,16,0) 62%, rgba(6,6,7,0.42) 100%); }
+        #hud-grain { position: absolute; inset: -12%; opacity: 0.075; mix-blend-mode: screen;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          background-size: 320px 320px; will-change: transform; }
+        .hud-mark { position: absolute; width: 30px; height: 30px; border-color: rgba(242,241,237,0.42); border-style: solid; border-width: 0; }
+        #hud-mark-tl { left: 44px; top: 44px; border-left-width: 2px; border-top-width: 2px; }
+        #hud-mark-tr { right: 44px; top: 44px; border-right-width: 2px; border-top-width: 2px; }
+        #hud-mark-bl { left: 44px; bottom: 44px; border-left-width: 2px; border-bottom-width: 2px; }
+        #hud-mark-br { right: 44px; bottom: 44px; border-right-width: 2px; border-bottom-width: 2px; }
+        .hud-label { position: absolute; font-size: 19px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: #aaa9a7; white-space: nowrap; }
+        .hud-label b { font-weight: 600; color: #f2f1ed; }
+        #hud-brand { left: 92px; top: 50px; }
+        #hud-brand b { color: #e8602c; }
+        #hud-section { right: 92px; top: 50px; height: 24px; overflow: hidden; text-align: right; width: 520px; }
+        .hud-sec { position: absolute; right: 0; top: 0; }
+        #hud-event { left: 92px; bottom: 50px; }
+        #hud-tc { right: 92px; bottom: 50px; font-variant-numeric: tabular-nums; letter-spacing: 0.1em; }
+        #hud-tc b { color: #e8602c; }
+        #hud-progress-track { position: absolute; left: 92px; right: 92px; bottom: 34px; height: 2px; background: rgba(242,241,237,0.12); }
+        #hud-progress { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #e8602c; transform-origin: 0 50%; }
+      </style>
+      <div data-hf-id="hf-zmd4" id="root" data-composition-id="hud" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-v9ia" id="hud-vignette" data-layout-ignore></div>
+        <div data-hf-id="hf-eiqt" id="hud-grain" data-layout-ignore></div>
+        <div data-hf-id="hf-tox3" class="hud-mark" id="hud-mark-tl"></div>
+        <div data-hf-id="hf-lwah" class="hud-mark" id="hud-mark-tr"></div>
+        <div data-hf-id="hf-nbm9" class="hud-mark" id="hud-mark-bl"></div>
+        <div data-hf-id="hf-a1fz" class="hud-mark" id="hud-mark-br"></div>
+        <div data-hf-id="hf-mw89" class="hud-label" id="hud-brand"><b data-hf-id="hf-itbh">VeerIQ</b>&nbsp;&nbsp;/&nbsp;&nbsp;Flow State submission</div>
+        <div data-hf-id="hf-q2hp" class="hud-label" id="hud-section">
+          <div class="hud-sec" id="hud-sec-0"><b>01</b>&nbsp;&nbsp;The problem</div>
+          <div class="hud-sec" id="hud-sec-1"><b>02</b>&nbsp;&nbsp;Meet VeerIQ</div>
+          <div class="hud-sec" id="hud-sec-2"><b>03</b>&nbsp;&nbsp;How it works</div>
+          <div class="hud-sec" id="hud-sec-3"><b>04</b>&nbsp;&nbsp;Try it live</div>
+          <div class="hud-sec" id="hud-sec-4"><b>05</b>&nbsp;&nbsp;Bring your agent</div>
+          <div class="hud-sec" id="hud-sec-5"><b>06</b>&nbsp;&nbsp;Plug it in</div>
+          <div class="hud-sec" id="hud-sec-6"><b>07</b>&nbsp;&nbsp;What to expect</div>
+          <div class="hud-sec" id="hud-sec-7"><b>08</b>&nbsp;&nbsp;What&#x27;s next</div>
+          <div class="hud-sec" id="hud-sec-8"><b>09</b>&nbsp;&nbsp;VeerIQ</div>
+        </div>
+        <div data-hf-id="hf-duo7" class="hud-label" id="hud-event">ArmorIQ&nbsp;&nbsp;·&nbsp;&nbsp;Flow State</div>
+        <div data-hf-id="hf-i69r" class="hud-label" id="hud-tc"><b data-hf-id="hf-j3xc">TC</b>&nbsp;&nbsp;<span data-hf-id="hf-r6aa" id="hud-tc-v">00:00:00:00</span></div>
+        <div data-hf-id="hf-jw66" id="hud-progress-track"><div data-hf-id="hf-hmck" id="hud-progress"></div></div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var DUR = 269.44;
+          var FPS = 30;
+
+          // Chrome arrives once, then stays.
+          tl.fromTo(".hud-mark", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out", stagger: 0.05 }, 0.15);
+          tl.fromTo("#hud-brand, #hud-event, #hud-tc", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.06 }, 0.3);
+          tl.fromTo("#hud-progress", { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none" }, 0);
+
+          // Section index: vertical ticker swap at each act boundary.
+          var SECTIONS = [0, 36, 43, 74.2, 165.7, 178.3, 215.64, 238.44, 257.44];
+          SECTIONS.forEach(function (t, i) {
+            var el = "#hud-sec-" + i;
+            gsap.set(el, { opacity: 0 });
+            if (i === 0) {
+              tl.set(el, { opacity: 1 }, 0.35);
+              tl.fromTo(el, { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: "expo.out" }, 0.35);
+            } else {
+              tl.set(el, { opacity: 1 }, t + 0.05);
+              gsap.set(el, { yPercent: 110, opacity: 0 });
+              tl.to(el, { yPercent: 0, duration: 0.45, ease: "expo.out" }, t + 0.05);
+            }
+            var next = SECTIONS[i + 1];
+            if (next !== undefined) { tl.to(el, { yPercent: -110, duration: 0.3, ease: "power3.in" }, next - 0.25); tl.set(el, { opacity: 0 }, next + 0.06); }
+          });
+          gsap.set(".hud-sec", { yPercent: 110 });
+
+          // Running timecode, read from timeline time (HH:MM:SS:FF at 30 fps).
+          var tcEl = document.getElementById("hud-tc-v");
+          function pad(n) { return n < 10 ? "0" + n : "" + n; }
+          var clock = { t: 0 };
+          tl.to(clock, {
+            t: DUR, duration: DUR, ease: "none",
+            onUpdate: function () {
+              var f = Math.floor(clock.t * FPS + 1e-6);
+              var ff = f % FPS, s = Math.floor(f / FPS) % 60, m = Math.floor(f / (FPS * 60));
+              tcEl.textContent = "00:" + pad(m) + ":" + pad(s) + ":" + pad(ff);
+            }
+          }, 0);
+
+          // Film grain: the noise plate jumps 12 times a second to index-hashed offsets.
+          var grain = document.getElementById("hud-grain");
+          var g = { t: 0 };
+          tl.to(g, {
+            t: DUR, duration: DUR, ease: "none",
+            onUpdate: function () {
+              var k = Math.floor(g.t * 12);
+              var hx = ((k * 73) % 97) / 97, hy = ((k * 151) % 89) / 89;
+              grain.style.transform = "translate(" + ((hx - 0.5) * 9).toFixed(2) + "%," + ((hy - 0.5) * 9).toFixed(2) + "%)";
+            }
+          }, 0);
+
+          window.__timelines["hud"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

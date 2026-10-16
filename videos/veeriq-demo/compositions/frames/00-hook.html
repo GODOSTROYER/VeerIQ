@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="hook-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #hk-world { position: absolute; inset: 0; transform-origin: 50% 50%; }
+        #hk-glow { position: absolute; left: 960px; top: 560px; width: 1700px; height: 900px; margin: -450px 0 0 -850px; border-radius: 50%; background: radial-gradient(ellipse, rgba(232,96,44,0.14) 0%, rgba(232,96,44,0) 62%); }
+        #hk-kick { position: absolute; left: 160px; top: 196px; font-family: "Geist Mono", monospace; font-size: 26px; font-weight: 500; letter-spacing: 0.2em; color: #e8602c; white-space: nowrap; }
+        .hk-m { position: absolute; left: 160px; overflow: hidden; }
+        .hk-l { font-family: "Instrument Serif", serif; font-size: 104px; line-height: 116px; letter-spacing: -0.03em; white-space: nowrap; }
+        #hk-m1 { top: 262px; height: 116px; }
+        #hk-m2 { top: 378px; height: 116px; }
+        #hk-l2 i { color: #e8602c; }
+        #hk-said { position: absolute; left: 160px; top: 560px; font-family: "Instrument Serif", serif; font-size: 64px; line-height: 76px; letter-spacing: -0.02em; white-space: nowrap; opacity: 0; }
+        #hk-said .w { position: relative; display: inline-block; }
+        #hk-strike { position: absolute; left: -4px; right: -4px; top: 42px; height: 5px; background: #ffa185; transform-origin: 0 50%; }
+        #hk-could { color: #a3ccb3; font-style: italic; opacity: 0; }
+        #hk-backup { position: absolute; left: 160px; top: 664px; font-family: "Instrument Serif", serif; font-size: 64px; line-height: 76px; letter-spacing: -0.02em; white-space: nowrap; opacity: 0; }
+        #hk-catch { position: absolute; left: 160px; top: 768px; font-family: "Geist Mono", monospace; font-size: 30px; letter-spacing: 0.06em; color: #e8602c; white-space: nowrap; opacity: 0; }
+        #hk-src { position: absolute; left: 160px; top: 892px; font-family: "Geist Mono", monospace; font-size: 15px; letter-spacing: 0.06em; color: #8f8e8b; white-space: nowrap; opacity: 0; }
+        #hk-db { position: absolute; left: 1380px; top: 300px; width: 380px; height: 420px; opacity: 0; }
+        .hk-disk { position: absolute; left: 40px; width: 300px; height: 90px; border: 3px solid rgba(242,241,237,0.5); border-radius: 50%; background: #151517; }
+        .hk-col { position: absolute; left: 40px; width: 300px; border-left: 3px solid rgba(242,241,237,0.5); border-right: 3px solid rgba(242,241,237,0.5); background: #151517; }
+        #hk-x { position: absolute; left: 0; top: 60px; width: 380px; height: 380px; opacity: 0; }
+        #hk-x b { position: absolute; left: 50%; top: 50%; width: 420px; height: 10px; margin: -5px 0 0 -210px; background: #ffa185; border-radius: 5px; }
+      </style>
+      <div id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+        <div id="hk-world">
+          <div id="hk-glow" data-layout-ignore></div>
+          <div id="hk-kick">JULY 2025&nbsp;&nbsp;·&nbsp;&nbsp;A REAL INCIDENT</div>
+          <div class="hk-m" id="hk-m1"><div class="hk-l" id="hk-l1">An AI agent wiped a production database,</div></div>
+          <div class="hk-m" id="hk-m2"><div class="hk-l" id="hk-l2"><i>in the middle of a code freeze.</i></div></div>
+          <div id="hk-said">Then it said: it <span class="w">can't<span id="hk-strike"></span></span> <span id="hk-could">could</span> be undone.</div>
+          <div id="hk-backup">There was a backup.</div>
+          <div id="hk-catch">BUT A BACKUP HAS A CATCH.</div>
+          <div id="hk-src">Reported by eWeek and heise · AI Incident Database #6120 · the data was restored from a backup</div>
+          <div id="hk-db" data-layout-allow-overlap>
+            <div class="hk-col" style="top:105px; height:250px"></div>
+            <div class="hk-disk" style="top:310px"></div>
+            <div class="hk-disk" style="top:230px"></div>
+            <div class="hk-disk" style="top:150px"></div>
+            <div class="hk-disk" style="top:60px"></div>
+            <div id="hk-x"><b style="transform:rotate(45deg)"></b><b style="transform:rotate(-45deg)"></b></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // Word times (h01 placed at 0.4 s): agent 3.6, freeze 7.8, said 9.0, undone 10.4, could 11.3, backup 12.8, catch 14.6.
+          tl.fromTo("#hk-glow", { opacity: 0 }, { opacity: 1, duration: 2, ease: "sine.inOut" }, 0);
+          tl.fromTo("#hk-kick", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power3.out" }, 0.4);
+          gsap.set("#hk-l1, #hk-l2", { yPercent: 102 });
+          tl.to("#hk-l1", { yPercent: 0, duration: 0.8, ease: "expo.out" }, 2.8);
+          tl.fromTo("#hk-db", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, 3.0);
+          tl.fromTo("#hk-x", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 4.1);
+          tl.to("#hk-db .hk-disk, #hk-db .hk-col", { borderColor: "rgba(255,161,133,0.8)", duration: 0.3, ease: "none" }, 4.1);
+          tl.to("#hk-l2", { yPercent: 0, duration: 0.8, ease: "expo.out" }, 6.6);
+          tl.fromTo("#hk-said", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, 8.3);
+          gsap.set("#hk-strike", { scaleX: 0 });
+          tl.to("#hk-strike", { scaleX: 1, duration: 0.35, ease: "power2.inOut" }, 11.0);
+          tl.to("#hk-could", { opacity: 1, duration: 0.3, ease: "none" }, 11.2);
+          tl.fromTo("#hk-backup", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, 12.2);
+          tl.fromTo("#hk-catch", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out", immediateRender: false }, 13.5);
+          tl.fromTo("#hk-src", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "none", immediateRender: false }, 9.0);
+          tl.fromTo("#hk-world", { scale: 1 }, { scale: 1.025, duration: 15, ease: "sine.inOut", immediateRender: false }, 0.2);
+          tl.to("#hk-world", { opacity: 0, filter: "blur(12px)", duration: 0.4, ease: "power2.in" }, 15.25);
+          window.__timelines["hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
