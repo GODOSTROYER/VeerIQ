@@ -497,6 +497,9 @@ export interface OrderRow {
   row_version: number
   updated_at: string
   updated_by: string
+  /** Server-side assessment against the approved snapshot (GET /app/state). */
+  condition?: OrderCondition | null
+  on_hold?: boolean
 }
 
 export interface DeletedEntity {

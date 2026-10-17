@@ -588,3 +588,119 @@ def protected_checks(tenant_id: str) -> list[InvariantCheck]:
 
     with db.connection() as conn, conn.transaction():
         return protected_check_list(conn, tenant_id)
+
+
+# ─── full-rollback preview (what restoring the whole snapshot would do) ─────
+
+_ROLLBACK_FIELDS = ("status", "total_cents", "shipping_region")
+
+
+def _human(dt: Any) -> str:
+    """'6 Oct 2026, 14:03 UTC'."""
+    return dt.strftime("%-d %b %Y, %H:%M UTC") if hasattr(dt, "strftime") else str(dt)
+
+
+def full_rollback_preview_conn(conn: psycopg.Connection, tenant_id: str) -> dict[str, Any]:
+    """What a whole-snapshot restore would do to this tenant *right now*. Read-only; nothing is written.
+
+    This is the conventional fix (restore last night's backup over everything), shown next to VeerIQ's
+    selective repair. Every snapshot row is compared with the live row: rows the incident damaged come
+    back correct, but so does everything decided after the snapshot (erased records, revoked access,
+    later legitimate updates), and rows created after the snapshot disappear.
+    """
+    cur = cursor(conn)
+    snapshot = load_snapshot(conn, fx.SNAPSHOT_ID)
+    if snapshot is None:
+        raise LookupError("no approved snapshot")
+    content = snapshot["content"]
+    tombs = fetch_tombstones(conn, tenant_id)
+    changes: list[dict[str, Any]] = []
+
+    snap_orders = {o["order_id"]: o for o in content["orders"] if o["tenant_id"] == tenant_id}
+    live_orders = {
+        r["order_id"]: r
+        for r in cur.execute(f"SELECT {ORDER_COLUMNS} FROM app.orders WHERE tenant_id = %s", (tenant_id,))
+    }
+    for oid in sorted(snap_orders):
+        snap, live = snap_orders[oid], live_orders.get(oid)
+        if live is None:
+            tomb = tombs.get(("order", oid))
+            changes.append({
+                "kind": "erased_record_returns", "entity": oid, "verdict": "harm",
+                "label": f"Order {oid} comes back",
+                "detail": f"Deleted after the backup: {tomb['reason']}." if tomb else "It no longer exists today.",
+                "today": "deleted", "after_rollback": "restored",
+            })
+            continue
+        diff = [f for f in _ROLLBACK_FIELDS if snap[f] != live[f]]
+        if not diff:
+            continue
+        before = {f: live[f] for f in diff}
+        after = {f: snap[f] for f in diff}
+        if live["updated_by"] == fx.INCIDENT_WRITER:
+            changes.append({
+                "kind": "damage_repaired", "entity": oid, "verdict": "good",
+                "label": f"Order {oid} repaired", "detail": "Damaged by the incident; the snapshot value is correct.",
+                "today": before, "after_rollback": after,
+            })
+        else:
+            changes.append({
+                "kind": "later_decision_reverted", "entity": oid, "verdict": "harm",
+                "label": f"Order {oid} goes back to '{snap['status']}'" if "status" in diff else f"Order {oid} loses a later update",
+                "detail": f"Changed after the snapshot by {live['updated_by']} on {_human(live['updated_at'])}; a full restore undoes it.",
+                "today": before, "after_rollback": after,
+            })
+    for oid in sorted(set(live_orders) - set(snap_orders)):
+        changes.append({
+            "kind": "new_record_lost", "entity": oid, "verdict": "harm",
+            "label": f"Order {oid} disappears", "detail": "Created after the snapshot, so the backup never had it.",
+            "today": "exists", "after_rollback": "gone",
+        })
+
+    live_customers = {
+        r["customer_id"] for r in cur.execute("SELECT customer_id FROM app.customers WHERE tenant_id = %s", (tenant_id,))
+    }
+    for c in content["customers"]:
+        if c["tenant_id"] != tenant_id or c["customer_id"] in live_customers:
+            continue
+        tomb = tombs.get(("customer", c["customer_id"]))
+        changes.append({
+            "kind": "erased_record_returns", "entity": c["customer_id"], "verdict": "harm",
+            "label": f"{c['name']} comes back",
+            "detail": f"Erased on request: {tomb['reason']}." if tomb else "Deleted after the snapshot.",
+            "today": "erased", "after_rollback": "restored",
+        })
+
+    live_grants = {
+        r["grant_id"]: r
+        for r in cur.execute(
+            "SELECT grant_id, principal, status, revoked_reason FROM authority.access_grants WHERE tenant_id = %s",
+            (tenant_id,),
+        )
+    }
+    for g in content.get("access_grants", []):
+        live = live_grants.get(g["grant_id"])
+        if g["tenant_id"] != tenant_id or live is None or live["status"] == g["status"]:
+            continue
+        changes.append({
+            "kind": "access_reenabled" if g["status"] == "active" else "access_changed",
+            "entity": g["grant_id"], "verdict": "harm",
+            "label": f"{g['principal']} gets access again" if g["status"] == "active" else f"Grant {g['grant_id']} changes",
+            "detail": f"Revoked after the snapshot: {live['revoked_reason']}." if live["revoked_reason"] else "Changed after the snapshot.",
+            "today": live["status"], "after_rollback": g["status"],
+        })
+
+    return {
+        "snapshot_id": snapshot["snapshot_id"],
+        "snapshot_taken_at": iso(snapshot["taken_at"]),
+        "changes": changes,
+        "repaired": sum(c["verdict"] == "good" for c in changes),
+        "harmed": sum(c["verdict"] == "harm" for c in changes),
+    }
+
+
+def full_rollback_preview(tenant_id: str) -> dict[str, Any]:
+    from rewindsafe.runtime import db
+
+    with db.connection() as conn, conn.transaction():
+        return full_rollback_preview_conn(conn, tenant_id)

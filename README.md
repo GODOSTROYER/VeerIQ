@@ -1,6 +1,23 @@
-# VeerIQ
+# VeerIQ: Ctrl+Z for AI agents
 
 **Restore yesterday's data. Keep today's decisions.**
+
+When an AI agent (or a bad migration) wrecks your database, VeerIQ undoes **only the damage** and keeps everything that happened since. [ArmorIQ](https://armoriq.ai) makes sure the fixer can't go rogue too.
+
+> July 2025: an AI coding agent wiped a company's production database during a code freeze, then wrongly said it couldn't be undone. The data came back from a backup ([eWeek](https://www.eweek.com/news/replit-ai-coding-assistant-failure/), [AI Incident Database #6120](https://incidentdatabase.ai/reports/6120)). But a backup also brings back everything you decided after it was taken.
+
+## For judges: try it in 3 minutes
+
+Start the app (`python tasks.py setup` once, then `python tasks.py up`) and open http://localhost:5173. The start page walks you through four steps with one button each, all on live data:
+
+| Step | What you do | What you see |
+|---|---|---|
+| 1. The damage | Start the demo | Three orders zeroed by a bad change, and three decisions made after the backup (an erased customer, a revoked leaked credential, a shipped order) |
+| 2. Undo it two ways | Run the AI repair | Left: what restoring the backup does to today's data (fixes 3, **breaks 4**). Right: VeerIQ's agent on a live model, which takes the bait of a planted note; **ArmorIQ blocks the call** with its reason, and only the damage is repaired |
+| 3. You are the second key | Become the approver, approve | A $12,400 repair waits for a second person; the requester can't approve it. You approve the exact change; it commits in one locked transaction |
+| 4. Check our work | Verify in my browser, then change one number | The run's signed receipt verified by your browser's own crypto (hash chain + Ed25519); one changed cent makes it fail. Plus the 84-run scoreboard and a one-click MCP install for Claude Code, Cursor and Claude Desktop |
+
+![The judges' start page](docs/img/judges-1440.png)
 
 A backup remembers old permissions too. Restore one after an incident and you also re-enable the account you revoked, bring back the customer you erased, and roll back the order that shipped.
 

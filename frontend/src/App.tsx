@@ -16,6 +16,7 @@ const ProofBoard = lazy(() => import('@/pages/ProofBoard'))
 const HowItWorks = lazy(() => import('@/pages/HowItWorks'))
 const ImportRecovery = lazy(() => import('@/pages/ImportRecovery'))
 const JudgeWalkthrough = lazy(() => import('@/pages/JudgeWalkthrough'))
+const Judges = lazy(() => import('@/pages/Judges'))
 
 function PageFallback() {
   return (
@@ -59,7 +60,7 @@ function NotFound() {
       title="That page does not exist"
       description="The link may be old, or the run was removed when the demo was reset."
       action={
-        <Link to="/">
+        <Link to="/workspace">
           <Button variant="secondary">Back to Workspace</Button>
         </Link>
       }
@@ -115,7 +116,8 @@ function Gate() {
       <PageBoundary resetKey={location.pathname}>
         <Suspense fallback={<PageFallback />}>
           <Routes location={location}>
-            <Route path="/" element={<MissionControl />} />
+            <Route path="/" element={<Judges />} />
+            <Route path="/workspace" element={<MissionControl />} />
             <Route path="/runs/:runId" element={<RunWorkspace />} />
             <Route path="/approvals" element={<Approvals />} />
             <Route path="/proof" element={<ProofBoard />} />

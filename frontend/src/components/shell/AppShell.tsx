@@ -17,7 +17,7 @@ function NavItems({ items, orientation }: { items: NavItem[]; orientation: 'head
   const motionOK = useMotionOK()
   return <nav aria-label="Main" className={cn('flex items-center gap-1', orientation === 'row' && 'justify-start overflow-x-auto')}>
     {items.map((item) => {
-      const active = item.to === '/' ? pathname === '/' || pathname.startsWith('/runs') : pathname.startsWith(item.to)
+      const active = item.to === '/' ? pathname === '/' : item.to === '/workspace' ? pathname.startsWith('/workspace') || pathname.startsWith('/runs') : pathname.startsWith(item.to)
       return <NavLink key={item.to} to={item.to} end={item.end} aria-current={active ? 'page' : undefined}
         className={cn('relative inline-flex h-9 shrink-0 items-center gap-2 rounded-xl px-3 text-[13px] font-medium transition-colors hover:bg-surface-2 active:bg-surface-3', active ? 'text-ink' : 'text-ink-3 hover:text-ink')}>
         {active && <motion.span layoutId={motionOK ? `nav-active-${orientation}` : undefined} className="absolute inset-0 rounded-xl bg-surface-2" transition={T.base} />}
@@ -34,7 +34,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const status = useSystemStatus()
   const pending = useApprovals('pending')
   const items: NavItem[] = [
-    { to: '/', label: 'Workspace', end: true }, { to: '/approvals', label: 'Approvals', badge: pending.data?.length ?? 0 },
+    { to: '/', label: 'Start here', end: true }, { to: '/workspace', label: 'Workspace' }, { to: '/approvals', label: 'Approvals', badge: pending.data?.length ?? 0 },
     { to: '/import', label: 'Import' }, { to: '/walkthrough', label: 'Walkthrough' }, { to: '/proof', label: 'Proof' }, { to: '/how', label: 'How it works' },
   ]
   return <div className="min-h-screen">
