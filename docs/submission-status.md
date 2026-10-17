@@ -10,7 +10,7 @@ Where this file disagrees with an older note in the repository, this file wins. 
 | Demo video | 4:21, 1080p60, narrated: [`videos/demo-video/final/veeriq-demo-1080p.mp4`](../videos/demo-video/final/veeriq-demo-1080p.mp4) (Git LFS). Public link (unlisted YouTube): https://youtu.be/KWJQHzLuUSo |
 | Secondary videos | 96 s showreel ([`videos/veeriq-showreel/`](../videos/veeriq-showreel/)) and the old 43 s clip ([`docs/video/veerIQ-demo.webm`](video/veerIQ-demo.webm)). Neither is the submission video. |
 | CI on `main` | Passing: [run 39040731496](https://github.com/GODOSTROYER/VeerIQ/actions/runs/39040731496), 17 Oct 2026, commit `f4a3f62` |
-| Test counts (from that CI log) | Backend: 538 passed, 1 skipped, 8 deselected. Frontend: 210 passed (9 files). Scripted planner and simulated ArmorIQ; live ArmorIQ checks are manual dispatch only. |
+| Test counts (from that CI log) | Backend: 538 passed, 1 skipped, 8 deselected. Frontend: 210 passed (9 files) at that run; the suite has since grown to 226 (10 files), all passing locally on 17 Oct 2026. Scripted planner and simulated ArmorIQ; live ArmorIQ checks are manual dispatch only. |
 | Pre-event disclosure | [`rewindsafe-origin/attribution.md`](rewindsafe-origin/attribution.md). The event page allows advancing an existing project; build-week work is listed in [`CHANGES_DONE.md`](../CHANGES_DONE.md) and [`PROGRESS.md`](../PROGRESS.md). Organizer confirmation is not recorded. |
 
 ## Mode labels
