@@ -47,8 +47,11 @@ interface RollbackPreview {
 interface McpInstall {
   grant_id: string
   server_name: string
+  mode: string
+  placeholder: string
+  setup_steps: string[]
   claude_code: string
-  cursor_deeplink: string
+  local_http: string
   claude_desktop: unknown
   tools: string[]
 }
@@ -570,29 +573,29 @@ function ProofStep({ repairRunId }: { repairRunId: string | null }) {
       </div>
 
       <div className="mt-4">
-        <Card title="Plug it into your own agent (MCP)" tag={<Pill tone="info">Claude Code · Cursor · Claude Desktop</Pill>}>
+        <Card title="Run VeerIQ's MCP server from your own checkout" tag={<Pill tone="info">Claude Code · Cursor · Claude Desktop</Pill>}>
           <p className="text-[14px] text-ink-2">
-            VeerIQ is an MCP server with six recovery tools. Point your own agent at it: every call goes through the same gates and ArmorIQ, including the one tool it is never allowed to use.
+            VeerIQ is an MCP server with six recovery tools. It runs on your machine, from a clone of the repo with its own database, and every call goes through the same gates and ArmorIQ. This is not a hosted endpoint.
           </p>
           {!install ? (
             <>
               {installError && <p className="mt-3 text-[13px] text-block">{installError}</p>}
               <Button className="mt-4" variant="secondary" icon={<ShieldCheck />} loading={installBusy} onClick={() => void getInstall()}>
-                Authorize a task and get my install command
+                Authorize a task and show the setup
               </Button>
             </>
           ) : (
             <div className="mt-4 space-y-3">
-              <p className="text-xs text-ink-3">Claude Code</p>
+              <ol className="list-decimal space-y-1 pl-5 text-[13px] text-ink-2">
+                {install.setup_steps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+              <p className="text-xs text-ink-3">Claude Code (replace {install.placeholder} with your checkout path)</p>
               <CopyLine text={install.claude_code} label="Copy the Claude Code command" />
-              <div className="flex flex-wrap items-center gap-3">
-                <a href={install.cursor_deeplink} className="inline-flex h-10 items-center gap-2 border border-line-strong bg-surface-2 px-4 text-sm text-ink hover:bg-surface-3">
-                  Add to Cursor <ArrowRight className="size-4" />
-                </a>
-                <span className="text-xs text-ink-3">Runs on this machine; the grant {install.grant_id} limits what it may do.</span>
-              </div>
+              <p className="text-xs text-ink-3">The grant {install.grant_id} limits what it may do.</p>
               <details className="text-[13px] text-ink-2">
-                <summary className="cursor-pointer text-ink-3">Claude Desktop config</summary>
+                <summary className="cursor-pointer text-ink-3">Claude Desktop / Cursor config</summary>
                 <pre className="mt-2 overflow-x-auto border border-line bg-sunken p-3 font-mono text-[12px]">{JSON.stringify(install.claude_desktop, null, 2)}</pre>
               </details>
             </div>
@@ -709,6 +712,7 @@ export default function Judges() {
             </Button>
             <Link to="/workspace" className="text-[14px] text-ink-3 hover:text-ink">or explore the full workspace →</Link>
           </div>
+          <p className="mt-3 max-w-[60ch] text-[13px] text-ink-3">The demo data is shared, so if results look mid-run, press Start (or Start over) to reset it.</p>
           {error && !started && <p className="mt-3 text-[13px] text-block">{error}</p>}
         </div>
         <aside className="border border-line bg-raised p-5">
