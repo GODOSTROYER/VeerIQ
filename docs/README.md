@@ -4,6 +4,7 @@ Start with the [README](../README.md) at the repository root. The files below ar
 
 ## Start here
 
+- [submission-status.md](submission-status.md): single source of current truth (links, CI, mode labels, what each proof proves).
 - [submission.md](submission.md): the submission write-up for ArmorIQ Flow State.
 - [demo-script.md](demo-script.md): the two-minute demo script, to be recorded with a live model and live ArmorIQ.
 - [architecture.md](architecture.md): the React workspace, FastAPI backend, PostgreSQL state and the shared dispatcher.
