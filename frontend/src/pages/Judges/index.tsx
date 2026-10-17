@@ -323,6 +323,7 @@ function ReviewStep({
   const pending = useApprovals('pending', !!run)
   const approval = pending.data?.find((a) => a.run_id === run?.run_id)
   const [deciding, setDeciding] = useState<'approve' | 'reject' | null>(null)
+  const [decided, setDecided] = useState(false)
   const [switching, setSwitching] = useState(false)
   const [decideError, setDecideError] = useState<string | null>(null)
   const isApprover = identity?.identity_id === APPROVER_ID
@@ -341,6 +342,7 @@ function ReviewStep({
     setDecideError(null)
     try {
       await api.post(`/approvals/${approval.approval_id}/decide`, { decision, note: 'Decided by the judge in the walkthrough.' })
+      setDecided(true)
       invalidate(TAGS.approvals, TAGS.run(approval.run_id), TAGS.runs)
       invalidateAppData()
     } catch (err) {
@@ -369,7 +371,9 @@ function ReviewStep({
               </Button>
             </>
           )}
-          {run && !approval && !done && <p className="text-[14px] text-ink-2">The agent is preparing the change…</p>}
+          {run && !approval && !done && (
+            <p className="text-[14px] text-ink-2">{decided ? 'Decision recorded. Every gate runs again against the live data, then it commits…' : 'The agent is preparing the change…'}</p>
+          )}
           {approval && !done && (
             <>
               <p className="text-[14px] text-ink-2">{approval.reason}</p>
