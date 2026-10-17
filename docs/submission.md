@@ -5,7 +5,7 @@ ArmorIQ Flow State, October 2026.
 | Form field | Answer |
 |---|---|
 | GitHub repository | https://github.com/GODOSTROYER/VeerIQ (give the judges access, or make it public) |
-| Live demo URL | _fill in after deploying with [`live-demo.md`](live-demo.md)_ |
+| Live demo URL | https://veeriq.arnavbule.in (Railway; also https://veeriq-app-production.up.railway.app). Static walkthrough: https://veeriq.vercel.app |
 | Demo video | _unlisted YouTube, Loom or Vimeo link, 3–5 minutes, recorded with [`demo-script.md`](demo-script.md)_ |
 | ElevenLabs | Not used |
 | Social post | _link to the X post tagging @ArmorIQForDevs or the LinkedIn post tagging ArmorIQ, with #FlowStateHackathon_ |

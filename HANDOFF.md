@@ -42,7 +42,7 @@ Only the team can do these:
    agent and the MCP server). The ArmorClaude dev login on the dev machine is a staging plugin key, not this.
 3. Policy Studio: confirm or create "allow the five recovery tools" and "deny `restore_access_grant`".
 4. One live `python tasks.py demo-mcp-agent` run, to confirm the MCP path against live ArmorIQ.
-5. Host the showcase over HTTPS until 21 Oct and paste the URL into `docs/submission.md`.
+5. The showcase is deployed on Railway (project `veeriq`, service `veeriq-app`) at https://veeriq.arnavbule.in. It starts only once `ARMORIQ_API_KEY` is set in the service variables and the DNS records are in place. Turn App Sleeping off for 17–21 Oct; the static walkthrough is at https://veeriq.vercel.app.
 6. Record and upload the 3–5 min demo video (unlisted); post on X (@ArmorIQForDevs) or LinkedIn (ArmorIQ) with
    #FlowStateHackathon; submit https://forms.gle/fxkXnY8xgeyZ3QQX6.
 7. Give judges access to this private repo, or make it public.

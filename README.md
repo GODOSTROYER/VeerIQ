@@ -54,7 +54,8 @@ A second, separate live check covers the case where the plan itself is too wide.
 ## See it
 
 - [Recorded demo, 43 seconds](docs/video/veerIQ-demo.webm): import, repair and offline verification with live ArmorIQ.
-- [Hosted walkthrough](https://proud-crest-c9mj.here.now/): a static page with the recorded run and downloadable evidence.
+- **[Live demo: veeriq.arnavbule.in](https://veeriq.arnavbule.in)**: the full workspace on synthetic data with live ArmorIQ enforcement. Sign in with a demo identity. Also at https://veeriq-app-production.up.railway.app.
+- [Hosted walkthrough](https://veeriq.vercel.app): a static page with the recorded run and downloadable evidence.
 - [Showreel, 96 seconds](videos/veeriq-showreel/renders/veeriq-showreel-1080p60.mp4): motion graphics on the problem, the architecture and the results (stored with Git LFS).
 - [Four-minute demo script](docs/demo-script.md), the [submission write-up](docs/submission.md) and the [live demo guide](docs/live-demo.md).
 
