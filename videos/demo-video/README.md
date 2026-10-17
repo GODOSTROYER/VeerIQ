@@ -6,7 +6,7 @@ the facts you may state: [`../AGENT-CONTEXT.md`](../AGENT-CONTEXT.md).
 
 ## The delivered video
 
-`final/veeriq-demo-1080p.mp4` (Git LFS): 4:29, 1080p60, narrated, captions burned in. Built with
+`final/veeriq-demo-1080p.mp4` (Git LFS): 4:21, 1080p60, narrated, captions burned in. Built with
 HyperFrames from [`../veeriq-demo/`](../veeriq-demo/); the narration script is
 `../veeriq-demo/scripts/narration.json` and every scene length follows the voiceover.
 

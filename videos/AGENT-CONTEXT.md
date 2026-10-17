@@ -9,7 +9,7 @@ not state.
 | Folder | What it is | Status |
 |---|---|---|
 | [`veeriq-showreel/`](veeriq-showreel/) | 106 s motion-graphics showreel (HyperFrames, 1080p60, original score). Story, idea, system diagram, architecture, boundary test over MCP, results, MCP live run, proof, lockup. | Source updated 15 Oct 2026 (scene notes below). The committed MP4 is still the 14 Oct 96 s render until the next delivery render. |
-| [`demo-video/`](demo-video/) | The **submission** video: 3–5 min, real product footage with live ArmorIQ, the ArmorIQ console and Policy Studio, framed by motion graphics. Source in [`veeriq-demo/`](veeriq-demo/). | Rendered 17 Oct 2026: `demo-video/final/veeriq-demo-1080p.mp4`, 4:29 (judges' start page cut). Upload link goes in `demo-video/final/LINK.md` and `docs/submission.md`. |
+| [`demo-video/`](demo-video/) | The **submission** video: 3–5 min, real product footage with live ArmorIQ, the ArmorIQ console and Policy Studio, framed by motion graphics. Source in [`veeriq-demo/`](veeriq-demo/). | Rendered 17 Oct 2026: `demo-video/final/veeriq-demo-1080p.mp4`, 4:21 (judges' start page cut). Upload link goes in `demo-video/final/LINK.md` and `docs/submission.md`. |
 
 Judging (from the organizers, 13 Oct 2026): demo video 40 pts, live demo 40 pts, ArmorTools Pro 5 pts,
 takeaways 15 pts. The video must show: the problem and who it is for; the product working end to end;

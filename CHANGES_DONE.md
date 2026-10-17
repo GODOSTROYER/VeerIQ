@@ -51,7 +51,7 @@ Files: `backend/rewindsafe/workflows/rewindsafe/queries.py`, `backend/rewindsafe
 
 ## 5. The submission video (branch `submission-video`)
 
-`videos/demo-video/final/veeriq-demo-1080p.mp4` (Git LFS): 4:29, 1080p60, narrated, captions burned in.
+`videos/demo-video/final/veeriq-demo-1080p.mp4` (Git LFS): 4:29, 1080p60, narrated, captions burned in. Replaced on 17 Oct by the final 4:21 cut (same path); the section timings below describe the earlier 4:29 cut.
 
 | Time | Section |
 |---|---|
