@@ -138,7 +138,7 @@ export default function HowItWorks() {
           <p className="mt-1 text-[13px] leading-relaxed text-ink-3">Run the flagship scenario, then check the proof board for the layer-by-layer evidence.</p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Link to="/">
+          <Link to="/workspace">
             <Button variant="primary" iconRight={<ArrowRight className="size-4" />}>
               Go to Workspace
             </Button>

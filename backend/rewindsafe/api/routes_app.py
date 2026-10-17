@@ -33,3 +33,11 @@ def snapshot_diff(identity: Identity = Depends(auth.current_identity)) -> list[d
     if callable(hook):
         return hook(identity.tenant_id)
     return queries.snapshot_diff_for_tenant(identity.tenant_id)
+
+
+@router.get("/full-rollback-preview")
+def full_rollback_preview(identity: Identity = Depends(auth.current_identity)) -> dict[str, Any]:
+    """Read-only: what restoring the whole snapshot would do to this tenant now (the conventional fix)."""
+    from rewindsafe.workflows.rewindsafe import queries as wq
+
+    return wq.full_rollback_preview(identity.tenant_id)

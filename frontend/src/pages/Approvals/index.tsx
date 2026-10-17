@@ -135,7 +135,7 @@ export default function Approvals() {
               <ClipboardCheck className="mt-1 size-5 shrink-0 text-ink-3" aria-hidden />
               <div><h3 className="text-base font-medium text-ink">No repairs are waiting</h3>
                 <p className="mt-2 max-w-[56ch] text-sm leading-relaxed text-ink-2">Start the high-value scenario from Workspace; it pauses here for a second person to review the repair before anything is written.</p>
-                <Link to="/" className="mt-4 inline-flex min-h-10 items-center rounded-lg border border-line-strong px-3 text-[13px] font-medium text-ink transition-colors hover:bg-surface-2 active:bg-surface-3">Go to Workspace</Link>
+                <Link to="/workspace" className="mt-4 inline-flex min-h-10 items-center rounded-lg border border-line-strong px-3 text-[13px] font-medium text-ink transition-colors hover:bg-surface-2 active:bg-surface-3">Go to Workspace</Link>
               </div>
             </div> : <AnimatedList as="ul" className="space-y-4">{pendingCards.map((a) => <AnimatedItem key={a.approval_id} id={`approval-${a.approval_id}`} className={cn('scroll-mt-44 rounded-2xl', focusId === a.approval_id && 'outline outline-2 -outline-offset-2 outline-focus')}>
               <ApprovalCard approval={a} identity={identity} identities={identities} runs={runs.data} scenarios={scenarios.data} orders={orders.data} now={now} onDecide={decide} onSwitchToReviewer={switchToReviewer} reviewerName={reviewer?.name} />

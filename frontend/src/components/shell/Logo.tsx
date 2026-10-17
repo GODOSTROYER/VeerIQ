@@ -21,7 +21,7 @@ export function Wordmark({ className, linked = true }: { className?: string; lin
     </span>
   )
   return linked ? (
-    <Link to="/" aria-label="VeerIQ, go to Workspace" className="rounded-lg">
+    <Link to="/" aria-label="VeerIQ, go to the start page" className="rounded-lg">
       {content}
     </Link>
   ) : (

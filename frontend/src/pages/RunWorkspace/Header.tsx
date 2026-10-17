@@ -102,7 +102,7 @@ export function RunHeader(p: RunHeaderProps) {
   const { run, plan } = p
   return (
     <header>
-      <Link to="/" className="inline-flex items-center gap-1 rounded-md text-[13px] text-ink-3 transition-colors hover:text-ink">
+      <Link to="/workspace" className="inline-flex items-center gap-1 rounded-md text-[13px] text-ink-3 transition-colors hover:text-ink">
         <ChevronLeft className="size-4" aria-hidden />
         Workspace
       </Link>

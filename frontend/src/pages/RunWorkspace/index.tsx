@@ -293,7 +293,7 @@ export default function RunWorkspace() {
         title="This run was not found"
         description="The link may be old, or the run was removed when the demo was reset. Runs from other tenants are not visible here."
         action={
-          <Link to="/">
+          <Link to="/workspace">
             <Button variant="secondary">Back to Workspace</Button>
           </Link>
         }
