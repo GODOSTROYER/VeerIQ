@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import base64
+from pathlib import Path
 import json
 from datetime import UTC, datetime, timedelta
 
@@ -83,14 +83,22 @@ def client() -> TestClient:
 
 def test_mcp_install_for_an_active_grant(client, monkeypatch):
     monkeypatch.setattr(routes_judge, "load_grant_for", lambda identity, gid: _grant(GrantStatus.ACTIVE))
-    body = client.get("/api/judge/mcp-install/grant_judge").json()
-    args = ["run", "--directory", str(routes_judge.BACKEND_DIR), "python", "-m", "rewindsafe.mcp_server", "--grant", "grant_judge"]
-    assert body["claude_code"].startswith("claude mcp add veeriq-recovery -- uv run --directory ")
+    response = client.get("/api/judge/mcp-install/grant_judge")
+    body = response.json()
+    placeholder = "<path-to-your-VeerIQ-checkout>"
+    args = ["run", "--directory", f"{placeholder}/backend", "python", "-m", "rewindsafe.mcp_server", "--grant", "grant_judge"]
+    assert body["mode"] == "local-checkout"
+    assert body["grant_id"] == "grant_judge"
+    assert body["claude_code"].startswith(f"claude mcp add veeriq-recovery -- uv run --directory {placeholder}/backend")
     assert body["claude_code"].endswith("--grant grant_judge")
     assert body["claude_desktop"] == {"mcpServers": {"veeriq-recovery": {"command": "uv", "args": args}}}
-    config = body["cursor_deeplink"].split("config=", 1)[1]
-    assert json.loads(base64.b64decode(config)) == {"command": "uv", "args": args}
+    assert "--grant grant_judge --http" in body["local_http"]
+    assert body["setup_steps"]
     assert "restore_access_grant" in body["tools"]
+    # No server filesystem path leaks.
+    backend_dir = str(Path(routes_judge.__file__).resolve().parents[2])
+    assert backend_dir not in response.text
+    assert backend_dir.replace("\\", "/") not in response.text
 
 
 def test_mcp_install_refuses_a_draft_grant(client, monkeypatch):
