@@ -7,7 +7,7 @@ Where this file disagrees with an older note in the repository, this file wins. 
 | Final commit | see `main` HEAD at submission (written against `f4a3f62`) |
 | Live demo | https://veeriq.arnavbule.in (Railway). Fallback: https://veeriq-app-production.up.railway.app. **Status: deploying; starts once the ArmorIQ key is configured. Not claimed to be up.** |
 | Static walkthrough | https://veeriq.vercel.app (recorded run and downloadable evidence; no live model, no live ArmorIQ) |
-| Demo video | 4:29, 1080p60, narrated: [`videos/demo-video/final/veeriq-demo-1080p.mp4`](../videos/demo-video/final/veeriq-demo-1080p.mp4) (Git LFS). Public link: **pending upload** (no `final/LINK.md` in the repository). |
+| Demo video | 4:21, 1080p60, narrated: [`videos/demo-video/final/veeriq-demo-1080p.mp4`](../videos/demo-video/final/veeriq-demo-1080p.mp4) (Git LFS). Public link: **pending upload** (no `final/LINK.md` in the repository). |
 | Secondary videos | 96 s showreel ([`videos/veeriq-showreel/`](../videos/veeriq-showreel/)) and the old 43 s clip ([`docs/video/veerIQ-demo.webm`](video/veerIQ-demo.webm)). Neither is the submission video. |
 | CI on `main` | Passing: [run 39040731496](https://github.com/GODOSTROYER/VeerIQ/actions/runs/39040731496), 17 Oct 2026, commit `f4a3f62` |
 | Test counts (from that CI log) | Backend: 538 passed, 1 skipped, 8 deselected. Frontend: 210 passed (9 files). Scripted planner and simulated ArmorIQ; live ArmorIQ checks are manual dispatch only. |

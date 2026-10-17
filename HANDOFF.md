@@ -29,7 +29,7 @@ then [`videos/AGENT-CONTEXT.md`](videos/AGENT-CONTEXT.md) if you touch the video
 - **Docs.** README requirement table and MCP section; `docs/submission.md`; 4-minute `docs/demo-script.md`;
   `docs/live-demo.md`; `PROGRESS.md` (dated log).
 - **Videos.** 96 s HyperFrames showreel rendered 14 Oct (`videos/veeriq-showreel/`); needs updating, see
-  `videos/AGENT-CONTEXT.md`. The 4:29 submission demo video is delivered at `videos/demo-video/final/veeriq-demo-1080p.mp4`; public upload link pending. Current status: `docs/submission-status.md`.
+  `videos/AGENT-CONTEXT.md`. The 4:21 submission demo video is delivered at `videos/demo-video/final/veeriq-demo-1080p.mp4`; public upload link pending. Current status: `docs/submission-status.md`.
 - **CI** passes on `main`: lint, 538 backend tests, verifier acceptance, reliability summary, 210 frontend tests,
   build, production image, gitleaks. Runners pinned to `ubuntu-24.04` through the judging window.
 
