@@ -563,7 +563,7 @@ function ProofStep({ repairRunId }: { repairRunId: string | null }) {
               [totals.trials, 'live runs with a real model'],
               [totals.poisoned_action_attempted, 'times it tried to re-enable the revoked account'],
               [totals.poisoned_action_blocked, 'blocked by ArmorIQ'],
-              [totals.forbidden_effects, 'forbidden changes made'],
+              [totals.forbidden_effects, `forbidden changes observed (in ${totals.records_with_effect_observation} of ${totals.records_total} records; ${totals.records_unknown_effect_status} interrupted records lack effect observations)`],
             ].map(([n, label]) => (
               <div key={String(label)} className="bg-raised p-4">
                 <p className="text-[34px] font-semibold tabular tracking-[-0.03em] text-ink">{n}</p>
@@ -729,7 +729,7 @@ export default function Judges() {
           <div className="mt-4 grid grid-cols-3 gap-3 border-t border-line pt-4 text-center">
             <div><p className="text-2xl font-semibold tabular text-ink">{totals.trials}</p><p className="text-[11px] text-ink-3">live runs</p></div>
             <div><p className="text-2xl font-semibold tabular text-ink">{totals.poisoned_action_blocked}/{totals.poisoned_action_attempted}</p><p className="text-[11px] text-ink-3">attacks blocked</p></div>
-            <div><p className="text-2xl font-semibold tabular text-ink">{totals.forbidden_effects}</p><p className="text-[11px] text-ink-3">forbidden changes</p></div>
+            <div><p className="text-2xl font-semibold tabular text-ink">{totals.forbidden_effects}</p><p className="text-[11px] text-ink-3">forbidden changes observed ({totals.records_with_effect_observation} of {totals.records_total} records)</p></div>
           </div>
         </aside>
       </section>

@@ -17,8 +17,17 @@
       "poisoned_action_blocked": 12,
       "provider": "groq",
       "recorded_at": "2026-10-12T15:35:52.698792Z",
+      "records_unknown_effect_status": 1,
+      "records_with_effect_observation": 12,
       "repairs_completed": 10,
-      "trials": 13
+      "trials": 13,
+      "unknown_effect_records": [
+        {
+          "file": "reliability-20261012T153552Z.json",
+          "status": "interrupted",
+          "trial": 13
+        }
+      ]
     },
     {
       "acted": 3,
@@ -37,8 +46,17 @@
       "poisoned_action_blocked": 3,
       "provider": "groq",
       "recorded_at": "2026-10-12T15:57:39.505690Z",
+      "records_unknown_effect_status": 1,
+      "records_with_effect_observation": 22,
       "repairs_completed": 1,
-      "trials": 23
+      "trials": 23,
+      "unknown_effect_records": [
+        {
+          "file": "reliability-20261012T155739Z.json",
+          "status": "interrupted",
+          "trial": 3
+        }
+      ]
     },
     {
       "acted": 1,
@@ -55,8 +73,11 @@
       "poisoned_action_blocked": 0,
       "provider": "groq",
       "recorded_at": "2026-10-12T16:01:52.253731Z",
+      "records_unknown_effect_status": 0,
+      "records_with_effect_observation": 40,
       "repairs_completed": 0,
-      "trials": 40
+      "trials": 40,
+      "unknown_effect_records": []
     },
     {
       "acted": 1,
@@ -75,8 +96,11 @@
       "poisoned_action_blocked": 1,
       "provider": "groq",
       "recorded_at": "2026-10-12T20:17:48.173321Z",
+      "records_unknown_effect_status": 0,
+      "records_with_effect_observation": 1,
       "repairs_completed": 1,
-      "trials": 1
+      "trials": 1,
+      "unknown_effect_records": []
     },
     {
       "acted": 6,
@@ -95,8 +119,11 @@
       "poisoned_action_blocked": 6,
       "provider": "groq",
       "recorded_at": "2026-10-13T17:26:15.609055Z",
+      "records_unknown_effect_status": 0,
+      "records_with_effect_observation": 6,
       "repairs_completed": 5,
-      "trials": 6
+      "trials": 6,
+      "unknown_effect_records": []
     },
     {
       "acted": 1,
@@ -115,8 +142,11 @@
       "poisoned_action_blocked": 1,
       "provider": "groq",
       "recorded_at": "2026-10-13T17:55:02.798478Z",
+      "records_unknown_effect_status": 0,
+      "records_with_effect_observation": 1,
       "repairs_completed": 1,
-      "trials": 1
+      "trials": 1,
+      "unknown_effect_records": []
     }
   ],
   "caveat": "Pooled across batches recorded on different code versions; this is what was observed, not one controlled cohort.",
@@ -133,7 +163,22 @@
     "never_acted": 60,
     "poisoned_action_attempted": 23,
     "poisoned_action_blocked": 23,
+    "records_total": 84,
+    "records_unknown_effect_status": 2,
+    "records_with_effect_observation": 82,
     "repairs_completed": 18,
-    "trials": 84
+    "trials": 84,
+    "unknown_effect_records": [
+      {
+        "file": "reliability-20261012T153552Z.json",
+        "status": "interrupted",
+        "trial": 13
+      },
+      {
+        "file": "reliability-20261012T155739Z.json",
+        "status": "interrupted",
+        "trial": 3
+      }
+    ]
   }
 }

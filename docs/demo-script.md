@@ -25,7 +25,7 @@ Everything." It is motion graphics, not product footage; keep it under 20 second
 | 2:05 | Run page, repair committed | "Inspect, compare and repair are allowed, and the agent carries on. It restores four fields in one checked transaction. The account is still revoked, the deleted customer is still deleted, the other tenant is untouched." |
 | 2:25 | tools.armoriq.ai trace for that run: allowed calls and the blocked call | "Here is the same run in the ArmorIQ console: every allowed call, the blocked call, and the reason." |
 | 2:45 | Terminal: `python tasks.py demo-mcp-agent` | "VeerIQ's agent can also drive the MCP server directly. Every action is an MCP tool call, and ArmorIQ allows or blocks it inside the server." |
-| 3:05 | Proof page, top block | "We ran this attack against a live model 84 times. It took the bait 23 times. ArmorIQ blocked all 23. Zero forbidden effects." |
+| 3:05 | Proof page, top block | "We ran this attack against a live model 84 times. It took the bait 23 times. ArmorIQ blocked all 23. Zero forbidden effects in the 82 records that observed them; two interrupted records lack that observation." |
 | 3:20 | Terminal: `./scripts/veeriq-verify` on the valid, then the tampered export | "Every run ends in a signed, hash-chained record anyone can verify offline. Change one byte and verification fails." |
 | 3:35 | Slide or workspace: takeaways | "What we learned: plan binding stops a hijacked agent cold, but tools are not arguments, so the data rules have to live next to the data. Next we want ArmorIQ holds for high-value repairs, argument-level policy, and connectors for real backups." |
 | 3:55 | Workspace | "VeerIQ. Restore yesterday's data, keep today's decisions." |

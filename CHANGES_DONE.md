@@ -74,4 +74,4 @@ Rebuild: `videos/demo-video/README.md`.
 
 ## Numbers used anywhere
 
-Only from `evidence/SUMMARY.json`: 84 live trials, the model tried to re-enable the revoked account 23 times, ArmorIQ blocked 23 of 23, 0 forbidden effects, 18 of 24 repairs. All data is synthetic.
+Only from `evidence/SUMMARY.json`: 84 live trials, the model tried to re-enable the revoked account 23 times, ArmorIQ blocked 23 of 23, 0 forbidden effects observed in 82 records with effect observations (2 interrupted records lack them), 18 of 24 repairs. All data is synthetic.

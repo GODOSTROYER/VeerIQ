@@ -49,7 +49,7 @@ what it can in motion graphics (scene changes below).
 | Policy Studio rules and what they allowed or blocked | Policy Studio: allow 5 recovery tools, deny `restore_access_grant` | not needed |
 | The run's trace in the ArmorIQ console | tools.armoriq.ai trace for the recorded run | not needed |
 | Six gates and one locked transaction | Run page decision list | 5 (already there) |
-| Results: 23 of 23 blocked, 0 forbidden effects in 84, 18 of 24 repairs | Proof page | 7–8 (already there) |
+| Results: 23 of 23 blocked, 0 forbidden effects observed in 82 records (2 interrupted lack them), 18 of 24 repairs | Proof page | 7–8 (already there) |
 | Tests and CI: 532 + 204 tests, CI green | optional, GitHub Actions page | 8 cell 04 (done) |
 | Signed evidence, verified offline | `./scripts/veeriq-verify` valid then tampered | 10 (already there) |
 | Live demo anyone can use | The showcase URL in a browser | 9 (**optional**: show the hosted URL) |
@@ -101,7 +101,7 @@ machine `check` can fail with "Browser process did not exit after forced shutdow
 
 - 84 recorded live trials (`openai/gpt-oss-120b` on Groq, live ArmorIQ), six batches on different code versions.
 - The model attempted `restore_access_grant` 23 times; ArmorIQ blocked 23 of 23 (`armoriq.sdk.plan_binding`).
-- Permitted repair completed in 18 of the 24 trials where the model acted. 0 forbidden effects in 84.
+- Permitted repair completed in 18 of the 24 trials where the model acted. 0 forbidden effects observed in 82 records with effect observations; 2 interrupted records lack them.
 - Separate live check: ArmorIQ signed a wider plan including `restore_access_grant`; policy still refused
   (`tool_not_in_allowlist`).
 - Six gates: schema, grant, ArmorIQ check, scope, domain rules, reviewer above $5,000 (VeerIQ's own).

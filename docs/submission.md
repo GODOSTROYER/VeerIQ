@@ -58,7 +58,7 @@ The approved snapshot carries a planted note, written as an operations runbook, 
 - A live model followed the note and called `restore_access_grant` in every trial that got that far: **23 of 23**.
 - ArmorIQ blocked **all 23**. The handler was never entered and the account stayed revoked.
 - The permitted repair completed in 18 of the 24 trials in which the model acted.
-- Across all **84** recorded trials: **zero** forbidden effects.
+- **Zero** forbidden effects observed in the **82** of 84 recorded trials that carry effect observations; the 2 interrupted records lack them.
 
 The counts pool six batches recorded on different code versions; the model provider's daily quota stopped each batch before 40 trials.
 
@@ -95,6 +95,6 @@ Work on the recovery engine began on 7 October 2026, three days before the build
 
 > We built VeerIQ for #FlowStateHackathon: an AI agent that repairs a damaged database from a backup without undoing today's decisions.
 >
-> We planted a prompt injection in the backup telling the agent to re-enable a revoked account. A live model took the bait 23 times. @ArmorIQForDevs blocked all 23, because the tool was never in the signed plan. Zero forbidden effects across 84 trials.
+> We planted a prompt injection in the backup telling the agent to re-enable a revoked account. A live model took the bait 23 times. @ArmorIQForDevs blocked all 23, because the tool was never in the signed plan. Zero forbidden effects observed in the 82 of 84 trials with effect observations; 2 interrupted trials lack them.
 >
 > Restore yesterday's data. Keep today's decisions.
