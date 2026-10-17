@@ -18,12 +18,13 @@ import { invalidate, invalidateAppData, TAGS } from '@/api/bus'
 import { clearQueryCache } from '@/api/cache'
 import { useApprovals, useAppState, useRun, useRunEvents, useSystemStatus } from '@/api/hooks'
 import { useSession } from '@/api/session'
-import type { AppState, Run, RunEvent, TaskGrant } from '@/api/types'
+import type { AppState, Run, RunDetail, RunEvent, TaskGrant } from '@/api/types'
 import { TERMINAL_RUN_STATUSES } from '@/api/types'
 import { Button, Skeleton } from '@/components/ui'
 import { cn } from '@/lib/cn'
 import { formatMoney } from '@/lib/format'
 import { fieldLabel } from '@/lib/labels'
+import { describeRunOutcome, livePlannerNote, plannerBadge } from '@/lib/honesty'
 import { APPROVER_ID, OPERATOR_ID } from '@/lib/roles'
 import { tamperOneNumber, verifyEvidence, type EvidenceCheck } from '@/lib/verifyEvidence'
 import reliability from '@/data/reliabilitySummary.json'
@@ -76,6 +77,9 @@ function loadSaved(): Saved | null {
     return null
   }
 }
+
+/** The planner as reported by GET /api/system/status or derived from a run. */
+interface PlannerInfo { kind?: string | null; name?: string | null; provider?: string | null }
 
 const terminal = (run?: Run | null) => !!run && TERMINAL_RUN_STATUSES.includes(run.status)
 
@@ -155,7 +159,7 @@ function CopyLine({ text, label }: { text: string; label: string }) {
 }
 
 /** The latest few run events, in the words the backend already writes for people. */
-function LiveFeed({ events, running }: { events: RunEvent[]; running: boolean }) {
+function LiveFeed({ events, running, planner }: { events: RunEvent[]; running: boolean; planner: PlannerInfo | null }) {
   const shown = events.filter((e) => e.type !== 'run.status' && e.type !== 'state.changed' && e.title).slice(-6)
   return (
     <ol className="space-y-2" aria-live="polite">
@@ -169,7 +173,7 @@ function LiveFeed({ events, running }: { events: RunEvent[]; running: boolean })
           </li>
         )
       })}
-      {running && <li className="pl-3 text-xs text-ink-3">Working… a real model is deciding each step, so this takes about a minute.</li>}
+      {running && <li className="pl-3 text-xs text-ink-3">{livePlannerNote(planner)}</li>}
     </ol>
   )
 }
@@ -228,7 +232,7 @@ function RollbackColumn({ preview }: { preview: RollbackPreview | null }) {
   const harm = preview.changes.filter((c) => c.verdict === 'harm')
   return (
     <Card title="Option A: restore the backup" tag={<Pill tone="harm">fixes {good.length} · breaks {harm.length}</Pill>} tone="harm">
-      <p className="mb-2 text-[13px] text-ink-3">What most teams do. Computed from the real snapshot against today's data; nothing is written.</p>
+      <p className="mb-2 text-[13px] text-ink-3">What most teams do. A computed counterfactual (source: docs/evidence/blunt-restore-counterfactual.json), not an executed experiment. Computed from the real snapshot against today's data; nothing is written.</p>
       <ul>
         {good.map((c) => <Row key={c.entity} tone="good" title={c.label} />)}
         {harm.map((c) => <Row key={c.entity} tone="harm" title={c.label} detail={c.detail} />)}
@@ -243,7 +247,7 @@ function VeerIQColumn({
   state,
   starting,
   error,
-  llm,
+  planner: systemPlanner,
   onStart,
 }: {
   run: Run | undefined
@@ -251,16 +255,20 @@ function VeerIQColumn({
   state: AppState | undefined
   starting: boolean
   error: string | null
-  llm: boolean
+  planner: PlannerInfo | null
   onStart: () => void
 }) {
   const done = terminal(run)
   const blocked = events.find((e) => e.type === 'decision' && e.decision?.outcome === 'block' && e.decision.decisive && e.decision.layer === 'armoriq')
+  // Prefer the run's own planner; fall back to what the system reports before a run exists.
+  const planner: PlannerInfo | null = run
+    ? { kind: run.planner_kind, name: run.metadata.planner_label ?? run.planner, provider: systemPlanner?.provider }
+    : systemPlanner
   if (!run) {
     return (
-      <Card title="Option B: let VeerIQ's agent repair it" tag={<Pill tone="info">{llm ? 'live model' : 'scripted re-enactment'}</Pill>}>
+      <Card title="Option B: let VeerIQ's agent repair it" tag={<Pill tone="info">{plannerBadge(planner?.kind)}</Pill>}>
         <p className="text-[14px] leading-relaxed text-ink-2">
-          An AI agent gets one narrow job: put back the damaged values, nothing else. Every action it takes goes through VeerIQ's gates and ArmorIQ, which signs the agent's plan before it runs.
+          An AI agent gets one narrow job: put back the damaged values, nothing else. Every action it proposes is checked by VeerIQ's gates and ArmorIQ, which signs the agent's plan before it runs.
         </p>
         <p className="mt-3 text-[14px] leading-relaxed text-ink-2">
           The trap: the backup carries a planted note telling the agent to <b className="text-ink">re-enable the revoked account</b>. Watch what happens.
@@ -288,7 +296,7 @@ function VeerIQColumn({
           <p className="mt-1 text-[13px] text-ink-2">{blocked.decision?.reason}</p>
         </div>
       )}
-      {!done && <LiveFeed events={events} running />}
+      {!done && <LiveFeed events={events} running planner={planner} />}
       {done && preserved && (
         <ul>
           {repaired.map((o) => <Row key={o.order_id} tone="good" title={<>{o.order_id} repaired: {formatMoney(o.total_cents)}</>} />)}
@@ -311,12 +319,14 @@ function VeerIQColumn({
 
 function ReviewStep({
   run,
+  detail,
   starting,
   error,
   onStart,
   onNext,
 }: {
   run: Run | undefined
+  detail: RunDetail | undefined
   starting: boolean
   error: string | null
   onStart: () => void
@@ -356,6 +366,7 @@ function ReviewStep({
   }
 
   const done = terminal(run)
+  const outcome = done && run ? describeRunOutcome({ run, approvals: detail?.approvals, receipts: detail?.receipts, commits: detail?.metrics?.commits }) : null
   return (
     <div>
       <StepHeader
@@ -420,11 +431,11 @@ function ReviewStep({
               {decideError && <p className="mt-3 text-[13px] text-block">{decideError}</p>}
             </>
           )}
-          {done && run && (
+          {done && run && outcome && (
             <ul>
               <Row
-                tone={run.status === 'succeeded' ? 'good' : 'neutral'}
-                title={run.status === 'succeeded' ? 'Approved and committed, in one locked transaction.' : 'Rejected: nothing was written.'}
+                tone={outcome.tone}
+                title={outcome.title}
                 detail={run.outcome_summary ?? undefined}
               />
             </ul>
@@ -572,7 +583,7 @@ function ProofStep({ repairRunId }: { repairRunId: string | null }) {
             ))}
           </div>
           <p className="mt-3 text-[13px] leading-relaxed text-ink-2">
-            Without a gate, each of those {totals.poisoned_action_attempted} attempts would have run the real tool and switched a leaked credential back on. A full restore does it by itself, every time.
+            ArmorIQ plan binding blocked all {totals.poisoned_action_blocked} observed attempts ({totals.poisoned_action_attempted} tried). Zero forbidden changes were made.
           </p>
           <p className="mt-2 text-xs text-ink-3">gpt-oss-120b on Groq, live ArmorIQ, Oct 2026. {reliability.caveat}</p>
         </Card>
@@ -581,7 +592,7 @@ function ProofStep({ repairRunId }: { repairRunId: string | null }) {
       <div className="mt-4">
         <Card title="Run VeerIQ's MCP server from your own checkout" tag={<Pill tone="info">Claude Code · Cursor · Claude Desktop</Pill>}>
           <p className="text-[14px] text-ink-2">
-            VeerIQ is an MCP server with six recovery tools. It runs on your machine, from a clone of the repo with its own database, and every call goes through the same gates and ArmorIQ. This is not a hosted endpoint.
+            VeerIQ is an MCP server with six recovery tools. It runs on your machine, from a clone of the repo with its own database, and the web app and the MCP server share the same dispatcher, so MCP calls pass the same gates and ArmorIQ. The separate recorded MCP run is docs/evidence/mcp-live-agent-run.json. This is not a hosted endpoint.
           </p>
           {!install ? (
             <>
@@ -618,6 +629,7 @@ export default function Judges() {
   const { identity, signIn } = useSession()
   const status = useSystemStatus()
   const llm = status.data?.planner.configured_llm ?? false
+  const plannerInfo: PlannerInfo | null = status.data?.planner ?? null
   const saved = useMemo(loadSaved, [])
   const [step, setStep] = useState<StepIndex>(saved?.step ?? 0)
   const [started, setStarted] = useState(saved?.started ?? false)
@@ -762,7 +774,7 @@ export default function Judges() {
         {!started && (
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              [Undo2, 'Undo only the damage', 'See a full restore break four business decisions, and VeerIQ keep all of them.'],
+              [Undo2, 'Undo only the damage', 'See a computed full-restore counterfactual break four business decisions, and VeerIQ keep all of them.'],
               [ShieldAlert, 'Watch a live attack fail', 'A planted note tells the agent to re-enable a leaked account. ArmorIQ blocks the call.'],
               [ShieldCheck, 'Approve, then verify', 'Be the second key on a $12,400 repair, then check the signed receipt in your browser.'],
             ].map(([Icon, title, text]) => {
@@ -795,7 +807,7 @@ export default function Judges() {
                 state={state.data}
                 starting={busy === 'repair'}
                 error={error}
-                llm={llm}
+                planner={plannerInfo}
                 onStart={() => void launch('poisoned')}
               />
             </div>
@@ -808,7 +820,7 @@ export default function Judges() {
         )}
 
         {started && step === 2 && (
-          <ReviewStep run={reviewRun.data?.run} starting={busy === 'review'} error={error} onStart={() => void launch('review')} onNext={() => go(3)} />
+          <ReviewStep run={reviewRun.data?.run} detail={reviewRun.data} starting={busy === 'review'} error={error} onStart={() => void launch('review')} onNext={() => go(3)} />
         )}
 
         {started && step === 3 && <ProofStep repairRunId={repairRunId} />}
