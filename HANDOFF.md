@@ -29,7 +29,7 @@ then [`videos/AGENT-CONTEXT.md`](videos/AGENT-CONTEXT.md) if you touch the video
 - **Docs.** README requirement table and MCP section; `docs/submission.md`; 4-minute `docs/demo-script.md`;
   `docs/live-demo.md`; `PROGRESS.md` (dated log).
 - **Videos.** 96 s HyperFrames showreel rendered 14 Oct (`videos/veeriq-showreel/`); needs updating, see
-  `videos/AGENT-CONTEXT.md`. The 4:21 submission demo video is delivered at `videos/demo-video/final/veeriq-demo-1080p.mp4`; public upload link pending. Current status: `docs/submission-status.md`.
+  `videos/AGENT-CONTEXT.md`. The 4:21 submission demo video is delivered at `videos/demo-video/final/veeriq-demo-1080p.mp4`; uploaded unlisted at https://youtu.be/KWJQHzLuUSo. Current status: `docs/submission-status.md`.
 - **CI** passes on `main`: lint, 538 backend tests, verifier acceptance, reliability summary, 210 frontend tests,
   build, production image, gitleaks. Runners pinned to `ubuntu-24.04` through the judging window.
 
@@ -42,8 +42,8 @@ Only the team can do these:
    agent and the MCP server). The ArmorClaude dev login on the dev machine is a staging plugin key, not this.
 3. Policy Studio: confirm or create "allow the five recovery tools" and "deny `restore_access_grant`".
 4. One live `python tasks.py demo-mcp-agent` run, to confirm the MCP path against live ArmorIQ.
-5. The showcase is deployed on Railway (project `veeriq`, service `veeriq-app`) at https://veeriq.arnavbule.in. It starts only once `ARMORIQ_API_KEY` is set in the service variables and the DNS records are in place. Turn App Sleeping off for 17–21 Oct; the static walkthrough is at https://veeriq.vercel.app.
-6. Record and upload the 3–5 min demo video (unlisted); post on X (@ArmorIQForDevs) or LinkedIn (ArmorIQ) with
+5. The showcase is deployed on Railway (project `veeriq`, service `veeriq-app`) at https://veeriq.arnavbule.in. Live since 17 Oct 2026 with live ArmorIQ and a live Groq model (`GROQ_API_KEY`). Turn App Sleeping off for 17–21 Oct; the static walkthrough is at https://veeriq.vercel.app.
+6. Demo video uploaded unlisted (https://youtu.be/KWJQHzLuUSo). Post on X (@ArmorIQForDevs) or LinkedIn (ArmorIQ) with
    #FlowStateHackathon; submit https://forms.gle/fxkXnY8xgeyZ3QQX6.
 7. Give judges access to this private repo, or make it public.
 

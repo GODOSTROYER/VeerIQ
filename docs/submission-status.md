@@ -5,9 +5,9 @@ Where this file disagrees with an older note in the repository, this file wins. 
 | Item | Status |
 |---|---|
 | Final commit | see `main` HEAD at submission (written against `f4a3f62`) |
-| Live demo | https://veeriq.arnavbule.in (Railway). Fallback: https://veeriq-app-production.up.railway.app. **Status: deploying; starts once the ArmorIQ key is configured. Not claimed to be up.** |
+| Live demo | https://veeriq.arnavbule.in (Railway). Fallback: https://veeriq-app-production.up.railway.app. **Status: live, checked 17 Oct 2026 ~23:00 IST**: live ArmorIQ, live Groq `openai/gpt-oss-120b` planner. A judge-path run on the hosted demo had `restore_access_grant` blocked by ArmorIQ plan binding and the repair commit. |
 | Static walkthrough | https://veeriq.vercel.app (recorded run and downloadable evidence; no live model, no live ArmorIQ) |
-| Demo video | 4:21, 1080p60, narrated: [`videos/demo-video/final/veeriq-demo-1080p.mp4`](../videos/demo-video/final/veeriq-demo-1080p.mp4) (Git LFS). Public link: **pending upload** (no `final/LINK.md` in the repository). |
+| Demo video | 4:21, 1080p60, narrated: [`videos/demo-video/final/veeriq-demo-1080p.mp4`](../videos/demo-video/final/veeriq-demo-1080p.mp4) (Git LFS). Public link (unlisted YouTube): https://youtu.be/KWJQHzLuUSo |
 | Secondary videos | 96 s showreel ([`videos/veeriq-showreel/`](../videos/veeriq-showreel/)) and the old 43 s clip ([`docs/video/veerIQ-demo.webm`](video/veerIQ-demo.webm)). Neither is the submission video. |
 | CI on `main` | Passing: [run 39040731496](https://github.com/GODOSTROYER/VeerIQ/actions/runs/39040731496), 17 Oct 2026, commit `f4a3f62` |
 | Test counts (from that CI log) | Backend: 538 passed, 1 skipped, 8 deselected. Frontend: 210 passed (9 files). Scripted planner and simulated ArmorIQ; live ArmorIQ checks are manual dispatch only. |
@@ -40,6 +40,6 @@ All data is synthetic. "Recorded" means a stored run in this repository; nothing
 - No sponsor HOLD or approval observed live. The reviewer step is VeerIQ's.
 - No batch finished 40 trials; counts pool six batches on different code versions.
 - Evidence is signed with a local operator key.
-- Live demo URL is not yet confirmed serving; check it before relying on it.
+- The live demo shares one demo dataset; two visitors pressing Start at once reset each other's run.
 - No load test or external security review; OIDC only rehearsed against local Keycloak.
 - Older notes saying hosted CI has not run on recent changes are superseded by the CI row above.
