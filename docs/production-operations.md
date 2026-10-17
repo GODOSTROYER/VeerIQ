@@ -68,4 +68,4 @@ A real local Keycloak rehearsal is available in [local-oidc-rehearsal.md](local-
 
 - There has been no public deployment, load test or external security review.
 - ArmorIQ hold and approval have not been observed live.
-- Key rotation, load testing and operational security remain open gaps in [readiness-scorecard.md](readiness-scorecard.md).
+- Key rotation, load testing and operational security remain open gaps in [limitations.md](limitations.md).

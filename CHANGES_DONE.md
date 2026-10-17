@@ -47,7 +47,6 @@ Files: `backend/rewindsafe/workflows/rewindsafe/queries.py`, `backend/rewindsafe
 
 - `README.md`: opens with the pitch, the July 2025 incident (sourced), and a "For judges: try it in 3 minutes" table with a screenshot (`docs/img/judges-1440.png`).
 - `docs/armoriq-findings.md`: what we learned building on ArmorIQ (plan binding 23/23; tools are checked, arguments are not; the amount-based hold could not be applied in our workspace; enforcement latency p50 828 ms / p95 1.56 s; what we would ask for).
-- `docs/plan-ctrl-z.md`: the plan this work followed.
 
 ## 5. The submission video (branch `submission-video`)
 
