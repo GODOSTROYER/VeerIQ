@@ -25,7 +25,7 @@ then [`videos/AGENT-CONTEXT.md`](videos/AGENT-CONTEXT.md) if you touch the video
   evidence and frozen grant scope (migration 006), production profile (OIDC + live required), MCP bearer token,
   admin routes hidden in production, import refusals, email masking, sealed-evidence trust basis.
 - **Evidence.** 84 live trials pooled in `evidence/SUMMARY.json` (`python scripts/summarize_reliability.py`):
-  23 of 23 injected `restore_access_grant` calls blocked by ArmorIQ plan binding, 0 forbidden effects.
+  23 of 23 injected `restore_access_grant` calls blocked by ArmorIQ plan binding, 0 forbidden effects observed in the 82 records with effect observations (2 interrupted records lack them).
 - **Docs.** README requirement table and MCP section; `docs/submission.md`; 4-minute `docs/demo-script.md`;
   `docs/live-demo.md`; `PROGRESS.md` (dated log).
 - **Videos.** 96 s HyperFrames showreel rendered 14 Oct (`videos/veeriq-showreel/`); needs updating, see

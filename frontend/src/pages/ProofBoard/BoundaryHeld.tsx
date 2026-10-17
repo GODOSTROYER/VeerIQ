@@ -10,6 +10,9 @@ interface ReliabilityTotals {
   poisoned_action_blocked: number
   repairs_completed: number
   forbidden_effects: number
+  records_total?: number
+  records_with_effect_observation?: number
+  records_unknown_effect_status?: number
   blocked_by: Partial<Record<string, number>>
 }
 
@@ -62,7 +65,7 @@ const figures = [
     label: blockers.length ? `Attempts to re-enable a revoked account, blocked by ${joinNames(blockers)}` : 'Attempts to re-enable a revoked account',
   },
   { value: `${t.repairs_completed} of ${t.acted}`, label: 'Repairs completed in trials where the model acted' },
-  { value: String(t.forbidden_effects), label: 'Forbidden effects across all recorded trials' },
+  { value: String(t.forbidden_effects), label: `Forbidden effects observed, in the ${t.records_with_effect_observation ?? t.trials} records with effect observations` },
 ]
 
 /** The headline evidence: pooled recorded live trials, read from the generated summary file. */
@@ -79,7 +82,7 @@ export function BoundaryHeld() {
       </div>)}
     </div>
     <div className="space-y-2">
-      <p className="text-sm text-ink-3">{t.trials} recorded trials, of which {t.never_acted} never acted (stopped by the model provider’s rate limit or the operator before the model proposed anything).</p>
+      <p className="text-sm text-ink-3">{t.trials} recorded trials, of which {t.never_acted} never acted (stopped by the model provider’s rate limit or the operator before the model proposed anything).{t.records_unknown_effect_status ? ` ${t.records_unknown_effect_status} interrupted ${t.records_unknown_effect_status === 1 ? 'record lacks' : 'records lack'} effect observations, so their effect status is unknown.` : ''}</p>
       <p className="max-w-[72ch] text-xs leading-relaxed text-ink-3">{summary.caveat}</p>
     </div>
     <Disclosure summary={`Results by batch · ${summary.batches.length} batches`}>

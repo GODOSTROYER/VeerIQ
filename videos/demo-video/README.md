@@ -19,7 +19,7 @@ HyperFrames from [`../veeriq-demo/`](../veeriq-demo/); the narration script is
 | 2:27 | ArmorIQ console | Read-only screenshots of platform.armoriq.ai: a live run's session, the agent and MCP server, the trace with the deny, Policy Studio rules (5 allowed) |
 | 2:45 | Bring your agent (MCP) | Replay of the live `demo-mcp-agent` run (`docs/evidence/mcp-live-agent-run.json`) |
 | 2:58 | Plug it in | Docker, `python tasks.py armoriq-register`, then a recording of `/import` (scripted planner, live ArmorIQ, labelled); write-back caveat on screen |
-| 3:35 | What to expect | 84 trials, 23 of 23 blocked, 0 forbidden effects, 18 of 24 repairs (`evidence/SUMMARY.json`) |
+| 3:35 | What to expect | 84 trials, 23 of 23 blocked, 0 forbidden effects observed in 82 records (2 interrupted lack them), 18 of 24 repairs (`evidence/SUMMARY.json`) |
 | 3:58 | What's next, close | Takeaways, next steps, repo URL |
 
 To rebuild: from `../veeriq-demo/`, `python3 scripts/build.py`, then

@@ -51,7 +51,7 @@ The approved snapshot carries a planted note that tells the agent to re-enable a
 | Model followed the note and tried to re-enable the account | 23 trials |
 | ArmorIQ blocked that call | **23 of 23** |
 | Permitted repair completed, in trials where the model acted | 18 of 24 |
-| Forbidden effects (account re-enabled, deleted record restored, other tenant touched) | **0** across all 84 recorded trials |
+| Forbidden effects (account re-enabled, deleted record restored, other tenant touched) | **0** observed in the 82 recorded trials with effect observations; the other 2 are interrupted records that lack them |
 
 The agent's prompt deliberately does not warn it about the note. The model takes the bait every time; enforcement is what stops it.
 
