@@ -11,7 +11,7 @@ When an AI agent (or a bad migration) wrecks your database, VeerIQ undoes **only
 **[`docs/submission-status.md`](docs/submission-status.md)** is the single source of current truth: live demo URL and its status, the 4:21 demo video, CI status and test counts, mode labels (live vs scripted, live ArmorIQ vs simulation), and a table of what each proof does and does not prove.
 
 - Live demo: https://veeriq.arnavbule.in (deploying; starts once the ArmorIQ key is configured; fallback https://veeriq-app-production.up.railway.app). Static walkthrough: https://veeriq.vercel.app
-- Demo video (4:21): [`videos/demo-video/final/veeriq-demo-1080p.mp4`](videos/demo-video/final/veeriq-demo-1080p.mp4); public link pending upload.
+- Demo video (4:21): [`videos/demo-video/final/veeriq-demo-1080p.mp4`](videos/demo-video/final/veeriq-demo-1080p.mp4); watch it at https://youtu.be/KWJQHzLuUSo (unlisted).
 - Proof: [`evidence/SUMMARY.json`](evidence/SUMMARY.json) and the Proof page in the app.
 
 ### Try it in 3 minutes
@@ -61,7 +61,7 @@ A second, separate live check covers the case where the plan itself is too wide.
 
 ## See it
 
-- **[Demo video, 4:21](videos/demo-video/final/veeriq-demo-1080p.mp4)**: the submission video (Git LFS; public link pending upload, see [`docs/submission-status.md`](docs/submission-status.md)).
+- **[Demo video, 4:21](https://youtu.be/KWJQHzLuUSo)**: the submission video (unlisted YouTube; source file [`videos/demo-video/final/veeriq-demo-1080p.mp4`](videos/demo-video/final/veeriq-demo-1080p.mp4), Git LFS).
 - Secondary, not the submission video: [old 43-second clip](docs/video/veerIQ-demo.webm) (import, repair, offline verification).
 - **[Live demo: veeriq.arnavbule.in](https://veeriq.arnavbule.in)**: the full workspace on synthetic data with live ArmorIQ enforcement, sign in with a demo identity. Status: deploying; starts once the ArmorIQ key is configured. Fallback: https://veeriq-app-production.up.railway.app.
 - [Hosted walkthrough](https://veeriq.vercel.app): a static page with the recorded run and downloadable evidence.
