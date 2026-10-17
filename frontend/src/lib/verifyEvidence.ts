@@ -120,48 +120,106 @@ function field(obj: Json, key: string): Json {
   return null
 }
 
+/**
+ * The operator's pinned Ed25519 public key (raw 32 bytes, base64). It is the same key the standalone
+ * verifier trusts by default: verification/operator-public-key.pem (shipped as
+ * public/verification/operator-public-key.pem). A test keeps this constant equal to that file.
+ */
+export const PINNED_OPERATOR_PUBLIC_KEY = 'FTH2cQ2PveT8vdthF4nHqr40yf2YKNEwHFqKTGjpNeY='
+
+export type SignerTrust = 'trusted' | 'untrusted' | 'no-pinned-key'
+
 export interface EvidenceCheck {
-  /** All three checks passed. */
+  /** Verified overall: integrity AND the signer is the pinned operator key. */
   valid: boolean
+  /** Hash chain, payload digest, signature and key fingerprint all check out (says nothing about who signed). */
+  integrity: boolean
   payloadDigest: boolean
   eventChain: boolean
   signature: boolean
+  /** The envelope's key_fingerprint field matches sha256 of its own public key bytes. */
+  fingerprintField: boolean
+  trust: SignerTrust
   /** The digest recomputed here, to show next to the one in the file. */
   computedDigest: string
   recordedDigest: string
   events: number
   runId: string
+  /** sha256 of the signer's raw public key bytes, computed here (never the envelope's own claim). */
   keyFingerprint: string
+  /** Fingerprint of the pinned key ('' when none is configured). */
+  pinnedFingerprint: string
+  /** One plain sentence for the UI. */
+  verdict: string
   error?: string
 }
 
+async function fingerprintOf(raw: Uint8Array): Promise<string> {
+  const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256', raw as BufferSource))
+  return `sha256:${Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')}`
+}
+
+function sameBytes(a: Uint8Array, b: Uint8Array): boolean {
+  return a.length === b.length && a.every((v, i) => v === b[i])
+}
+
+type Parts = Pick<EvidenceCheck, 'integrity' | 'trust' | 'keyFingerprint' | 'payloadDigest' | 'eventChain' | 'signature' | 'fingerprintField'>
+
+function verdictFor(c: Parts): string {
+  if (!c.integrity) {
+    const why = !c.payloadDigest
+      ? 'contents do not match their digest'
+      : !c.eventChain
+        ? 'event chain broken'
+        : !c.signature
+          ? 'signature invalid'
+          : 'key fingerprint does not match the key'
+    return `Integrity failed: ${why}`
+  }
+  if (c.trust === 'trusted') return `Verified: signed by VeerIQ's pinned operator key (fingerprint ${c.keyFingerprint})`
+  if (c.trust === 'no-pinned-key') return 'Embedded key only, signer not verified'
+  return 'Signature valid, but signed by an unknown key — NOT trusted'
+}
+
 /** Verify a sealed evidence file's text. */
-export async function verifyEvidence(text: string): Promise<EvidenceCheck> {
+export async function verifyEvidence(text: string, pinnedPublicKey: string | null = PINNED_OPERATOR_PUBLIC_KEY): Promise<EvidenceCheck> {
   const empty: EvidenceCheck = {
     valid: false,
+    integrity: false,
     payloadDigest: false,
     eventChain: false,
     signature: false,
+    fingerprintField: false,
+    trust: 'untrusted',
     computedDigest: '',
     recordedDigest: '',
     events: 0,
     runId: '',
     keyFingerprint: '',
+    pinnedFingerprint: '',
+    verdict: '',
   }
   try {
-    return await verifyParsed(parseEvidence(text))
+    return await verifyParsed(parseEvidence(text), pinnedPublicKey)
   } catch (err) {
-    return { ...empty, error: err instanceof Error ? err.message : String(err) }
+    const error = err instanceof Error ? err.message : String(err)
+    return { ...empty, error, verdict: `Integrity failed: ${error}` }
   }
 }
 
-export async function verifyParsed(envelope: Json): Promise<EvidenceCheck> {
+export async function verifyParsed(envelope: Json, pinnedPublicKey: string | null = PINNED_OPERATOR_PUBLIC_KEY): Promise<EvidenceCheck> {
   const payload = field(envelope, 'payload')
   const signature = field(envelope, 'signature')
   const statement = field(signature, 'statement')
   const events = field(payload, 'events')
   const chain = field(envelope, 'event_chain')
   if (!Array.isArray(events) || !Array.isArray(chain)) throw new Error('Not a sealed evidence file')
+  for (const name of ['statement', 'public_key', 'key_fingerprint', 'signature']) {
+    if (field(signature, name) === null) throw new Error(`Missing signature.${name}`)
+  }
+  if (typeof field(signature, 'public_key') !== 'string' || typeof field(signature, 'signature') !== 'string') {
+    throw new Error('Malformed signature block')
+  }
 
   const computedDigest = await sha256(payload)
   const recordedDigest = String(field(envelope, 'payload_digest') ?? '')
@@ -177,23 +235,35 @@ export async function verifyParsed(envelope: Json): Promise<EvidenceCheck> {
   }
   eventChain = eventChain && field(statement, 'event_chain_head') === (events.length ? previous : `sha256:${'0'.repeat(64)}`)
 
-  const key = await crypto.subtle.importKey('raw', base64Bytes(String(field(signature, 'public_key'))), { name: 'Ed25519' }, false, ['verify'])
+  const embeddedRaw = base64Bytes(String(field(signature, 'public_key')))
+  const keyFingerprint = await fingerprintOf(embeddedRaw)
+  const fingerprintField = field(signature, 'key_fingerprint') === keyFingerprint
+  const key = await crypto.subtle.importKey('raw', embeddedRaw as BufferSource, { name: 'Ed25519' }, false, ['verify'])
   const sigOk = await crypto.subtle.verify(
     'Ed25519',
     key,
-    base64Bytes(String(field(signature, 'signature'))),
+    base64Bytes(String(field(signature, 'signature'))) as BufferSource,
     encoder.encode(canonical(statement)),
   )
+
+  const integrity = payloadDigest && eventChain && sigOk && fingerprintField
+  let trust: SignerTrust = 'no-pinned-key'
+  let pinnedFingerprint = ''
+  if (pinnedPublicKey) {
+    const pinnedRaw = base64Bytes(pinnedPublicKey)
+    pinnedFingerprint = await fingerprintOf(pinnedRaw)
+    trust = sameBytes(pinnedRaw, embeddedRaw) ? 'trusted' : 'untrusted'
+  }
+  const parts: Parts = { integrity, trust, keyFingerprint, payloadDigest, eventChain, signature: sigOk, fingerprintField }
   return {
-    valid: payloadDigest && eventChain && sigOk,
-    payloadDigest,
-    eventChain,
-    signature: sigOk,
+    ...parts,
+    valid: integrity && trust === 'trusted',
     computedDigest,
     recordedDigest,
     events: events.length,
     runId: String(field(field(payload, 'run'), 'run_id') ?? ''),
-    keyFingerprint: String(field(signature, 'key_fingerprint') ?? ''),
+    pinnedFingerprint,
+    verdict: verdictFor(parts),
   }
 }
 

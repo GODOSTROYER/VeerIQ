@@ -512,7 +512,7 @@ function ProofStep({ repairRunId }: { repairRunId: string | null }) {
         lead="Every run ends in a signed receipt: each event hash-chained to the one before, signed with Ed25519. Your browser checks it below with its own crypto. Nothing is sent to our server."
       />
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card title="Verify the receipt of your repair" tag={real ? <Pill tone={real.valid ? 'good' : 'harm'}>{real.valid ? 'valid' : 'invalid'}</Pill> : undefined}>
+        <Card title="Verify the receipt of your repair" tag={real ? <Pill tone={real.valid ? 'good' : 'harm'}>{real.valid ? 'verified' : real.integrity ? 'not trusted' : 'integrity failed'}</Pill> : undefined}>
           {!real && (
             <>
               <p className="text-[14px] text-ink-2">Download the receipt of the repair you just ran and verify it here.</p>
@@ -527,8 +527,14 @@ function ProofStep({ repairRunId }: { repairRunId: string | null }) {
               <ul>
                 <CheckRow ok={real.payloadDigest} label="Contents match their fingerprint" detail={real.computedDigest.slice(0, 31) + '…'} />
                 <CheckRow ok={real.eventChain} label={`All ${real.events} events chained in order`} />
-                <CheckRow ok={real.signature} label="Ed25519 signature valid" detail={`Signer ${real.keyFingerprint.slice(0, 23)}…`} />
+                <CheckRow ok={real.signature && real.fingerprintField} label="Ed25519 signature valid" />
+                <CheckRow
+                  ok={real.trust === 'trusted'}
+                  label={real.trust === 'trusted' ? "Signed by VeerIQ's pinned operator key" : 'Signer is not the pinned operator key'}
+                  detail={`Signer ${real.keyFingerprint}`}
+                />
               </ul>
+              <p className={`mt-2 text-[13px] font-medium ${real.valid ? 'text-ink' : 'text-block'}`}>{real.verdict}</p>
               {!tampered ? (
                 <Button className="mt-4" variant="secondary" icon={<RotateCcw />} onClick={() => void tamper()}>
                   Change one number and check again
@@ -536,7 +542,7 @@ function ProofStep({ repairRunId }: { repairRunId: string | null }) {
               ) : (
                 <div className="mt-4 border-t border-line pt-3">
                   <p className="text-[13px] text-ink-2">
-                    Changed {tampered.changed}. Result: <b className={tampered.check.valid ? 'text-ink' : 'text-block'}>{tampered.check.valid ? 'still valid' : 'rejected'}</b>
+                    Changed {tampered.changed}. Result: <b className={tampered.check.valid ? 'text-ink' : 'text-block'}>{tampered.check.valid ? 'still verified' : 'rejected'}</b>
                   </p>
                   <ul className="mt-1">
                     <CheckRow ok={tampered.check.payloadDigest} label="Contents match their fingerprint" />
