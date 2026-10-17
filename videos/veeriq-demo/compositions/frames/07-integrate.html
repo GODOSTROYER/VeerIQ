@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="integrate-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #ig-world { position: absolute; inset: 0; transform-origin: 50% 60%; }
+        #ig-kick { position: absolute; left: 140px; top: 150px; font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; color: #e8602c; white-space: nowrap; }
+        #ig-hm { position: absolute; left: 140px; top: 190px; height: 116px; overflow: hidden; }
+        #ig-h { font-family: "Instrument Serif", serif; font-size: 108px; line-height: 116px; letter-spacing: -0.03em; white-space: nowrap; }
+        #ig-h i { color: #e8602c; }
+        /* The four steps: one rail, the active step lit. */
+        #ig-rail { position: absolute; left: 140px; top: 352px; width: 1640px; display: flex; gap: 16px; }
+        .ig-s { flex: 1; padding: 16px 20px; border: 2px solid rgba(242,241,237,0.18); background: #151517; font-family: "Geist Mono", monospace; }
+        .ig-s b { display: block; font-size: 15px; letter-spacing: 0.16em; color: #aaa9a7; }
+        .ig-s span { display: block; margin-top: 8px; font-size: 22px; color: #f2f1ed; white-space: nowrap; }
+        #ig-term { position: absolute; left: 140px; top: 500px; width: 1640px; height: 380px; background: #111113; border: 2px solid rgba(242,241,237,0.16); box-shadow: 0 40px 120px rgba(0,0,0,0.55); overflow: hidden; }
+        #ig-bar { height: 42px; background: #18181b; border-bottom: 2px solid rgba(242,241,237,0.08); display: flex; align-items: center; gap: 10px; padding-left: 18px; }
+        #ig-bar i { width: 12px; height: 12px; border-radius: 50%; background: rgba(242,241,237,0.22); }
+        #ig-bar span { margin-left: 16px; font-family: "Geist Mono", monospace; font-size: 15px; color: #aaa9a7; letter-spacing: 0.06em; }
+        .ig-pane { position: absolute; left: 34px; top: 70px; right: 34px; font-family: "Geist Mono", monospace; font-size: 26px; line-height: 50px; color: #aaa9a7; }
+        .ig-l { white-space: pre; height: 50px; }
+        .ig-l .p { color: #e8602c; }
+        .ig-l .c { color: #f2f1ed; }
+        .ig-l .ok { color: #a3ccb3; }
+        .ig-note { margin-top: 18px; font-size: 20px; line-height: 34px; color: #aaa9a7; white-space: nowrap; }
+        .ig-note b { color: #f2f1ed; font-weight: 500; }
+      </style>
+      <div data-hf-id="hf-actm" id="root" data-composition-id="integrate" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-ke9y" id="ig-world">
+          <div data-hf-id="hf-05v6" id="ig-kick">06&nbsp;&nbsp;—&nbsp;&nbsp;PLUG IT IN</div>
+          <div data-hf-id="hf-96a7" id="ig-hm"><div data-hf-id="hf-y4p5" id="ig-h">Plug VeerIQ into <i data-hf-id="hf-ci0n">your</i> system.</div></div>
+          <div data-hf-id="hf-4t32" id="ig-rail">
+            <div data-hf-id="hf-y9qq" class="ig-s" id="ig-s0"><b data-hf-id="hf-sg5u">STEP 01</b><span data-hf-id="hf-o32i">Deploy with Docker</span></div>
+            <div data-hf-id="hf-27ur" class="ig-s" id="ig-s1"><b data-hf-id="hf-sugv">STEP 02</b><span data-hf-id="hf-pfok">Connect ArmorIQ</span></div>
+            <div data-hf-id="hf-tjyw" class="ig-s" id="ig-s2"><b data-hf-id="hf-t8rw">STEP 03</b><span data-hf-id="hf-gsx2">Bring your data</span></div>
+            <div data-hf-id="hf-ubmp" class="ig-s" id="ig-s3"><b data-hf-id="hf-tn2x">STEP 04</b><span data-hf-id="hf-1057">Authorize &amp; run</span></div>
+          </div>
+          <div data-hf-id="hf-c0xo" id="ig-term">
+            <div data-hf-id="hf-e5rx" id="ig-bar"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><span data-hf-id="hf-73yl" id="ig-title">your-server — zsh</span></div>
+            <div data-hf-id="hf-qn4m" class="ig-pane" id="ig-p0">
+              <div data-hf-id="hf-1jr7" class="ig-l" id="ig-c0"></div>
+              <div data-hf-id="hf-mwb0" class="ig-note" id="ig-n0">Production profile: <b data-hf-id="hf-rmyz">OIDC sign-in</b> and <b data-hf-id="hf-rvne">live ArmorIQ</b> required, or it refuses to start.<br data-hf-id="hf-x5px" />API, UI and PostgreSQL in a <b data-hf-id="hf-ydr4">non-root, read-only</b> container · /api/health/ready · /metrics</div>
+            </div>
+            <div data-hf-id="hf-ul8n" class="ig-pane" id="ig-p1">
+              <div data-hf-id="hf-xln6" class="ig-l" id="ig-c1"></div>
+              <div data-hf-id="hf-4vl2" class="ig-l" id="ig-o0">Registering with ArmorIQ control plane...</div>
+              <div data-hf-id="hf-woen" class="ig-l" id="ig-o1"><span data-hf-id="hf-nd5k" class="ok">✓</span> Agent <span data-hf-id="hf-yfje" class="c">rewindsafe-recovery-agent</span> registered</div>
+              <div data-hf-id="hf-jm2e" class="ig-l" id="ig-o2"><span data-hf-id="hf-2bhs" class="ok">✓</span> MCP server <span data-hf-id="hf-38me" class="c">rewindsafe-recovery</span> registered</div>
+              <div data-hf-id="hf-lbzv" class="ig-l" id="ig-o3"><span data-hf-id="hf-14kp" class="ok">✓</span> Policy applied <span data-hf-id="hf-nt0w" class="c">(5 allowed, 1 denied)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // Enter from below; the import recording follows this frame.
+          tl.fromTo("#ig-world", { y: 160, filter: "blur(10px)" }, { y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0);
+          tl.fromTo("#ig-kick", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power3.out" }, 0.2);
+          tl.fromTo("#ig-h", { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: "expo.out" }, 0.35);
+          // "Four steps." (2.9 s): the rail assembles.
+          tl.fromTo(".ig-s", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.1 }, 2.85);
+          tl.fromTo("#ig-term", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 3.6);
+          // Light or dim a step (GSAP 3 has no className tween, so set the styles directly).
+          function step(i, on, t) {
+            tl.set("#ig-s" + i, { borderColor: on ? "#e8602c" : "rgba(242,241,237,0.18)", boxShadow: on ? "0 0 30px 2px rgba(232,96,44,0.28)" : "0 0 0px 0px rgba(232,96,44,0)" }, t);
+            tl.set("#ig-s" + i + " b", { color: on ? "#e8602c" : "#aaa9a7" }, t);
+          }
+          function typer(id, cmd, t0, t1) {
+            var el = document.getElementById(id), s = { v: 0 };
+            function draw(n) { el.innerHTML = '<span class="p">$</span> <span class="c">' + cmd.substring(0, n) + "</span>"; }
+            draw(0);
+            tl.to(s, { v: cmd.length, duration: t1 - t0, ease: "power1.inOut", onUpdate: function () { draw(Math.floor(s.v)); } }, t0);
+          }
+          // Step 1 "First, deploy it with Docker." (4.4 s)
+          step(0, true, 4.3);
+          typer("ig-c0", "docker compose -f compose.production.yml up --build -d", 4.45, 5.6);
+          tl.fromTo("#ig-n0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 5.7);
+          // Step 2 "Second, connect ArmorIQ with one command." (6.4 s); output on "agent / MCP server / policy".
+          step(0, false, 6.35);
+          step(1, true, 6.35);
+          tl.to("#ig-p0", { opacity: 0, y: -16, duration: 0.25, ease: "power2.in" }, 6.3);
+          gsap.set("#ig-p1, #ig-p1 .ig-l:not(#ig-c1)", { opacity: 0 });
+          tl.set("#ig-p1", { opacity: 1 }, 6.55);
+          typer("ig-c1", "python tasks.py armoriq-register", 6.8, 7.7);
+          [[8.9, "#ig-o0"], [9.9, "#ig-o1"], [11.2, "#ig-o2"], [12.4, "#ig-o3"]].forEach(function (o) {
+            tl.fromTo(o[1], { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, o[0]);
+          });
+          tl.fromTo("#ig-world", { scale: 1 }, { scale: 1.015, duration: 12.6, ease: "sine.inOut", immediateRender: false }, 0.5);
+          // Hand-off: the step rail stays lit for step 03 over the recording; this frame fades out.
+          tl.to("#ig-world", { opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 13.3);
+          window.__timelines["integrate"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

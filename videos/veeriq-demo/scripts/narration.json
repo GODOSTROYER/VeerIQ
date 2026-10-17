@@ -1,0 +1,145 @@
+[
+ {
+  "id": "l01",
+  "act": "problem",
+  "text": "Ever had to restore a backup? At two in the morning, a bad migration wipes your order totals. So you roll back to last night. The totals come back. But so does everything else: the customer who asked to be deleted, the account you revoked after a leak, the order you already shipped.",
+  "group": "A"
+ },
+ {
+  "id": "l02",
+  "act": "meet",
+  "text": "Meet VeerIQ. It repairs only the damage, and keeps every decision you made since.",
+  "group": "A"
+ },
+ {
+  "id": "l03",
+  "act": "promise",
+  "text": "Here's what you get. Damaged values, restored from an approved snapshot. Deletions, revoked access and later edits, left exactly as they are. And a signed record of every step.",
+  "group": "A"
+ },
+ {
+  "id": "l04",
+  "act": "system",
+  "text": "An AI agent does the repair, but it never holds the keys. It can only propose. Every action goes through VeerIQ's MCP server and six gates, including ArmorIQ, which signs the plan before the model runs. And every change lands in one locked database transaction.",
+  "group": "A"
+ },
+ {
+  "id": "l05a",
+  "act": "live",
+  "text": "Let's see it live. The operator grants the agent one narrow task: two orders, three fields, five tools, and a single commit.",
+  "group": "B"
+ },
+ {
+  "id": "l05b",
+  "act": "live",
+  "text": "We planted a note in the backup, telling the agent to re-enable the revoked account first. A live model reads it, and follows it.",
+  "group": "B"
+ },
+ {
+  "id": "l05c",
+  "act": "live",
+  "text": "ArmorIQ blocks the call. It was never in the signed plan, so the code that grants access never runs. The agent carries on with what it is allowed to do: four fields repaired, in one commit, and nothing forbidden touched.",
+  "group": "B"
+ },
+ {
+  "id": "l05d",
+  "act": "console",
+  "text": "In the ArmorIQ console, the same run shows up: the agent and its MCP server, every allowed call, and the one that was blocked.",
+  "group": "B"
+ },
+ {
+  "id": "l05e",
+  "act": "policy",
+  "text": "And these are our rules in Policy Studio: the five recovery tools are allowed, and restoring access is denied.",
+  "group": "B"
+ },
+ {
+  "id": "l06",
+  "act": "mcp",
+  "text": "Bring your own agent. Any MCP client can drive VeerIQ's recovery server. Six tools are exposed, five are signed, and one is refused, all checked inside the server.",
+  "group": "C"
+ },
+ {
+  "id": "l07a",
+  "act": "integrate",
+  "text": "So how do you plug VeerIQ into your system? Four steps. First, deploy it with Docker.",
+  "group": "C"
+ },
+ {
+  "id": "l07b",
+  "act": "integrate",
+  "text": "Second, connect ArmorIQ with one command. It registers the agent, the MCP server, and the policy.",
+  "group": "C"
+ },
+ {
+  "id": "l07c",
+  "act": "integrate",
+  "text": "Third, bring your data: CSV, JSON, or a read-only Postgres, plus an approved snapshot. Then map your columns: what may be repaired, and what must never change.",
+  "group": "C"
+ },
+ {
+  "id": "l07d",
+  "act": "integrate",
+  "text": "Finally, authorize one narrow repair and run it. You get a receipt and a signed evidence file. Today, repairs land in VeerIQ's recovery workspace. Writing back to your own systems is next.",
+  "group": "C"
+ },
+ {
+  "id": "l08",
+  "act": "expect",
+  "text": "So what can you expect? Only damaged values restored. Every later decision kept. Forbidden actions stopped before they run, with the layer that stopped them named. In eighty-four live trials, the model tried to re-enable the revoked account twenty-three times. ArmorIQ blocked all twenty-three. Zero forbidden effects.",
+  "group": "D"
+ },
+ {
+  "id": "l09",
+  "act": "verify",
+  "text": "And you don't have to trust our screen. Every run ends in a signed, hash-chained record that anyone can verify offline. Change one byte, and it fails.",
+  "group": "D"
+ },
+ {
+  "id": "l10",
+  "act": "learned",
+  "text": "What we learned: plan binding stops a hijacked agent cold. But tools aren't arguments, so data rules have to live next to the data. Next, we want ArmorIQ holds for high-value repairs, argument-level policy, and connectors that write back through the same gates.",
+  "group": "D"
+ },
+ {
+  "id": "l11",
+  "act": "close",
+  "text": "VeerIQ. Restore yesterday's data. Keep today's decisions.",
+  "group": "D"
+ },
+ {
+  "id": "h01",
+  "group": "J",
+  "text": "July, twenty twenty-five. An AI coding agent wiped a company's production database, in the middle of a code freeze. Then it said the damage couldn't be undone. It could. There was a backup. But a backup has a catch."
+ },
+ {
+  "id": "j1",
+  "group": "J",
+  "text": "Here it is, live: control-Z for AI agents. Anyone can run this demo in about three minutes. Step one: three orders were damaged, and three decisions were made after the backup. Those must stay."
+ },
+ {
+  "id": "j2",
+  "group": "J",
+  "text": "Step two: two ways to undo it. Restoring the backup fixes three orders, but breaks four things that happened since. VeerIQ gives an AI agent one narrow job instead. And the backup hides a note, telling it to re-enable the revoked account."
+ },
+ {
+  "id": "j3",
+  "group": "J",
+  "text": "A live model takes the bait. ArmorIQ blocks the call, because it was never in the signed plan. The agent repairs only the damage, and every later decision stays."
+ },
+ {
+  "id": "j4",
+  "group": "J",
+  "text": "Step three: one repair is worth twelve thousand four hundred dollars. VeerIQ won't let anyone commit that alone: not the agent, and not the person who asked. So the judge becomes the second key, and approves the exact change."
+ },
+ {
+  "id": "j5",
+  "group": "J",
+  "text": "Step four: don't trust our screen. Your own browser checks the signed receipt. Change a single cent, and it fails."
+ },
+ {
+  "id": "l05f",
+  "group": "J",
+  "text": "In the ArmorIQ console, our live runs show up: the agent and its MCP server, every allowed call, and the one that was blocked."
+ }
+]

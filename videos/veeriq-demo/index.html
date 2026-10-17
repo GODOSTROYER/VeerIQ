@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+      @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+      @font-face { font-family: "Sunflower"; font-style: normal; font-weight: 300; src: url("assets/fonts/Sunflower-normal-300.woff2") format("woff2"); }
+      @font-face { font-family: "Sunflower"; font-style: normal; font-weight: 500; src: url("assets/fonts/Sunflower-normal-500.woff2") format("woff2"); }
+      @font-face { font-family: "Sunflower"; font-style: normal; font-weight: 700; src: url("assets/fonts/Sunflower-normal-700.woff2") format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #0e0e10; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0e0e10; }
+      [data-composition-id="main"] > div[data-composition-src] { position: absolute; inset: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="269.44" data-width="1920" data-height="1080">
+      <!-- Scenes: one sub-composition each; recorded footage and its overlay in the live and import acts. -->
+      <div id="el-hook" data-composition-id="hook" data-composition-src="compositions/frames/00-hook.html" data-start="0" data-duration="15.6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-story" data-composition-id="story" data-composition-src="compositions/frames/01-story.html" data-start="15.6" data-duration="20.4" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-brand" data-composition-id="brand" data-composition-src="compositions/frames/03-brand.html" data-start="36" data-duration="7" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-promise" data-composition-id="promise" data-composition-src="compositions/frames/02-promise.html" data-start="43" data-duration="12.6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-system" data-composition-id="system" data-composition-src="compositions/frames/04b-system.html" data-start="55.6" data-duration="18.6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-flurry" data-composition-id="flurry" data-composition-src="compositions/frames/07-flurry.html" data-start="138.7" data-duration="8.4" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-console" data-composition-id="console" data-composition-src="compositions/frames/05d-console.html" data-start="147.1" data-duration="18.6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-mcp" data-composition-id="mcplive" data-composition-src="compositions/frames/08b-mcp-live.html" data-start="165.7" data-duration="12.6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-integrate" data-composition-id="integrate" data-composition-src="compositions/frames/07-integrate.html" data-start="178.3" data-duration="13.6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-expect" data-composition-id="expect" data-composition-src="compositions/frames/08-expect.html" data-start="215.64" data-duration="22.8" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-learned" data-composition-id="learned" data-composition-src="compositions/frames/12-learned.html" data-start="238.44" data-duration="19" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-outro" data-composition-id="outro" data-composition-src="compositions/frames/11-outro.html" data-start="257.44" data-duration="12" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <!-- Real product recordings (Playwright, 1080p). Rates and cuts are labelled on screen by the overlays. -->
+      <video id="jv-0" class="clip" src="assets/footage/judges.mp4" data-start="74.2" data-duration="13.8" data-media-start="1.1" data-playback-rate="1.183" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-1" class="clip" src="assets/footage/judges.mp4" data-start="88" data-duration="8.21" data-media-start="17.42" data-playback-rate="1" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-2" class="clip" src="assets/footage/judges.mp4" data-start="96.21" data-duration="9.59" data-media-start="25.63" data-playback-rate="1.282" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-3" class="clip" src="assets/footage/judges.mp4" data-start="105.8" data-duration="4" data-media-start="37.92" data-playback-rate="1" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-4" class="clip" src="assets/footage/judges.mp4" data-start="110.6" data-duration="6.2" data-media-start="94.84" data-playback-rate="1.708" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-5" class="clip" src="assets/footage/judges.mp4" data-start="116.8" data-duration="4.1" data-media-start="105.43" data-playback-rate="3.985" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-6" class="clip" src="assets/footage/judges.mp4" data-start="120.9" data-duration="6.5" data-media-start="121.77" data-playback-rate="1.455" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-7" class="clip" src="assets/footage/judges.mp4" data-start="127.4" data-duration="3.2" data-media-start="136.03" data-playback-rate="1" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="jv-8" class="clip" src="assets/footage/judges.mp4" data-start="130.6" data-duration="8.1" data-media-start="142.15" data-playback-rate="1.34" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="im-1" class="clip" src="assets/footage/import.mp4" data-start="191.9" data-duration="11.09" data-media-start="0.3" data-playback-rate="1.75" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="im-2" class="clip" src="assets/footage/import.mp4" data-start="202.99" data-duration="5.25" data-media-start="24.5" data-playback-rate="2" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <video id="im-3" class="clip" src="assets/footage/import.mp4" data-start="208.24" data-duration="7.4" data-media-start="53.07" data-playback-rate="1" data-track-index="2" muted playsinline style="position:absolute; left:209px; top:98px; width:1502px; height:846px; right:auto; bottom:auto; object-fit:cover;"></video>
+      <!-- Persistent chrome, then the footage overlays (their rails sit at the frame edge), then captions. -->
+      <div id="el-hud" data-composition-id="hud" data-composition-src="compositions/hud.html" data-start="0" data-duration="269.44" data-track-index="4" data-width="1920" data-height="1080"></div>
+      <div id="el-judgesov" data-composition-id="judgesov" data-composition-src="compositions/frames/05j-judges-ov.html" data-start="74.2" data-duration="64.5" data-track-index="3" data-width="1920" data-height="1080"></div>
+      <div id="el-importov" data-composition-id="importov" data-composition-src="compositions/frames/07b-import-ov.html" data-start="191.9" data-duration="23.74" data-track-index="3" data-width="1920" data-height="1080"></div>
+      <div id="el-captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-track-kind="captions" data-start="0" data-duration="269.44" data-track-index="5" data-width="1920" data-height="1080"></div>
+      <!-- Narration (Gemini TTS, one clip per line), music bed and effects (scripts/mix_bed.py). -->
+      <audio id="vo-h01" src="assets/vo/h01.wav" data-start="0.4" data-duration="14.79" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l01" src="assets/vo/l01.wav" data-start="16.1" data-duration="16.605" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l02" src="assets/vo/l02.wav" data-start="37.25" data-duration="5.91" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l03" src="assets/vo/l03.wav" data-start="43.4" data-duration="11.345" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l04" src="assets/vo/l04.wav" data-start="56" data-duration="16.31" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-j1" src="assets/vo/j1.wav" data-start="74.5" data-duration="13.025" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-j2" src="assets/vo/j2.wav" data-start="88.2" data-duration="16.445" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-j3" src="assets/vo/j3.wav" data-start="105.2" data-duration="10.855" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-j4" src="assets/vo/j4.wav" data-start="116.8" data-duration="13.25" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-j5" src="assets/vo/j5.wav" data-start="130.8" data-duration="7.33" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l05f" src="assets/vo/l05f.wav" data-start="148.1" data-duration="7.685" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l05e" src="assets/vo/l05e.wav" data-start="157" data-duration="7.145" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l06" src="assets/vo/l06.wav" data-start="166" data-duration="11.475" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l07a" src="assets/vo/l07a.wav" data-start="178.7" data-duration="5.665" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l07b" src="assets/vo/l07b.wav" data-start="184.7" data-duration="6.58" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l07c" src="assets/vo/l07c.wav" data-start="192.2" data-duration="10.61" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l07d" src="assets/vo/l07d.wav" data-start="203.3" data-duration="11.21" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l08" src="assets/vo/l08.wav" data-start="216.04" data-duration="21.165" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l10" src="assets/vo/l10.wav" data-start="238.84" data-duration="17.705" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-l11" src="assets/vo/l11.wav" data-start="261.14" data-duration="4.795" data-track-index="10" data-volume="1"></audio>
+      <audio id="el-music" src="assets/audio/music.wav" data-start="0" data-duration="269.44" data-track-index="11" data-volume="1"></audio>
+      <audio id="el-sfx" src="assets/audio/sfx.wav" data-start="0" data-duration="269.44" data-track-index="12" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

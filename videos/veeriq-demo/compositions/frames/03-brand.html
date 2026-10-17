@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="brand-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        @font-face { font-family: "Sunflower"; font-style: normal; font-weight: 500; src: url("../../assets/fonts/Sunflower-normal-500.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #br-world { position: absolute; inset: 0; transform-origin: 50% 45%; }
+        .br-ring { position: absolute; left: 960px; top: 430px; width: 900px; height: 900px; margin: -450px 0 0 -450px; border-radius: 50%; border: 2px solid rgba(255,148,103,0.35); }
+        #br-glow { position: absolute; left: 597px; top: 430px; width: 760px; height: 760px; margin: -380px 0 0 -380px; border-radius: 50%; background: radial-gradient(circle, rgba(232,96,44,0.42) 0%, rgba(232,96,44,0.12) 40%, rgba(232,96,44,0) 70%); }
+        #br-hot { position: absolute; left: 0; top: 538px; width: 1920px; height: 4px; background: #fff1e8; box-shadow: 0 0 30px 8px rgba(255,128,80,0.75); transform-origin: 50% 50%; }
+        #br-spark { position: absolute; left: 960px; top: 540px; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: #fff1e8; box-shadow: 0 0 30px 12px rgba(255,128,80,0.9); }
+        #br-lockup { position: absolute; left: 470px; top: 300px; width: 980px; height: 260px; }
+        #br-mark { position: absolute; left: 0; top: 0; width: 254px; height: 254px; }
+        #br-mark svg { width: 254px; height: 254px; overflow: visible; }
+        #br-mark path { fill: none; stroke: #ff9467; stroke-linejoin: round; stroke-linecap: round; }
+        #br-wm-mask { position: absolute; left: 290px; top: 0; width: 860px; height: 270px; overflow: hidden; }
+        #br-wm { position: absolute; left: 0; top: 4px; font-family: "Sunflower", sans-serif; font-weight: 500; font-size: 250px; line-height: 250px; letter-spacing: -0.03em; white-space: nowrap; display: flex; }
+        #br-wm span { display: inline-block; }
+        .br-guide { position: absolute; background: rgba(255,148,103,0.45); }
+        .br-note { position: absolute; font-family: "Geist Mono", monospace; font-size: 17px; letter-spacing: 0.16em; color: #ff9467; white-space: nowrap; }
+        #br-under { position: absolute; left: 470px; top: 596px; width: 980px; height: 3px; background: #e8602c; transform-origin: 0 50%; }
+        #br-tag { position: absolute; left: 470px; top: 640px; width: 980px; }
+        .br-tl-mask { overflow: hidden; height: 104px; }
+        .br-tl { font-family: "Instrument Serif", serif; font-size: 92px; line-height: 104px; letter-spacing: -0.025em; white-space: nowrap; }
+        #br-tl2 { font-style: italic; color: #e8602c; }
+        #br-meta { position: absolute; left: 470px; top: 880px; width: 980px; display: flex; justify-content: space-between; font-family: "Geist Mono", monospace; font-size: 19px; letter-spacing: 0.14em; color: #aaa9a7; }
+      </style>
+      <div data-hf-id="hf-ln9k" id="root" data-composition-id="brand" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-szou" id="br-world">
+          <div data-hf-id="hf-kwip" class="br-ring" id="br-ring0" data-layout-ignore></div>
+          <div data-hf-id="hf-hx94" class="br-ring" id="br-ring1" data-layout-ignore></div>
+          <div data-hf-id="hf-ssqr" class="br-ring" id="br-ring2" data-layout-ignore></div>
+          <div data-hf-id="hf-6o8q" id="br-glow" data-layout-ignore></div>
+          <div data-hf-id="hf-q3vo" id="br-lockup">
+            <div data-hf-id="hf-6ef1" id="br-mark">
+              <svg data-hf-id="hf-nlni" viewBox="0 0 32 32" aria-hidden="true">
+                <path data-hf-id="hf-lnjc" id="br-shield" stroke-width="1.7" d="M16 3 27 8v9c0 6-6 10-11 13C11 27 5 23 5 17V8L16 3Z" />
+                <path data-hf-id="hf-fi4i" id="br-chev" stroke-width="2" d="m10 11 6 11 6-11" />
+              </svg>
+            </div>
+            <div data-hf-id="hf-ww7f" id="br-wm-mask"><div data-hf-id="hf-icom" id="br-wm"><span data-hf-id="hf-dn4l">V</span><span data-hf-id="hf-xwr0">e</span><span data-hf-id="hf-pn38">e</span><span data-hf-id="hf-ry5l">r</span><span data-hf-id="hf-jlq0">I</span><span data-hf-id="hf-gf9s">Q</span></div></div>
+          </div>
+          <div data-hf-id="hf-oj8q" class="br-guide" id="br-g-base" style="left:430px; top:524px; width:1060px; height:2px;" data-layout-ignore></div>
+          <div data-hf-id="hf-i9qj" class="br-guide" id="br-g-cap" style="left:430px; top:346px; width:1060px; height:2px;" data-layout-ignore></div>
+          <div data-hf-id="hf-a231" class="br-guide" id="br-g-axis" style="left:597px; top:250px; width:2px; height:420px;" data-layout-ignore></div>
+          <div data-hf-id="hf-fn8a" class="br-note" id="br-n1" style="left:1502px; top:514px;">BASELINE</div>
+          <div data-hf-id="hf-j0cw" class="br-note" id="br-n2" style="left:1502px; top:336px;">CAP</div>
+          <div data-hf-id="hf-e3je" class="br-note" id="br-n3" style="left:540px; top:222px;">REWIND SHIELD</div>
+          <div data-hf-id="hf-6lf4" id="br-under"></div>
+          <div data-hf-id="hf-6nkq" id="br-tag">
+            <div data-hf-id="hf-dmk6" class="br-tl-mask"><div data-hf-id="hf-blhx" class="br-tl" id="br-tl1">Restore yesterday's data.</div></div>
+            <div data-hf-id="hf-94gq" class="br-tl-mask"><div data-hf-id="hf-7abb" class="br-tl" id="br-tl2">Keep today's decisions.</div></div>
+          </div>
+          <div data-hf-id="hf-8gwh" id="br-meta"><span data-hf-id="hf-b8sf" id="br-m1">RECOVERY AGENT</span><span data-hf-id="hf-kx0z" id="br-m2">ARMORIQ DECIDES · VEERIQ EXECUTES</span><span data-hf-id="hf-4h8g" id="br-m3">SIGNED EVIDENCE</span></div>
+        </div>
+        <div data-hf-id="hf-p4e6" id="br-hot" data-layout-ignore></div>
+        <div data-hf-id="hf-rm94" id="br-spark" data-layout-ignore></div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          // Ignite: the collapsed line from the previous frame retracts into one spark at centre.
+          tl.fromTo("#br-hot", { scaleX: 1, opacity: 1 }, { scaleX: 0, opacity: 0.6, duration: 0.38, ease: "power3.in" }, 0);
+          tl.set("#br-hot", { opacity: 0 }, 0.39);
+          tl.fromTo("#br-spark", { scale: 0, opacity: 0 }, { scale: 1.5, opacity: 1, duration: 0.12, ease: "expo.out" }, 0.34);
+          tl.to("#br-spark", { scale: 0, opacity: 0, x: -363, y: -110, duration: 0.45, ease: "power3.inOut" }, 0.46);
+
+          // Guide rings pulse outward from the mark's centre.
+          ["#br-ring0", "#br-ring1", "#br-ring2"].forEach(function (id, i) {
+            tl.fromTo(id, { scale: 0.18, opacity: 0.9 }, { scale: 1.5 + i * 0.25, opacity: 0, duration: 1.8, ease: "power2.out" }, 0.45 + i * 0.18);
+          });
+          gsap.set(".br-ring", { x: -363 });
+
+          // The shield draws itself from its top vertex; the chevron follows at ~75%.
+          var shield = document.getElementById("br-shield"), chev = document.getElementById("br-chev");
+          var L1 = shield.getTotalLength() * 1.04, L2 = chev.getTotalLength() * 1.04;
+          shield.style.strokeDasharray = L1; chev.style.strokeDasharray = L2;
+          gsap.set([shield, chev], { opacity: 0 });
+          tl.set(shield, { opacity: 1 }, 0.5);
+          tl.set(chev, { opacity: 1 }, 1.1);
+          tl.fromTo(shield, { strokeDashoffset: L1 }, { strokeDashoffset: 0, duration: 0.8, ease: "power2.out" }, 0.5);
+          tl.fromTo(chev, { strokeDashoffset: L2 }, { strokeDashoffset: 0, duration: 0.42, ease: "power2.out" }, 1.1);
+          tl.fromTo("#br-glow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.9, ease: "power2.out" }, 0.9);
+          var gp = { p: 0 }, glowEl = document.getElementById("br-glow");
+          tl.to(gp, { p: Math.PI * 4, duration: 3.5, ease: "none", onUpdate: function () {
+            var s = Math.sin(gp.p);
+            gsap.set(glowEl, { opacity: 1 - Math.abs(s) * 0.12, scale: 1 + s * 0.04 });
+          } }, 2.2);
+
+          // Mark starts centred, then slides left as the wordmark cascades out from behind it.
+          tl.fromTo("#br-mark", { x: 363, scale: 1.12 }, { x: 363, scale: 1.12, duration: 0.01 }, 0);
+          tl.fromTo("#br-glow", { x: 363 }, { x: 363, duration: 0.01 }, 0);
+          tl.to("#br-glow", { x: 0, duration: 0.7, ease: "power3.inOut" }, 1.45);
+          tl.to("#br-mark", { x: 0, scale: 1, duration: 0.7, ease: "power3.inOut" }, 1.45);
+          var letters = document.querySelectorAll("#br-wm span");
+          for (var i = 0; i < letters.length; i++) {
+            var t = 1.62 + i * 0.065;
+            tl.set(letters[i], { opacity: 1, x: -150 - i * 10 }, t);
+            tl.to(letters[i], { x: 0, duration: 0.5, ease: "expo.out" }, t);
+          }
+          gsap.set("#br-wm span", { opacity: 0 });
+
+          // Construction lines: a type-specimen moment, then they leave the clean lockup.
+          tl.fromTo("#br-g-base, #br-g-cap", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.6, ease: "expo.inOut", stagger: 0.08 }, 1.95);
+          tl.fromTo("#br-g-axis", { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.6, ease: "expo.inOut" }, 2.0);
+          tl.fromTo("#br-n1, #br-n2, #br-n3", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out", stagger: 0.07 }, 2.25);
+          tl.to(".br-guide, #br-n1, #br-n2, #br-n3", { opacity: 0, duration: 0.5, ease: "power2.in" }, 3.55);
+
+          // The line returns as the wordmark's underline.
+          tl.fromTo("#br-under", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "expo.inOut" }, 2.45);
+
+          // Tagline rises from behind the underline; the promise is the italic half.
+          tl.fromTo("#br-tl1", { yPercent: 105 }, { yPercent: 0, duration: 0.6, ease: "power4.out" }, 2.95);
+          tl.fromTo("#br-tl2", { yPercent: 105 }, { yPercent: 0, duration: 0.65, ease: "expo.out" }, 3.3);
+          ["#br-m1", "#br-m2", "#br-m3"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 3.75 + i * 0.08);
+          });
+
+          // Slow push through the hold; then a velocity-matched push up into the next frame.
+          tl.fromTo("#br-world", { scale: 1 }, { scale: 1.03, duration: 5.44, ease: "sine.inOut" }, 0.3);
+          tl.fromTo("#br-world", { y: 0, filter: "blur(0px)" }, { y: -170, filter: "blur(10px)", duration: 0.26, ease: "power3.in", immediateRender: false }, 5.74);
+
+
+          // Demo cut: retimed to the narration. ANCHORS map this scene's authored clock (left) to the
+          // narration clock (right). Starts follow the map; durations follow the local slope, clamped so
+          // pops stay snappy and holds do not crawl.
+          var ANCHORS = [[0, 0], [5.74, 6.74], [6, 7.0]];
+          function T(t) {
+            for (var i = 1; i < ANCHORS.length; i++) {
+              if (t <= ANCHORS[i][0]) { var a = ANCHORS[i - 1], b = ANCHORS[i]; return a[1] + (t - a[0]) * (b[1] - a[1]) / (b[0] - a[0]); }
+            }
+            var l = ANCHORS[ANCHORS.length - 1]; return l[1] + (t - l[0]);
+          }
+          tl.getChildren(false, true, true).forEach(function (c) {
+            var s0 = c.startTime(), d0 = c.duration(), s1 = T(s0);
+            if (d0 > 0) { var k = (T(s0 + d0) - s1) / d0; c.duration(d0 * Math.max(0.7, Math.min(k, 1.6))); }
+            c.startTime(s1);
+          });
+
+          window.__timelines["brand"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

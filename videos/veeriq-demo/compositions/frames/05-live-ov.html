@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="liveov-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; }
+        /* The recording sits in a frame (211, 100, 1498 × 842); the rails use the margins either side. */
+        #lo-frame { position: absolute; left: 207px; top: 96px; width: 1506px; height: 850px; border: 2px solid rgba(242,241,237,0.22); box-shadow: 0 30px 90px rgba(0,0,0,0.6); }
+        .lo-rail { position: absolute; top: 150px; width: 168px; font-family: "Geist Mono", monospace; white-space: nowrap; }
+        #lo-left { left: 28px; }
+        #lo-right { right: 24px; text-align: left; }
+        .lo-k { font-size: 13px; letter-spacing: 0.16em; color: #aaa9a7; margin-top: 26px; }
+        .lo-v { margin-top: 6px; font-size: 17px; color: #f2f1ed; line-height: 24px; }
+        .lo-live { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; letter-spacing: 0.12em; color: #e8602c; }
+        .lo-live i { width: 10px; height: 10px; border-radius: 50%; background: #e8602c; box-shadow: 0 0 12px 3px rgba(232,96,44,0.6); }
+        #lo-speed { font-size: 30px; font-weight: 600; color: #e8602c; font-variant-numeric: tabular-nums; }
+        #lo-stepn { font-family: "Instrument Serif", serif; font-style: italic; font-size: 64px; line-height: 64px; color: #e8602c; margin-top: 4px; }
+        #lo-stept { margin-top: 10px; font-size: 16px; line-height: 23px; color: #f2f1ed; white-space: normal; width: 168px; }
+        #lo-cut { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: flex; align-items: center; justify-content: center; background: #0e0e10; opacity: 0; }
+        #lo-cut div { text-align: center; font-family: "Geist Mono", monospace; }
+        #lo-cut b { display: block; font-size: 22px; letter-spacing: 0.3em; color: #e8602c; }
+        #lo-cut span { display: block; margin-top: 14px; font-family: "Instrument Serif", serif; font-size: 64px; color: #f2f1ed; }
+      </style>
+      <div data-hf-id="hf-h1ho" id="root" data-composition-id="liveov" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-qo3v" id="lo-frame" data-layout-ignore></div>
+        <div data-hf-id="hf-djy5" class="lo-rail" id="lo-left">
+          <div data-hf-id="hf-s4m7" class="lo-live"><i data-hf-id="hf-wt6k"></i>LIVE PRODUCT</div>
+          <div data-hf-id="hf-2qp0" class="lo-k">MODEL</div><div data-hf-id="hf-jve1" class="lo-v">gpt-oss-120b<br data-hf-id="hf-x5px" />on Groq</div>
+          <div data-hf-id="hf-5av0" class="lo-k">ARMORIQ</div><div data-hf-id="hf-69zy" class="lo-v">live enforcement</div>
+          <div data-hf-id="hf-00c2" class="lo-k">SPEED</div><div data-hf-id="hf-37w6" class="lo-v" id="lo-speed">1.23×</div>
+        </div>
+        <div data-hf-id="hf-znkw" class="lo-rail" id="lo-right">
+          <div data-hf-id="hf-xosh" class="lo-k" style="margin-top:0">STEP</div>
+          <div data-hf-id="hf-dons" id="lo-stepn">1</div>
+          <div data-hf-id="hf-8b7b" id="lo-stept">Grant one narrow task</div>
+        </div>
+        <div data-hf-id="hf-vgn5" id="lo-cut"><div data-hf-id="hf-yeow"><b data-hf-id="hf-g4n7">CUT</b><span data-hf-id="hf-t54p">The run finishes 82 seconds later.</span></div></div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#lo-frame", { opacity: 0, scale: 0.985 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, 0);
+          tl.fromTo(".lo-rail", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.1 }, 0.2);
+          // Speed and step follow the edit: A 1.25x (0-10.56), B 1.5x (10.56-17.96), B2 1x, cut card, C 1x.
+          var STEPS = [[0, "1", "Grant one narrow task", "1.23×"], [10.56, "2", "A planted note asks for a revoked account", "1.5×"],
+                       [17.96, "3", "ArmorIQ blocks the call", "1×"], [21.76, "4", "Repaired in one commit; every decision kept", "1×"]];
+          var n = document.getElementById("lo-stepn"), t = document.getElementById("lo-stept"), sp = document.getElementById("lo-speed"), st = { v: 0 };
+          tl.to(st, { v: 36.4, duration: 36.4, ease: "none", onUpdate: function () {
+            var k = 0; for (var i = 0; i < STEPS.length; i++) if (st.v >= STEPS[i][0]) k = i;
+            n.textContent = STEPS[k][1]; t.textContent = STEPS[k][2]; sp.textContent = STEPS[k][3];
+          } }, 0);
+          STEPS.slice(1).forEach(function (s) {
+            tl.fromTo("#lo-stepn", { scale: 1.35 }, { scale: 1, duration: 0.4, ease: "expo.out", immediateRender: false }, s[0]);
+          });
+          // The honest cut: the recording skips the model's remaining two minutes.
+          tl.fromTo("#lo-cut", { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none", immediateRender: false }, 20.96);
+          tl.fromTo("#lo-cut span", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, 21.0);
+          tl.to("#lo-cut", { opacity: 0, duration: 0.18, ease: "none" }, 21.58);
+          window.__timelines["liveov"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

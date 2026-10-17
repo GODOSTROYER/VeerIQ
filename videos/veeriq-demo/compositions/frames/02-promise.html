@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="promise-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #pm-world { position: absolute; inset: 0; transform-origin: 50% 55%; }
+        #pm-glow { position: absolute; left: 960px; top: 620px; width: 1800px; height: 900px; margin: -450px 0 0 -900px; border-radius: 50%; background: radial-gradient(ellipse, rgba(232,96,44,0.12) 0%, rgba(232,96,44,0) 60%); }
+        #pm-kick { position: absolute; left: 140px; top: 168px; font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; color: #e8602c; white-space: nowrap; }
+        #pm-hm { position: absolute; left: 140px; top: 210px; height: 124px; overflow: hidden; }
+        #pm-h { font-family: "Instrument Serif", serif; font-size: 116px; line-height: 124px; letter-spacing: -0.03em; white-space: nowrap; }
+        #pm-h i { color: #e8602c; }
+        #pm-line { position: absolute; left: 140px; top: 372px; width: 1640px; height: 3px; background: #e8602c; transform-origin: 0 50%; }
+        #pm-cards { position: absolute; left: 140px; top: 410px; display: flex; gap: 22px; }
+        .pm-c { position: relative; width: 532px; height: 480px; padding: 30px 32px; background: #151517; border: 2px solid rgba(242,241,237,0.16); }
+        .pm-c .n { font-family: "Instrument Serif", serif; font-style: italic; font-size: 64px; line-height: 64px; color: #e8602c; }
+        .pm-c .k { margin-top: 14px; font-family: "Geist Mono", monospace; font-size: 18px; letter-spacing: 0.16em; color: #aaa9a7; white-space: nowrap; }
+        .pm-c .t { margin-top: 16px; font-family: "Instrument Serif", serif; font-size: 44px; line-height: 50px; letter-spacing: -0.02em; color: #f2f1ed; }
+        .pm-c .viz { position: absolute; left: 32px; right: 32px; bottom: 30px; height: 96px; display: flex; align-items: center; gap: 12px; font-family: "Geist Mono", monospace; }
+        .pm-price { display: flex; align-items: center; gap: 14px; font-size: 34px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .pm-price .old { color: #ffa185; text-decoration: line-through; text-decoration-thickness: 3px; }
+        .pm-price .arr { color: #aaa9a7; font-size: 26px; }
+        .pm-price .new { color: #a3ccb3; }
+        .pm-lock { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; background: #a3ccb3; color: #0e0e10; font-size: 15px; font-weight: 700; letter-spacing: 0.08em; white-space: nowrap; }
+        .pm-blk { width: 84px; height: 64px; border: 3px solid #e8602c; background: #111113; display: flex; flex-direction: column; justify-content: center; padding-left: 10px; }
+        .pm-blk b { font-size: 16px; color: #f2f1ed; }
+        .pm-blk span { font-size: 12px; color: #aaa9a7; }
+        .pm-link { width: 22px; height: 3px; background: #e8602c; }
+        .pm-seal { padding: 8px 12px; background: #e8602c; color: #0e0e10; font-size: 15px; font-weight: 700; letter-spacing: 0.08em; white-space: nowrap; }
+      </style>
+      <div data-hf-id="hf-oabg" id="root" data-composition-id="promise" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-xb27" id="pm-world">
+          <div data-hf-id="hf-o8ip" id="pm-glow" data-layout-ignore></div>
+          <div data-hf-id="hf-or17" id="pm-kick">03&nbsp;&nbsp;—&nbsp;&nbsp;WHAT YOU GET</div>
+          <div data-hf-id="hf-7cnc" id="pm-hm"><div data-hf-id="hf-3wkl" id="pm-h">Three <i data-hf-id="hf-lbok">promises.</i></div></div>
+          <div data-hf-id="hf-t5of" id="pm-line"></div>
+          <div data-hf-id="hf-8su2" id="pm-cards">
+            <div data-hf-id="hf-nppa" class="pm-c" id="pm-c0">
+              <div data-hf-id="hf-7h2p" class="n">01</div><div data-hf-id="hf-xkej" class="k">ONLY THE DAMAGE</div>
+              <div data-hf-id="hf-1bk7" class="t">Damaged values, restored from an approved snapshot.</div>
+              <div data-hf-id="hf-76sj" class="viz"><div data-hf-id="hf-a3il" class="pm-price"><span data-hf-id="hf-abhq" class="old">$0.00</span><span data-hf-id="hf-8mm0" class="arr">→</span><span data-hf-id="hf-ffhe" class="new" id="pm-v0">$1,240.00</span></div></div>
+            </div>
+            <div data-hf-id="hf-rntb" class="pm-c" id="pm-c1">
+              <div data-hf-id="hf-8nzs" class="n">02</div><div data-hf-id="hf-3ifk" class="k">EVERY DECISION KEPT</div>
+              <div data-hf-id="hf-zj3w" class="t">Deletions, revoked access and later edits stay exactly as they are.</div>
+              <div data-hf-id="hf-vztv" class="viz"><span data-hf-id="hf-2y40" class="pm-lock" id="pm-l0">DELETED · KEPT</span><span data-hf-id="hf-yhx8" class="pm-lock" id="pm-l1">REVOKED · KEPT</span><span data-hf-id="hf-auv8" class="pm-lock" id="pm-l2">SHIPPED · KEPT</span></div>
+            </div>
+            <div data-hf-id="hf-gsbo" class="pm-c" id="pm-c2">
+              <div data-hf-id="hf-89or" class="n">03</div><div data-hf-id="hf-9dxr" class="k">PROOF FOR EVERY STEP</div>
+              <div data-hf-id="hf-q9mr" class="t">A signed, hash-chained record anyone can verify offline.</div>
+              <div data-hf-id="hf-vliu" class="viz"><div data-hf-id="hf-c0s7" class="pm-blk" id="pm-b0"><b data-hf-id="hf-xbcl">#01</b><span data-hf-id="hf-mgi9">36a62a8e</span></div><div data-hf-id="hf-h3qq" class="pm-link"></div><div data-hf-id="hf-82o6" class="pm-blk" id="pm-b1"><b data-hf-id="hf-yi9o">#02</b><span data-hf-id="hf-8ak7">b91c07f4</span></div><div data-hf-id="hf-ig3a" class="pm-link"></div><span data-hf-id="hf-8tjf" class="pm-seal" id="pm-s">ED25519 ✓</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // Arrive from below, velocity-matched to the brand frame's push up.
+          tl.fromTo("#pm-world", { y: 170, filter: "blur(10px)" }, { y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0);
+          tl.fromTo("#pm-kick", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power3.out" }, 0.2);
+          tl.fromTo("#pm-h", { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: "expo.out" }, 0.35);
+          tl.fromTo("#pm-line", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "expo.inOut" }, 0.5);
+          tl.fromTo("#pm-glow", { opacity: 0 }, { opacity: 1, duration: 2, ease: "sine.inOut" }, 0.4);
+          gsap.set(".pm-c", { opacity: 0 });
+          // Each promise lands on its words in the narration (1.9 s, 5.6 s, 10.0 s).
+          [1.8, 5.5, 9.9].forEach(function (t, i) {
+            var c = "#pm-c" + i;
+            tl.fromTo(c, { opacity: 0, y: 46, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, t);
+            tl.fromTo(c, { borderColor: "rgba(232,96,44,0.9)" }, { borderColor: "rgba(242,241,237,0.16)", duration: 1.2, ease: "power2.out", immediateRender: false }, t + 0.1);
+          });
+          tl.fromTo("#pm-c0 .old", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "none" }, 2.3);
+          tl.fromTo("#pm-c0 .arr, #pm-v0", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out", stagger: 0.12 }, 2.9);
+          ["#pm-l0", "#pm-l1", "#pm-l2"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 6.2 + i * 0.35);
+          });
+          ["#pm-b0", "#pm-b1", "#pm-s"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out", immediateRender: false }, 10.5 + i * 0.22);
+          });
+          tl.fromTo("#pm-s", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)" }, { boxShadow: "0 0 26px 8px rgba(255,128,80,0.6)", duration: 0.1, ease: "none", immediateRender: false }, 11.0);
+          tl.to("#pm-s", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)", duration: 0.7, ease: "power2.out" }, 11.1);
+          tl.fromTo("#pm-world", { scale: 1 }, { scale: 1.02, duration: 11.4, ease: "sine.inOut", immediateRender: false }, 0.6);
+          // Whip out left into the system diagram, which enters from the right.
+          tl.to("#pm-world", { x: -420, filter: "blur(18px)", duration: 0.28, ease: "power3.in" }, 12.32);
+          window.__timelines["promise"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -126,7 +126,7 @@
           // D — tests, counting as a chord.
           move(STOPS.D, 6.6);
           var d1 = document.getElementById("mt-d1"), d2 = document.getElementById("mt-d2"), dc = { v: 0 };
-          tl.to(dc, { v: 1, duration: 1.2, ease: "power3.out", onUpdate: function () { d1.textContent = Math.round(525 * dc.v); d2.textContent = Math.round(204 * dc.v); } }, 7.0);
+          tl.to(dc, { v: 1, duration: 1.2, ease: "power3.out", onUpdate: function () { d1.textContent = Math.round(532 * dc.v); d2.textContent = Math.round(204 * dc.v); } }, 7.0);
           tl.fromTo("#mt-dlab", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 7.3);
           tl.fromTo("#mt-D .mt-dchip", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out", stagger: 0.07 }, 7.6);
 

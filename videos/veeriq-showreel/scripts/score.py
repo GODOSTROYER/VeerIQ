@@ -1,6 +1,6 @@
 """VeerIQ showreel: authored score + effects stem, synthesized deterministically.
 
-120 BPM, 2 s bars, 48 bars (96 s). Writes two 48 kHz stereo WAV stems:
+120 BPM, 2 s bars, 53 bars (106 s). Cue times are absolute seconds on the 106 s cut. Writes two 48 kHz stereo WAV stems:
   <out>/score.wav  the music bed
   <out>/sfx.wav    hits, whooshes and UI ticks (bundled library + synthesized)
 
@@ -16,7 +16,7 @@ from scipy import signal
 from scipy.io import wavfile
 
 SR = 48000
-DUR = 96.0
+DUR = 106.0
 N = int(SR * DUR)
 OUT = Path(sys.argv[1])
 SFX_DIR = Path(sys.argv[2])
@@ -186,36 +186,40 @@ CH = {
     "C": ([52, 55, 60, 64], 36), "Gm": ([50, 55, 58, 62], 43), "A": ([49, 52, 57, 61], 45),
     "D": ([50, 54, 57, 62], 38), "Dsus": ([50, 55, 57, 62], 38),
 }
-# One chord per 2 s bar (48 bars).
+# One chord per 2 s bar (53 bars).
 BARS = (
-    ["Dm", "Dm", "Dm"]                                   # 0–6   hook
-    + ["Dm", "Bb", "F", "C", "Dm"]                       # 6–16  rewind
+    ["Dm", "Dm", "Dm"]                                   # 0–6   story: the question, the migration
+    + ["Dm", "Bb", "F", "C", "Dm"]                       # 6–16  story: the restore, what came back
     + ["F", "C", "Dm", "Bb", "F", "C"]                   # 16–28 idea
-    + ["Dm", "Bb", "F", "C", "Dm", "Bb", "C"]            # 28–42 architecture
-    + ["Dm", "Dm", "Bb", "Bb", "Gm", "A", "Dm"]          # 42–56 boundary test
-    + ["Dm", "Bb", "F", "A"]                             # 56–64 flurry
-    + ["Bb", "F", "C", "Dm", "Bb"]                       # 64–74 results
-    + ["F", "C", "Dm", "Bb"]                             # 74–82 workspace
-    + ["Dm", "Bb", "C"]                                  # 82–88 verify
-    + ["Bb", "C", "D", "D"]                              # 88–96 lockup (resolves to D major)
+    + ["Dm", "Bb", "F", "C"]                             # 28–36 system
+    + ["Dm", "Bb", "F", "C", "Bb", "C"]                  # 36–48 architecture
+    + ["Dm", "Dm", "Bb", "Bb", "Gm", "A", "Dm"]          # 48–62 boundary test
+    + ["Dm", "Bb", "F", "A"]                             # 62–70 flurry
+    + ["Bb", "F", "C", "Dm", "Bb"]                       # 70–80 results
+    + ["Dm", "Bb", "Gm", "A"]                            # 80–88 MCP, live
+    + ["F", "C"]                                         # 88–92 workspace
+    + ["Dm", "Bb", "C"]                                  # 92–98 verify
+    + ["Bb", "C", "D", "D"]                              # 98–106 lockup (resolves to D major)
 )
-assert len(BARS) == 48
+assert len(BARS) == 53
 
 # Per-bar intensity: (pad_cutoff, kick, clap, hats, bass, arp, ticks)
 def section(b):
     t = b * 2
-    if t < 6:   return (700, 0, 0, 0, 0, 0, 1)
+    if t < 4:   return (700, 0, 0, 0, 0, 0, 1)
     if t < 16:  return (1100, 1, 0, 1, 1, 0, 1)
     if t < 18:  return (1600, 0, 0, 0, 0, 0, 0)
     if t < 28:  return (1900, 1, 0, 1, 1, 0, 0)
-    if t < 42:  return (2600, 1, 1, 2, 1, 1, 0)
-    if t < 52:  return (900, 0, 0, 0, 2, 0, 1)
-    if t < 56:  return (800, 0, 0, 0, 0, 0, 0)
-    if t < 64:  return (2400, 1, 1, 2, 1, 1, 0)
-    if t < 74:  return (2800, 1, 1, 2, 1, 1, 0)
-    if t < 82:  return (2200, 1, 0, 1, 1, 1, 0)
-    if t < 88:  return (1200, 0, 0, 1, 1, 0, 1)
-    if t < 90:  return (1500, 0, 0, 0, 0, 0, 0)
+    if t < 36:  return (2200, 1, 0, 1, 1, 1, 0)
+    if t < 48:  return (2600, 1, 1, 2, 1, 1, 0)
+    if t < 58:  return (900, 0, 0, 0, 2, 0, 1)
+    if t < 62:  return (800, 0, 0, 0, 0, 0, 0)
+    if t < 70:  return (2400, 1, 1, 2, 1, 1, 0)
+    if t < 80:  return (2800, 1, 1, 2, 1, 1, 0)
+    if t < 88:  return (2500, 1, 0, 2, 1, 1, 1)
+    if t < 92:  return (2200, 1, 0, 1, 1, 1, 0)
+    if t < 98:  return (1200, 0, 0, 1, 1, 0, 1)
+    if t < 100: return (1500, 0, 0, 0, 0, 0, 0)
     return (2600, 0, 0, 0, 1, 0, 0)
 
 
@@ -241,7 +245,7 @@ for b, name in enumerate(BARS):
         add(music, t0, drone)
 
 kick_times = []
-for b in range(48):
+for b in range(len(BARS)):
     _, k, c, h, bs, arp, tk = section(b)
     t0 = b * 2.0
     notes, root = CH[BARS[b]]
@@ -295,12 +299,12 @@ def carve(t0, t1, depth=0.15):
     g[j:j + ramp] = np.linspace(depth, 1, min(ramp, N - j))
     return g
 
-for a_, b_, d_ in [(15.85, 16.35, 0.05), (51.7, 52.0, 0.25), (89.75, 90.0, 0.3)]:
+for a_, b_, d_ in [(15.85, 16.35, 0.05), (57.7, 58.0, 0.25), (99.75, 100.0, 0.3)]:
     music *= carve(a_, b_, d_)[:, None]
 
 # Final fade.
 fade = np.ones(N)
-fade[sec(94.4):] = np.linspace(1, 0, N - sec(94.4)) ** 1.6
+fade[sec(104.4):] = np.linspace(1, 0, N - sec(104.4)) ** 1.6
 music *= fade[:, None]
 
 # ─── effects stem ─────────────────────────────────────────────────────────
@@ -315,78 +319,96 @@ def load(name):
 
 fx = np.zeros((N, 2))
 CUES = [
-    # hook
-    ("typing", 0.3, 0.18), ("whoosh-short", 0.42, 0.5), ("glitch-1", 4.0, 0.55), ("typing", 4.55, 0.16),
-    # rewind
-    ("whoosh-short", 6.0, 0.35), ("click", 7.85, 0.5), ("glitch-3", 9.12, 0.4), ("glitch-3", 9.62, 0.4),
-    ("glitch-3", 10.12, 0.45), ("whoosh", 11.6, 0.3), ("typing", 13.6, 0.16),
+    # story (0–16): the question, the 2:14 AM migration, the restore, what came back with it, the insight
+    ("whoosh-short", 0.42, 0.5), ("glitch-1", 4.0, 0.55), ("typing", 4.1, 0.16),
+    ("glitch-3", 5.0, 0.3), ("glitch-3", 5.2, 0.3), ("glitch-3", 5.4, 0.35), ("click", 5.9, 0.4),
+    ("whoosh-short", 8.0, 0.35), ("whoosh", 8.35, 0.3), ("whoosh-short", 9.9, 0.25),
+    ("glitch-3", 10.95, 0.4), ("glitch-3", 11.55, 0.4), ("glitch-3", 12.15, 0.45), ("whoosh", 13.7, 0.3),
     # idea
     ("sparkle", 16.34, 0.45), ("whoosh-short", 17.45, 0.4), ("ping", 18.47, 0.22), ("whoosh-short", 22.0, 0.3),
-    ("click", 22.95, 0.45), ("click", 23.57, 0.45), ("pop", 24.28, 0.35), ("pop", 24.40, 0.35), ("pop", 24.52, 0.35),
+    ("click", 22.95, 0.45), ("click", 23.57, 0.45), ("pop", 24.28, 0.35), ("pop", 24.4, 0.35), ("pop", 24.52, 0.35),
     ("whoosh", 27.7, 0.45),
-    # architecture
-    ("whoosh-short", 29.6, 0.3), ("whoosh-short", 31.6, 0.3), ("key-press", 32.45, 0.3), ("key-press", 32.65, 0.3),
-    ("key-press", 32.85, 0.3), ("key-press", 33.05, 0.3), ("pop", 33.3, 0.35), ("whoosh-short", 33.6, 0.3),
-    ("whoosh-short", 37.0, 0.3), ("chime", 38.45, 0.4), ("whoosh-short", 39.0, 0.3),
-    ("click-soft", 39.55, 0.3), ("click-soft", 39.69, 0.3), ("click-soft", 39.83, 0.3), ("click-soft", 39.97, 0.3),
-    ("click-soft", 40.11, 0.3), ("sparkle", 40.45, 0.3), ("whoosh-cinematic", 41.55, 0.45),
-    # boundary test
-    ("riser", 41.97, 0.5), ("typing", 44.85, 0.2), ("typing", 46.0, 0.2), ("notification", 47.35, 0.22),
-    ("whoosh-short", 48.3, 0.3), ("pop", 50.42, 0.35), ("whoosh-cinematic", 50.95, 0.4),
-    ("impact-bass-1", 52.0, 0.95), ("glitch-1", 52.0, 0.6), ("glitch-3", 52.5, 0.35), ("typing", 52.45, 0.14),
-    ("click-soft", 53.5, 0.3), ("click-soft", 53.64, 0.3), ("click-soft", 53.78, 0.3), ("ping", 54.3, 0.2),
-    # results
-    ("impact-bass-1", 64.12, 0.55), ("click-soft", 65.05, 0.28), ("click-soft", 65.17, 0.28), ("click-soft", 65.29, 0.28),
-    ("whoosh-short", 66.2, 0.28), ("ping", 67.82, 0.28), ("whoosh-short", 68.4, 0.28), ("glitch-3", 69.65, 0.32),
-    ("whoosh-short", 70.6, 0.28), ("pop", 71.6, 0.22), ("pop", 71.67, 0.22), ("pop", 71.74, 0.22), ("pop", 71.81, 0.22),
-    ("whoosh-cinematic", 72.35, 0.38), ("whoosh-short", 73.72, 0.35),
-    # workspace
-    ("whoosh-short", 74.0, 0.28), ("whoosh", 75.45, 0.3), ("whoosh", 77.35, 0.3), ("whoosh", 79.25, 0.3),
-    # verify
-    ("whoosh-short", 82.0, 0.28), ("typing", 82.5, 0.22), ("chime", 83.6, 0.35), ("typing", 84.55, 0.22),
-    ("error", 85.55, 0.3), ("glitch-3", 85.55, 0.3), ("whoosh", 87.55, 0.25),
-    # lockup
-    ("impact-bass-1", 90.0, 0.9), ("glitch-1", 90.0, 0.4), ("whoosh-short", 91.85, 0.32), ("sparkle", 92.35, 0.38),
-    ("whoosh-short", 92.55, 0.22),
+    # system (28–36: the architecture diagram builds, then one call walks the whole path)
+    ("whoosh-short", 28.0, 0.3), ("whoosh-short", 28.55, 0.22), ("click-soft", 29.0, 0.22), ("click-soft", 29.12, 0.22),
+    ("click-soft", 29.3, 0.22), ("click-soft", 29.4, 0.22), ("click-soft", 29.5, 0.22), ("click-soft", 29.62, 0.22),
+    ("click-soft", 29.7, 0.22), ("click-soft", 29.8, 0.22), ("click-soft", 29.9, 0.22), ("pop", 30.5, 0.3),
+    ("whoosh-short", 31.15, 0.25), ("ping", 31.55, 0.25), ("click", 31.8, 0.35), ("chime", 32.88, 0.25),
+    ("pop", 34.38, 0.3), ("sparkle", 34.8, 0.3), ("whoosh-short", 35.72, 0.3),
+    # architecture (36–48; gate passes 0.22 s apart, commit and evidence stations tightened)
+    ("whoosh-short", 37.6, 0.3), ("whoosh-short", 39.6, 0.3), ("key-press", 40.45, 0.3), ("key-press", 40.65, 0.3),
+    ("key-press", 40.85, 0.3), ("key-press", 41.05, 0.3), ("pop", 41.3, 0.35), ("whoosh-short", 41.6, 0.3), ("ping", 41.82, 0.2),
+    ("whoosh-short", 44.6, 0.3), ("chime", 45.62, 0.4), ("whoosh-short", 46.0, 0.3),
+    ("click-soft", 46.37, 0.3), ("click-soft", 46.46, 0.3), ("click-soft", 46.55, 0.3), ("click-soft", 46.65, 0.3),
+    ("click-soft", 46.74, 0.3), ("sparkle", 46.97, 0.3), ("whoosh-cinematic", 47.7, 0.45),
+    # boundary test (48–62)
+    ("riser", 47.97, 0.5), ("typing", 50.85, 0.2), ("typing", 52.0, 0.2), ("notification", 53.35, 0.22),
+    ("whoosh-short", 54.3, 0.3), ("pop", 56.42, 0.35), ("whoosh-cinematic", 56.95, 0.4),
+    ("impact-bass-1", 58.0, 0.95), ("glitch-1", 58.0, 0.6), ("glitch-3", 58.5, 0.35), ("typing", 58.45, 0.14),
+    ("click-soft", 59.5, 0.3), ("click-soft", 59.64, 0.3), ("click-soft", 59.78, 0.3), ("ping", 60.3, 0.2),
+    # results (70–80)
+    ("impact-bass-1", 70.12, 0.55), ("click-soft", 71.05, 0.28), ("click-soft", 71.17, 0.28), ("click-soft", 71.29, 0.28),
+    ("whoosh-short", 72.2, 0.28), ("ping", 73.82, 0.28), ("whoosh-short", 74.4, 0.28), ("glitch-3", 75.65, 0.32),
+    ("whoosh-short", 76.6, 0.28), ("pop", 77.6, 0.22), ("pop", 77.67, 0.22), ("pop", 77.74, 0.22), ("pop", 77.81, 0.22),
+    ("whoosh-cinematic", 78.35, 0.38), ("whoosh-short", 79.72, 0.35),
+    # MCP, live (80–88: the recorded demo-mcp-agent run; refusal at 83.75)
+    ("whoosh-short", 80.0, 0.28), ("typing", 80.35, 0.2), ("key-press", 81.05, 0.25), ("pop", 81.3, 0.3),
+    ("click-soft", 81.42, 0.22), ("click-soft", 81.49, 0.22), ("click-soft", 81.56, 0.22), ("click-soft", 81.63, 0.22),
+    ("click-soft", 81.7, 0.22), ("click-soft", 81.77, 0.22), ("chime", 82.25, 0.3),
+    ("key-press", 82.95, 0.25), ("key-press", 83.35, 0.25), ("impact-bass-2", 83.87, 0.6), ("glitch-2", 83.87, 0.4),
+    ("error", 83.87, 0.22), ("key-press", 84.25, 0.25), ("key-press", 84.6, 0.25), ("key-press", 84.95, 0.25),
+    ("ping", 85.4, 0.25), ("sparkle", 85.65, 0.25), ("whoosh-short", 87.72, 0.3),
+    # workspace (88–92: two cards, one push)
+    ("whoosh-short", 88.0, 0.28), ("whoosh", 89.85, 0.3),
+    # verify (92–98)
+    ("whoosh-short", 92.0, 0.28), ("typing", 92.5, 0.22), ("chime", 93.6, 0.35), ("typing", 94.55, 0.22),
+    ("error", 95.55, 0.3), ("glitch-3", 95.55, 0.3), ("whoosh", 97.55, 0.25),
+    # lockup (98–106)
+    ("impact-bass-1", 100.0, 0.9), ("glitch-1", 100.0, 0.4), ("whoosh-short", 101.85, 0.32), ("sparkle", 102.35, 0.38),
+    ("whoosh-short", 102.55, 0.22),
 ]
 for name, t, g in CUES:
     add(fx, t, load(name), g)
 
 # Synthesized hits.
 add(fx, 4.0, boom(2.0), 0.55)
-for t, m in [(8.12, 81), (8.62, 84)]:
+for t, m in [(9.45, 81), (9.6, 84)]:                       # the totals come back
     add(fx, t, bell(m), 0.16, pan=0.2)
-for t in (9.12, 9.62, 10.12):
+for t in (10.95, 11.55, 12.15):                             # ...and so does everything else
     add(fx, t, thunk(38), 0.35)
 add(fx, 15.6, downsweep(), 0.5)
+# System scene: its six gates tick the same D-minor line, softer (gate 04 waits for ArmorIQ's answer).
+for j, m in enumerate([62, 65, 69, 72, 74, 77]):
+    add(fx, 32.3 + j * 0.2 + (0.35 if j >= 3 else 0), pluck(m + 12, 0.3, 3200), 0.14, pan=-0.2 + j * 0.08)
+add(fx, 34.38, thunk(38), 0.25)
 for j, m in enumerate([62, 65, 69, 72, 74, 77]):           # gate passes climb a D-minor line
-    add(fx, 34.62 + j * 0.3, pluck(m + 12, 0.35, 4000), 0.22, pan=-0.3 + j * 0.12)
-    add(fx, 34.62 + j * 0.3, tick(3200), 0.08)
-add(fx, 37.62, thunk(36), 0.3)
-add(fx, 48.55, riser(3.4, 120, 2400), 0.25)
-add(fx, 52.0, boom(3.0, 80, 34), 0.8)
-add(fx, 52.0, hp(rng.standard_normal(sec(1.2)), 1500) * np.exp(-np.arange(sec(1.2)) / SR * 5), 0.22)
+    add(fx, 42.62 + j * 0.22, pluck(m + 12, 0.35, 4000), 0.22, pan=-0.3 + j * 0.12)
+    add(fx, 42.62 + j * 0.22, tick(3200), 0.08)
+add(fx, 45.03, thunk(36), 0.3)
+add(fx, 54.55, riser(3.4, 120, 2400), 0.25)
+add(fx, 58.0, boom(3.0, 80, 34), 0.8)
+add(fx, 58.0, hp(rng.standard_normal(sec(1.2)), 1500) * np.exp(-np.arange(sec(1.2)) / SR * 5), 0.22)
 # Flurry: 22 more hits, accelerating — same schedule as the picture.
 t, gap = 0.45, 0.42
 for k in range(22):
     pan = float(np.sin(k * 2.3)) * 0.6
-    add(fx, 56 + t, thunk(36 + (k % 3)), 0.42, pan=pan)
-    add(fx, 56 + t, tick(2600 + 40 * k, 0.02), 0.1, pan=pan)
+    add(fx, 62 + t, thunk(36 + (k % 3)), 0.42, pan=pan)
+    add(fx, 62 + t, tick(2600 + 40 * k, 0.02), 0.1, pan=pan)
     t += gap
     gap *= 0.93
-last = 56 + t - gap / 0.93
+last = 62 + t - gap / 0.93
 add(fx, last + 0.18, boom(2.4, 76, 36), 0.6)
 add(fx, last + 0.18, bell(74, 2.0), 0.12)
 # Count ticks for 18 of 24 and the test chord.
 for k in range(1, 19):
     p = 1 - (1 - (k - 0.5) / 18) ** (1 / 3)
-    add(fx, 66.62 + 1.2 * p, tick(2800 + 30 * k, 0.018), 0.12)
+    add(fx, 72.62 + 1.2 * p, tick(2800 + 30 * k, 0.018), 0.12)
 for k in range(1, 14):
     p = 1 - (1 - (k - 0.5) / 13) ** (1 / 3)
-    add(fx, 71.0 + 1.2 * p, tick(3000, 0.018), 0.1)
-add(fx, 90.0, boom(3.2, 70, 32), 0.7)
-add(fx, 88.0, riser(2.0, 200, 5000), 0.18)
-for t, m in [(92.4, 74), (92.6, 78), (92.8, 81)]:            # D-major arpeggio under the wordmark
+    add(fx, 77.0 + 1.2 * p, tick(3000, 0.018), 0.1)
+add(fx, 83.87, thunk(36), 0.35)                            # MCP scene: the refused tools/call
+add(fx, 100.0, boom(3.2, 70, 32), 0.7)
+add(fx, 98.0, riser(2.0, 200, 5000), 0.18)
+for t, m in [(102.4, 74), (102.6, 78), (102.8, 81)]:            # D-major arpeggio under the wordmark
     add(fx, t, bell(m, 2.4), 0.12, pan=(m - 78) / 10)
 
 fx *= fade[:, None]

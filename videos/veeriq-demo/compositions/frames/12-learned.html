@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="learned-template">
+      <style>
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-normal-400.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("../../assets/fonts/InstrumentSerif-italic-400.woff2") format("woff2"); }
+        @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; src: url("../../assets/fonts/GeistMono-normal-100-900.woff2") format("woff2"); }
+        #root { position: absolute; inset: 0; overflow: hidden; background: #0e0e10; color: #f2f1ed; }
+        #ln-world { position: absolute; inset: 0; transform-origin: 40% 50%; }
+        #ln-kick { position: absolute; left: 140px; top: 168px; font-family: "Geist Mono", monospace; font-size: 24px; font-weight: 500; letter-spacing: 0.16em; color: #e8602c; white-space: nowrap; }
+        .ln-t { position: absolute; left: 140px; width: 980px; }
+        .ln-t .n { font-family: "Geist Mono", monospace; font-size: 18px; letter-spacing: 0.16em; color: #aaa9a7; }
+        .ln-t .q { margin-top: 10px; font-family: "Instrument Serif", serif; font-size: 76px; line-height: 84px; letter-spacing: -0.025em; }
+        .ln-t .q i { color: #e8602c; }
+        #ln-line { position: absolute; left: 1190px; top: 230px; width: 3px; height: 640px; background: #e8602c; transform-origin: 50% 0%; }
+        #ln-next { position: absolute; left: 1250px; top: 230px; width: 540px; }
+        #ln-next .h { font-family: "Geist Mono", monospace; font-size: 22px; font-weight: 600; letter-spacing: 0.2em; color: #e8602c; }
+        .ln-i { margin-top: 34px; display: flex; gap: 18px; }
+        .ln-i b { flex: none; font-family: "Instrument Serif", serif; font-style: italic; font-size: 48px; line-height: 48px; color: #e8602c; width: 56px; }
+        .ln-i span { font-family: "Instrument Serif", serif; font-size: 44px; line-height: 50px; letter-spacing: -0.02em; }
+      </style>
+      <div data-hf-id="hf-de32" id="root" data-composition-id="learned" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-orm4" id="ln-world">
+          <div data-hf-id="hf-l1uw" id="ln-kick">09&nbsp;&nbsp;—&nbsp;&nbsp;WHAT WE LEARNED</div>
+          <div data-hf-id="hf-yyhz" class="ln-t" id="ln-t0" style="top:240px"><div data-hf-id="hf-qipi" class="n">TAKEAWAY 01</div><div data-hf-id="hf-f0jr" class="q">Plan binding stops a hijacked agent <i data-hf-id="hf-3xi8">cold.</i></div></div>
+          <div data-hf-id="hf-rge1" class="ln-t" id="ln-t1" style="top:540px"><div data-hf-id="hf-qx0j" class="n">TAKEAWAY 02</div><div data-hf-id="hf-rzn4" class="q">Tools aren't arguments: data rules live <i data-hf-id="hf-g7m3">next to the data.</i></div></div>
+          <div data-hf-id="hf-4uly" id="ln-line"></div>
+          <div data-hf-id="hf-8we3" id="ln-next">
+            <div data-hf-id="hf-9sw1" class="h">NEXT</div>
+            <div data-hf-id="hf-zmkm" class="ln-i" id="ln-i0"><b data-hf-id="hf-t4n0">1</b><span data-hf-id="hf-o6tv">ArmorIQ holds for high-value repairs</span></div>
+            <div data-hf-id="hf-3kon" class="ln-i" id="ln-i1"><b data-hf-id="hf-rxpx">2</b><span data-hf-id="hf-gbs1">Argument-level policy</span></div>
+            <div data-hf-id="hf-uwss" class="ln-i" id="ln-i2"><b data-hf-id="hf-sc0y">3</b><span data-hf-id="hf-n04g">Connectors that write back through the same gates</span></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#ln-world", { y: 150, filter: "blur(10px)" }, { y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0);
+          tl.fromTo("#ln-kick", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power3.out" }, 0.2);
+          gsap.set(".ln-t, #ln-next .h, .ln-i", { opacity: 0 });
+          // Takeaways on "plan binding" (1.3 s) and "tools aren't arguments" (4.9 s).
+          tl.fromTo("#ln-t0", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.55, ease: "expo.out", immediateRender: false }, 1.25);
+          tl.fromTo("#ln-t1", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.55, ease: "expo.out", immediateRender: false }, 4.85);
+          // The line draws; next steps on "Next" (9.9 s), "argument-level" (13.1 s), "connectors" (14.6 s).
+          tl.fromTo("#ln-line", { scaleY: 0 }, { scaleY: 1, duration: 0.8, ease: "expo.inOut" }, 9.3);
+          tl.fromTo("#ln-next .h", { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out", immediateRender: false }, 9.85);
+          [10.3, 13.1, 14.6].forEach(function (t, i) {
+            tl.fromTo("#ln-i" + i, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out", immediateRender: false }, t);
+          });
+          tl.fromTo("#ln-world", { scale: 1 }, { scale: 1.02, duration: 18, ease: "sine.inOut", immediateRender: false }, 0.5);
+          tl.to("#ln-world", { opacity: 0, filter: "blur(12px)", duration: 0.4, ease: "power2.in" }, 18.6);
+          window.__timelines["learned"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

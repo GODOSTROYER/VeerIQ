@@ -55,7 +55,7 @@
       <script>
         (function () {
           var tl = gsap.timeline({ paused: true });
-          var DUR = 96;
+          var DUR = 106;
           var FPS = 30;
 
           // Chrome arrives once, then stays.
@@ -64,7 +64,7 @@
           tl.fromTo("#hud-progress", { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none" }, 0);
 
           // Section index: vertical ticker swap at each act boundary.
-          var SECTIONS = [0, 16, 28, 42, 64, 74, 88];
+          var SECTIONS = [0, 16, 28, 48, 70, 80, 98];
           SECTIONS.forEach(function (t, i) {
             var el = "#hud-sec-" + i;
             gsap.set(el, { opacity: 0 });

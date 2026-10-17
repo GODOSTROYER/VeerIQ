@@ -45,6 +45,10 @@
         .pp-blk b { font-size: 20px; font-weight: 600; color: #f2f1ed; }
         .pp-blk span { font-size: 15px; color: #aaa9a7; letter-spacing: 0.04em; }
         .pp-link { position: absolute; top: 600px; height: 3px; width: 56px; background: #e8602c; transform-origin: 0 50%; }
+        #pp-mcp { position: absolute; left: 4380px; top: 552px; height: 96px; padding: 0 22px; border: 3px solid #e8602c; background: #151517; font-family: "Geist Mono", monospace; display: flex; flex-direction: column; justify-content: center; gap: 6px; white-space: nowrap; }
+        #pp-mcp span { font-size: 15px; letter-spacing: 0.16em; color: #aaa9a7; }
+        #pp-mcp b { font-size: 22px; font-weight: 500; color: #f2f1ed; }
+        #pp-mcpl { position: absolute; left: 4380px; top: 506px; font-family: "Geist Mono", monospace; font-size: 19px; letter-spacing: 0.12em; color: #e8602c; white-space: nowrap; }
         #pp-seal { display: inline-block; padding: 14px 22px; border: 2px solid #e8602c; color: #e8602c; font-family: "Geist Mono", monospace; font-size: 24px; letter-spacing: 0.08em; white-space: nowrap; }
       </style>
       <div data-hf-id="hf-dk3p" id="root" data-composition-id="pipeline" data-width="1920" data-height="1080">
@@ -88,8 +92,12 @@
                   <div data-hf-id="hf-atu7" class="pp-tool" id="pp-t2">prepare_repair_manifest</div><div data-hf-id="hf-qwm3" class="pp-arrow">→</div>
                   <div data-hf-id="hf-wu1v" class="pp-tool" id="pp-t3">apply_repair_manifest</div>
                 </div>
+                <div data-hf-id="hf-mcn1" class="pp-note" id="pp-mnote" style="margin-top:26px">every action is an MCP <b data-hf-id="hf-mcn2">tools/call</b> · the server enforces the gates</div>
               </div>
             </div>
+            <!-- MCP: the agent reaches the gates only through the rewindsafe-recovery server -->
+            <div data-hf-id="hf-mcl0" id="pp-mcpl">MCP · tools/call</div>
+            <div data-hf-id="hf-mcb0" id="pp-mcp"><span data-hf-id="hf-mcb1">MCP SERVER</span><b data-hf-id="hf-mcb2">rewindsafe-recovery</b></div>
             <!-- 04 GATES -->
             <div data-hf-id="hf-rcte" class="pp-st" id="pp-s3" style="left:4800px">
               <div data-hf-id="hf-5wxn" class="pp-kick" style="color:#e5c285">04&nbsp;&nbsp;—&nbsp;&nbsp;GATES</div>
@@ -183,6 +191,13 @@
           });
           tl.to("#pp-t3", { borderColor: "#e8602c", color: "#e8602c", duration: 0.15, ease: "none" }, 5.15);
 
+          // MCP: the server node drops onto the wire; the label types; the packet flashes it on the way through.
+          tl.fromTo("#pp-mcp", { opacity: 0, scaleY: 0.3 }, { opacity: 1, scaleY: 1, duration: 0.4, ease: "expo.out" }, 4.05);
+          tl.fromTo("#pp-mcpl", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.4, ease: "power3.out" }, 4.2);
+          tl.fromTo("#pp-mnote", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 4.6);
+          tl.fromTo("#pp-mcp", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)" }, { boxShadow: "0 0 34px 8px rgba(255,128,80,0.65)", duration: 0.08, ease: "none", immediateRender: false }, 5.82);
+          tl.to("#pp-mcp", { boxShadow: "0 0 0px 0px rgba(255,128,80,0)", duration: 0.5, ease: "power2.out" }, 5.9);
+
           // The proposed call becomes a packet and rides the wire.
           var PK = { x: 3300 + 1003, y: 708 };
           gsap.set("#pp-packet", { opacity: 0 });
@@ -221,6 +236,23 @@
 
           // Exit: zoom through into the boundary test.
           tl.fromTo("#pp-cam", { scale: 1, filter: "blur(0px)" }, { scale: 1.22, filter: "blur(18px)", duration: 0.22, ease: "power3.in", immediateRender: false }, 13.78);
+
+          // 90 s cut: the scene runs 12 s instead of 14 s. The motion above is authored on the
+          // original 14 s clock; T() remaps it. Stations 01-03 keep their timing; the six gate
+          // passes tighten from 0.3 s to 0.22 s apart; ONE TRANSACTION plays at 0.7x its length
+          // and SIGNED EVIDENCE at 2/3. Every child keeps its order and its ease.
+          function T(t) {
+            if (t <= 6.62) return t;
+            if (t <= 8.12) return 6.62 + (t - 6.62) * (0.22 / 0.3);
+            if (t <= 9.0) return t - 0.4;
+            if (t <= 11.0) return 8.6 + (t - 9.0) * 0.7;
+            return 10.0 + (t - 11.0) * (2 / 3);
+          }
+          tl.getChildren(false, true, true).forEach(function (c) {
+            var s0 = c.startTime(), d0 = c.duration(), s1 = T(s0);
+            if (d0 > 0) c.duration(Math.max(0.001, T(s0 + d0) - s1));
+            c.startTime(s1);
+          });
 
           window.__timelines["pipeline"] = tl;
         })();
