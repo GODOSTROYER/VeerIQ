@@ -6,7 +6,15 @@ When an AI agent (or a bad migration) wrecks your database, VeerIQ undoes **only
 
 > July 2025: an AI coding agent wiped a company's production database during a code freeze, then wrongly said it couldn't be undone. The data came back from a backup ([eWeek](https://www.eweek.com/news/replit-ai-coding-assistant-failure/), [AI Incident Database #6120](https://incidentdatabase.ai/reports/6120)). But a backup also brings back everything you decided after it was taken.
 
-## For judges: try it in 3 minutes
+## For judges: start here
+
+**[`docs/submission-status.md`](docs/submission-status.md)** is the single source of current truth: live demo URL and its status, the 4:29 demo video, CI status and test counts, mode labels (live vs scripted, live ArmorIQ vs simulation), and a table of what each proof does and does not prove.
+
+- Live demo: https://veeriq.arnavbule.in (deploying; starts once the ArmorIQ key is configured; fallback https://veeriq-app-production.up.railway.app). Static walkthrough: https://veeriq.vercel.app
+- Demo video (4:29): [`videos/demo-video/final/veeriq-demo-1080p.mp4`](videos/demo-video/final/veeriq-demo-1080p.mp4); public link pending upload.
+- Proof: [`evidence/SUMMARY.json`](evidence/SUMMARY.json) and the Proof page in the app.
+
+### Try it in 3 minutes
 
 Start the app (`python tasks.py setup` once, then `python tasks.py up`) and open http://localhost:5173. The start page walks you through four steps with one button each, all on live data:
 
@@ -53,10 +61,11 @@ A second, separate live check covers the case where the plan itself is too wide.
 
 ## See it
 
-- [Recorded demo, 43 seconds](docs/video/veerIQ-demo.webm): import, repair and offline verification with live ArmorIQ.
-- **[Live demo: veeriq.arnavbule.in](https://veeriq.arnavbule.in)**: the full workspace on synthetic data with live ArmorIQ enforcement. Sign in with a demo identity. Also at https://veeriq-app-production.up.railway.app.
+- **[Demo video, 4:29](videos/demo-video/final/veeriq-demo-1080p.mp4)**: the submission video (Git LFS; public link pending upload, see [`docs/submission-status.md`](docs/submission-status.md)).
+- Secondary, not the submission video: [old 43-second clip](docs/video/veerIQ-demo.webm) (import, repair, offline verification).
+- **[Live demo: veeriq.arnavbule.in](https://veeriq.arnavbule.in)**: the full workspace on synthetic data with live ArmorIQ enforcement, sign in with a demo identity. Status: deploying; starts once the ArmorIQ key is configured. Fallback: https://veeriq-app-production.up.railway.app.
 - [Hosted walkthrough](https://veeriq.vercel.app): a static page with the recorded run and downloadable evidence.
-- [Showreel, 96 seconds](videos/veeriq-showreel/renders/veeriq-showreel-1080p60.mp4): motion graphics on the problem, the architecture and the results (stored with Git LFS).
+- Secondary: [showreel, 96 seconds](videos/veeriq-showreel/renders/veeriq-showreel-1080p60.mp4), motion graphics on the problem, the architecture and the results (stored with Git LFS).
 - [Four-minute demo script](docs/demo-script.md), the [submission write-up](docs/submission.md) and the [live demo guide](docs/live-demo.md).
 
 ![The recorded live run: ArmorIQ blocks the out-of-plan call](docs/img/walkthrough-1440.png)
@@ -163,8 +172,8 @@ The first prints `VERIFIED` with the event count, payload digest and signer fing
 ## Tests
 
 ```sh
-npm run test            # 532 backend tests against PostgreSQL, scripted planner, simulated ArmorIQ
-npm run test:frontend   # 204 frontend unit tests
+npm run test            # 538 backend tests against PostgreSQL, scripted planner, simulated ArmorIQ
+npm run test:frontend   # 210 frontend unit tests
 npm run build           # frontend type check and production build
 ```
 
@@ -176,11 +185,11 @@ CI runs lint, both test suites, the standalone verifier's acceptance checks, the
 - **Live completion** is 18 of 24 trials that acted. No single batch finished its full 40 trials, because the model provider's daily quota ran out.
 - **All incidents, records and identities are synthetic.** The order workflow is bound to the demo schema. The import workflow repairs a staged copy and does not write back to the source system.
 - **Evidence is signed with a local operator key.** It is not attested by ArmorIQ or by an independent party.
-- **Not deployed publicly.** OIDC was rehearsed against a local Keycloak; there has been no load test or external security review.
+- **Public deployment** is in progress (see [`docs/submission-status.md`](docs/submission-status.md)); it is not claimed to be up. OIDC was rehearsed against a local Keycloak; there has been no load test or external security review.
 
 ## Provenance
 
-Work on the recovery engine began on 7 October 2026, three days before the build week, and continued through it; the event page allows advancing an existing side project. The code, tests and docs were written with substantial AI assistance and verified by running them. What existed before the window is listed in [`docs/rewindsafe-origin/attribution.md`](docs/rewindsafe-origin/attribution.md).
+Work on the recovery engine began on 7 October 2026, three days before the build week, and continued through it; the event page allows advancing an existing side project. The code, tests and docs were written with substantial AI assistance and verified by running them. What existed before the window is listed in [`docs/rewindsafe-origin/attribution.md`](docs/rewindsafe-origin/attribution.md). The event page allows advancing existing projects; build-week work is listed in [`CHANGES_DONE.md`](CHANGES_DONE.md) and [`PROGRESS.md`](PROGRESS.md).
 
 ## Repository map
 

@@ -68,7 +68,7 @@ Rebuild: `videos/demo-video/README.md`.
 
 ## Not done
 
-- **Hosted demo.** Skipped by decision; the app runs locally. `veeriq.arnavbule.in` has no DNS record yet.
+- **Hosted demo.** _Historical note, superseded (17 Oct 2026):_ at the time of writing it was skipped and `veeriq.arnavbule.in` had no DNS record. Current deployment status: [`docs/submission-status.md`](docs/submission-status.md).
 - **A real ArmorIQ hold.** The $12,400 approval is VeerIQ's own second-reviewer step and is labelled that way; the amount-based hold could not be applied in our ArmorIQ workspace (`docs/armoriq-hold-setup.md`).
 - **Write-back to the source system.** Repairs land in VeerIQ's recovery workspace (said and shown in the video).
 

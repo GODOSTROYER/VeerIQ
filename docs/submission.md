@@ -1,12 +1,14 @@
 # VeerIQ: Flow State submission
 
+Current status, links, CI counts and what each proof proves: [`submission-status.md`](submission-status.md) (it wins over anything below).
+
 ArmorIQ Flow State, October 2026.
 
 | Form field | Answer |
 |---|---|
 | GitHub repository | https://github.com/GODOSTROYER/VeerIQ (give the judges access, or make it public) |
-| Live demo URL | https://veeriq.arnavbule.in (Railway; also https://veeriq-app-production.up.railway.app). Static walkthrough: https://veeriq.vercel.app |
-| Demo video | _unlisted YouTube, Loom or Vimeo link, 3–5 minutes, recorded with [`demo-script.md`](demo-script.md)_ |
+| Live demo URL | https://veeriq.arnavbule.in (Railway; also https://veeriq-app-production.up.railway.app). Status: deploying, starts once the ArmorIQ key is configured. Static walkthrough: https://veeriq.vercel.app |
+| Demo video | 4:29, file `videos/demo-video/final/veeriq-demo-1080p.mp4`; public link: pending upload (unlisted YouTube, Loom or Vimeo) |
 | ElevenLabs | Not used |
 | Social post | _link to the X post tagging @ArmorIQForDevs or the LinkedIn post tagging ArmorIQ, with #FlowStateHackathon_ |
 
@@ -87,7 +89,7 @@ FastAPI, PostgreSQL 16, React with Vite and TypeScript, the MCP Python SDK, Groq
 
 ## Provenance
 
-Work on the recovery engine began on 7 October 2026, three days before the build week, and continued through it. What existed before the window is listed in [`rewindsafe-origin/attribution.md`](rewindsafe-origin/attribution.md). The code was written with substantial AI assistance and verified by running its tests.
+Work on the recovery engine began on 7 October 2026, three days before the build week, and continued through it. What existed before the window is listed in [`rewindsafe-origin/attribution.md`](rewindsafe-origin/attribution.md). The event page allows advancing existing projects; build-week work is listed in [`../CHANGES_DONE.md`](../CHANGES_DONE.md) and [`../PROGRESS.md`](../PROGRESS.md). The code was written with substantial AI assistance and verified by running its tests.
 
 ## Social post (draft)
 
