@@ -3,7 +3,7 @@
 **Ctrl+Z for AI agents: restore yesterday's data, keep today's decisions.**
 
 [![CI](https://github.com/GODOSTROYER/VeerIQ/actions/workflows/ci.yml/badge.svg)](https://github.com/GODOSTROYER/VeerIQ/actions/workflows/ci.yml)
-![License: none declared](https://img.shields.io/badge/license-none%20declared-lightgrey)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 ![ArmorIQ Flow State 2026](https://img.shields.io/badge/ArmorIQ-Flow%20State%202026-6c47ff)
 
 [Live demo](https://veeriq.arnavbule.in) · [Demo video (4:21)](https://youtu.be/KWJQHzLuUSo) · [Static walkthrough](https://veeriq.vercel.app) · [Submission status](docs/submission-status.md)
